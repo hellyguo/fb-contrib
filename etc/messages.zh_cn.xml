@@ -2132,35 +2132,34 @@ for (float f = 1.0f; f &lt;= 10.0f; f += 0.1f) {
 	</BugPattern>
 
 	<BugPattern type="NAB_NEEDLESS_AUTOBOXING_CTOR">
-		<ShortDescription>方法 passes primitive wrapper to same primitive wrapper constructor</ShortDescription>
-		<LongDescription>方法 {1} passes primitive wrapper to same primitive wrapper constructor</LongDescription>
+		<ShortDescription>方法将原生数据包装类传递给相同的原生包装类构造方法</ShortDescription>
+		<LongDescription>方法 {1} 将原生数据包装类传递给相同的原生包装类构造方法</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes a wrapped primitive object to the same class's constructor.
-			Since wrapper classes are immutable, you can just use the original object, rather
-			than constructing a new one. This code works because of an abuse of autoboxing.</p>
+			<p>这个方法将原生数据包装类对象作为参数传给同一个类的构造方法。
+			因为包装类是不可变的，可以直接使用原始对象，比创建一个好多了。这个代码能运行是因为对自动拆装包的滥用。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="NAB_NEEDLESS_BOXING_STRING_CTOR">
-		<ShortDescription>方法 passes parsed string to primitive wrapper constructor</ShortDescription>
-		<LongDescription>方法 {1} passes parsed string to primitive wrapper constructor</LongDescription>
+		<ShortDescription>方法将需解析的字符串传给原生包装类构造方法</ShortDescription>
+		<LongDescription>方法 {1} 将需解析的字符串传给原生包装类构造方法</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes a primitive value retrieved from a <code>BoxedPrimitive.parseBoxedPrimitive("1")</code> call to
-			the same class's constructor. It is simpler to just pass the string to the BoxedPrimitive constructor or, better yet, use the static valueOf.</p>
-			<p>Instead of something like:<br/>
+			<p>这个方法将从 <code>BoxedPrimitive.parseBoxedPrimitive("1")</code> 得到的值作为参数传给同一个类的构造方法。
+			这个可以简化为直接传字符串给原生包装类构造方法，或者，更好地，使用静态的 <code>valueOf</code>。</p>
+			<p>为替换这种代码：<br/>
 <pre><code>
 Boolean bo = new Boolean(Boolean.parseBoolean("true"));
 Float f = new Float(Float.parseFloat("1.234"));
 </code></pre>
-			Simply do: <br/>
+			只需要：<br/>
 <pre><code>
 Boolean bo = new Boolean("true");
 Float f = new Float("1.234");
 </code></pre>
-			or, to be more memory efficient: <br/>
+			或者，内存效率更高的办法：<br/>
 <pre><code>
 Boolean bo = Boolean.valueOf("true");
 Float f = Float.valueOf("1.234");
@@ -2171,36 +2170,33 @@ Float f = Float.valueOf("1.234");
 	</BugPattern>
 
 	<BugPattern type="NAB_NEEDLESS_AUTOBOXING_VALUEOF">
-		<ShortDescription>方法 passes primitive wrapper to Wrapper class valueOf method</ShortDescription>
-		<LongDescription>方法 {1} passes primitive wrapper to Wrapper class valueOf method</LongDescription>
+		<ShortDescription>方法将原生包装类对象传递给同一个类的 valueOf 方法</ShortDescription>
+		<LongDescription>方法 {1} 将原生包装类对象传递给同一个类的 valueOf 方法</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes a wrapped primitive object to the same class' <code>valueOf</code> method.
-			Since wrapper classes are immutable, you can just use the original object, rather
-			than calling valueOf to create a new one. This code works because of an abuse of autoboxing.</p>
+			<p>这个方法将原生数据包装类对象作为参数传给同一个类的 <code>valueOf</code> 方法。
+			因为包装类是不可变的，可以直接使用原始对象，比创建一个好多了。这个代码能运行是因为对自动拆装包的滥用。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="NAB_NEEDLESS_BOXING_PARSE">
-		<ShortDescription>方法 converts String to primitive using excessive boxing</ShortDescription>
-		<LongDescription>方法 {1} converts String to primitive using excessive boxing</LongDescription>
+		<ShortDescription>方法通过多次拆装包将字符串转化为原生数据</ShortDescription>
+		<LongDescription>方法 {1} 通过多次拆装包将字符串转化为原生数据</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes a String to a wrapped primitive object's valueOf method, which in turn calls
-			the boxedValue() method to convert to a primitive. When it is desired to convert from a String
-			to a primitive value, it is simpler to use the BoxedPrimitive.parseBoxedPrimitive(String)
-			method. </p>
+			<p>这个方法将字符串传给原生包装类对象的 valueOf 方法，再调 boxedValue() 方法来转化为原生数据。
+			如果想要的是原生数据，可以简单地使用 <code>BoxedPrimitive.parseBoxedPrimitive(String)</code> 方法。</p>
 
-			<p>Instead of something like:<br/>
+			<p>为替换这种代码：<br/>
 <pre><code>
 public int someMethod(String data) {
 long l = Long.valueOf(data).longValue();
 float f = Float.valueOf(data).floatValue();
-return Integer.valueOf(data); // There is an implicit .intValue() call
+return Integer.valueOf(data); // 这里有一个隐含的 .intValue() 调用
 }
 </code></pre>
-			Simply do: <br/>
+			只需要：<br/>
 <pre><code>
 public int someMethod(String data) {
 	long l = Long.parseLong(data);
@@ -2215,20 +2211,19 @@ public int someMethod(String data) {
 	</BugPattern>
 
 	<BugPattern type="NAB_NEEDLESS_BOXING_VALUEOF">
-		<ShortDescription>方法 converts String to boxed primitive using excessive boxing</ShortDescription>
-		<LongDescription>方法 {1} converts String to boxed primitive using excessive boxing</LongDescription>
+		<ShortDescription>方法通过多次拆装包将字符串转化为原生包装类</ShortDescription>
+		<LongDescription>方法 {1} 通过多次拆装包将字符串转化为原生包装类</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes a String to a wrapped primitive object's parse method, which in turn calls
-			the <code>valueOf</code> method to convert to a boxed primitive. When it is desired to convert from a String
-			to a boxed primitive object, it is simpler to use the BoxedPrimitive.valueOf(String) method.</p>
+			<p>这个方法将字符串传给原生包装类对象的 valueOf 方法，再调 boxedValue() 方法来转化为原生数据。
+			如果想要的是原生包装类对象，可以简单地使用 <code>BoxedPrimitive.valueOf(String)</code> 方法。</p>
 
-			<p>Instead of something like:<br/>
+			<p>为替换这种代码：<br/>
 <pre><code>
 Boolean bo = Boolean.valueOf(Boolean.parseBoolean("true"));
 Float f = Float.valueOf(Float.parseFloat("1.234"));
 </code></pre>
-			Simply do: <br/>
+			只需要：<br/>
 <pre><code>
 Boolean bo = Boolean.valueOf("true");
 Float f = Float.valueOf("1.234");
@@ -2245,12 +2240,12 @@ Float f = Float.valueOf("1.234");
 			<![CDATA[
 			<p>This method constructs a Boxed Primitive from a primitive only to call the primitiveValue() method to
 			convert it back to a primitive. Just use the primitive value instead.</p>
-			<p>Instead of something like:<br/>
+			<p>为替换这种代码：<br/>
 <pre><code>
 boolean bo = new Boolean(true).booleanValue();
 float f = new Float(1.234f).floatValue();
 </code></pre>
-			Simply do: <br/>
+			只需要：<br/>
 <pre><code>
 boolean bo = true;
 float f = 1.234f;
@@ -2268,7 +2263,7 @@ float f = 1.234f;
 			<![CDATA[
 			<p>This method constructs a Boxed Primitive from a primitive only to call the primitiveValue() method to
 			cast the value to another primitive type. It is simpler to just use casting.</p>
-			<p>Instead of something like:<br/>
+			<p>为替换这种代码：<br/>
 <pre><code>
 double someDouble = ...
 float f = new Double(someDouble).floatValue();
@@ -2276,7 +2271,7 @@ float f = new Double(someDouble).floatValue();
 int someInt = ...
 byte b = new Integer(someInt).byteValue();
 </code></pre>
-			Simply do: <br/>
+			只需要：<br/>
 <pre><code>
 double someDouble = ...
 float f = (float) someDouble;
