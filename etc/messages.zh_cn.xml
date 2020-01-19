@@ -2095,7 +2095,7 @@ for (float f = 1.0f; f &lt;= 10.0f; f += 0.1f) {
 		<LongDescription>类 {0} 定义可能导致字符串和数值混淆的方法</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个类定义了两个方法，仅仅参数不同：字符(Character)或数值(int/long/float/double)。 因为自动装包的存在，可能假定参数 'a' 将映射到“字符”版本，但并非如此。</p>
+			<p>这个类定义了两个方法，仅仅参数不同：字符(Character)或数值(int/long/float/double)。 因为自动装箱的存在，可能假定参数 'a' 将映射到“字符”版本，但并非如此。</p>
 			]]>
 		</Details>
 	</BugPattern>
@@ -2137,7 +2137,7 @@ for (float f = 1.0f; f &lt;= 10.0f; f += 0.1f) {
 		<Details>
 			<![CDATA[
 			<p>这个方法将原生数据包装类对象作为参数传给同一个类的构造方法。
-			因为包装类是不可变的，可以直接使用原始对象，比创建一个好多了。这个代码能运行是因为对自动拆装包的滥用。</p>
+			因为包装类是不可变的，可以直接使用原始对象，比创建一个好多了。这个代码能运行是因为对自动拆装箱的滥用。</p>
 			]]>
 		</Details>
 	</BugPattern>
@@ -2175,14 +2175,14 @@ Float f = Float.valueOf("1.234");
 		<Details>
 			<![CDATA[
 			<p>这个方法将原生数据包装类对象作为参数传给同一个类的 <code>valueOf</code> 方法。
-			因为包装类是不可变的，可以直接使用原始对象，比创建一个好多了。这个代码能运行是因为对自动拆装包的滥用。</p>
+			因为包装类是不可变的，可以直接使用原始对象，比创建一个好多了。这个代码能运行是因为对自动拆装箱的滥用。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="NAB_NEEDLESS_BOXING_PARSE">
-		<ShortDescription>方法通过多次拆装包将字符串转化为原生数据</ShortDescription>
-		<LongDescription>方法 {1} 通过多次拆装包将字符串转化为原生数据</LongDescription>
+		<ShortDescription>方法通过多次拆装箱将字符串转化为原生数据</ShortDescription>
+		<LongDescription>方法 {1} 通过多次拆装箱将字符串转化为原生数据</LongDescription>
 		<Details>
 			<![CDATA[
 			<p>这个方法将字符串传给原生包装类对象的 valueOf 方法，再调 boxedValue() 方法来转化为原生数据。
@@ -2211,8 +2211,8 @@ public int someMethod(String data) {
 	</BugPattern>
 
 	<BugPattern type="NAB_NEEDLESS_BOXING_VALUEOF">
-		<ShortDescription>方法通过多次拆装包将字符串转化为原生包装类</ShortDescription>
-		<LongDescription>方法 {1} 通过多次拆装包将字符串转化为原生包装类</LongDescription>
+		<ShortDescription>方法通过多次拆装箱将字符串转化为原生包装类</ShortDescription>
+		<LongDescription>方法 {1} 通过多次拆装箱将字符串转化为原生包装类</LongDescription>
 		<Details>
 			<![CDATA[
 			<p>这个方法将字符串传给原生包装类对象的 valueOf 方法，再调 boxedValue() 方法来转化为原生数据。
@@ -2234,12 +2234,12 @@ Float f = Float.valueOf("1.234");
 	</BugPattern>
 
 	<BugPattern type="NAB_NEEDLESS_BOX_TO_UNBOX">
-		<ShortDescription>方法 creates Boxed primitive from primitive only to get primitive value</ShortDescription>
-		<LongDescription>方法 {1} creates Boxed primitive from primitive only to get primitive value</LongDescription>
+		<ShortDescription>方法从原生数据创建原生包装类对象只为获得原生数据</ShortDescription>
+		<LongDescription>方法 {1} 从原生数据创建原生包装类对象只为获得原生数据</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method constructs a Boxed Primitive from a primitive only to call the primitiveValue() method to
-			convert it back to a primitive. Just use the primitive value instead.</p>
+			<p>这个方法从原生数据创建了一个原生包装类对象，只为了调用 <code>primitiveValue()</code> 方法来得到原生数据。
+			直接用原生数据代替就行了。</p>
 			<p>为替换这种代码：<br/>
 <pre><code>
 boolean bo = new Boolean(true).booleanValue();
@@ -2257,12 +2257,12 @@ float f = 1.234f;
 	</BugPattern>
 
 	<BugPattern type="NAB_NEEDLESS_BOX_TO_CAST">
-		<ShortDescription>方法 creates Boxed primitive from primitive only to cast to another primitive type</ShortDescription>
-		<LongDescription>方法 {1} creates Boxed primitive from primitive only to cast to another primitive type</LongDescription>
+		<ShortDescription>方法从原生数据创建原生包装类对象只为强转到另一种原生数据</ShortDescription>
+		<LongDescription>方法 {1} 从原生数据创建原生包装类对象只为强转到另一种原生数据</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method constructs a Boxed Primitive from a primitive only to call the primitiveValue() method to
-			cast the value to another primitive type. It is simpler to just use casting.</p>
+			<p>这个方法从原生数据创建了一个原生包装类对象，只为了调用 <code>primitiveValue()</code> 方法来强转到另一种原生数据。
+			更简单的写法是直接强转。</p>
 			<p>为替换这种代码：<br/>
 <pre><code>
 double someDouble = ...
@@ -2285,34 +2285,33 @@ byte b = (byte)someInt;
 	</BugPattern>
 
 	<BugPattern type="NAB_NEEDLESS_BOOLEAN_CONSTANT_CONVERSION">
-		<ShortDescription>方法 needlessly boxes a boolean constant</ShortDescription>
-		<LongDescription>方法 {1} needlessly boxes a boolean constant</LongDescription>
+		<ShortDescription>方法对布尔量做了多余的装箱</ShortDescription>
+		<LongDescription>方法 {1} 对布尔量做了多余的装箱</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method assigns a Boxed boolean constant to a primitive boolean variable, or assigns a primitive boolean
-			constant to a Boxed boolean variable. Use the correct constant for the variable desired. Use <br/>
+			<p>这个方法将布尔包装类常量赋值给布尔型变量，或者将布尔型常量赋值给布尔包装类变量。
+			应使用正确的常量为变量赋值。使用br/>
 <pre><code>
 boolean b = true;
 boolean b = false;
 </code></pre>
-			or <br/>
+			或<br/>
 <pre><code>
 Boolean b = Boolean.TRUE;
 Boolean b = Boolean.FALSE;
 </code></pre>
 			</p>
 
-			<p>Be aware that this boxing happens automatically when you might not expect it.  For example, <br/>
+			<p>请注意，这会在你不期望的时候自动发生。 比如，<br/>
 <pre><code>
 Map<String, Boolean> statusMap = ...
 
 public Boolean someMethod() {
-    statusMap.put("foo", true);  //the "true" here is boxed
-    return false;  //the "false" here is boxed
+    statusMap.put("foo", true);  //值 "true" 会被自动装箱
+    return false;  //值 "false" 会被自动装箱
 }
 </code></pre>
-			has two cases of this needless autoboxing.  This can be made more efficient by simply substituting
-			in the constant values: <br/>
+			有两中无意义的自动装箱。只需要简单替换为常量就可以提高效率: <br/>
 
 <pre><code>
 Map<String, Boolean> statusMap = ...
@@ -2328,15 +2327,14 @@ public Boolean someMethod() {
 	</BugPattern>
 
 	<BugPattern type="USBR_UNNECESSARY_STORE_BEFORE_RETURN">
-		<ShortDescription>方法 stores return result in local before immediately returning it</ShortDescription>
-		<LongDescription>方法 {1} stores return result in local before immediately returning it</LongDescription>
+		<ShortDescription>方法用局部变量存储即将返回的值</ShortDescription>
+		<LongDescription>方法 {1} 用局部变量存储即将返回的值</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method stores the return result in a local variable, and then immediately
-			returns the local variable. It would be simpler just to return the value that is
-			assigned to the local variable, directly.</p>
+			<p>这个方法将返回值存于一个局部变量，然后立即返回这个局部变量。
+			这可以简化为直接返回赋给这个局部变量的值。</p>
 			<p>
-				Instead of the following: <br/>
+				为替代下面的代码：<br/>
 
 <pre><code>
 public float average(int[] arr) {
@@ -2349,7 +2347,7 @@ public float average(int[] arr) {
 }
 </code></pre>
 
-				Simply change the method to return the result of the division: <br/>
+				只需要简单修改方法返回除法的结果：<br/>
 
 <pre><code>
 public float average(int[] arr) {
@@ -2366,23 +2364,21 @@ public float average(int[] arr) {
 	</BugPattern>
 
 	<BugPattern type="COM_COPIED_OVERRIDDEN_METHOD">
-		<ShortDescription>方法 is implemented with an exact copy of its superclass' method</ShortDescription>
-		<LongDescription>方法 {1} is implemented with an exact copy of its superclass' method</LongDescription>
+		<ShortDescription>方法通过拷贝父类方法来实现</ShortDescription>
+		<LongDescription>方法 {1} 通过拷贝父类方法来实现</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method is implemented using an exact copy of its superclass method's
-			implementation, which usually means that this method can just be removed.</p>
+			<p>这个方法通过拷贝父类方法来实现，一般来说这说明这个方法可以删除。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="COM_PARENT_DELEGATED_CALL">
-		<ShortDescription>方法 merely delegates to its superclass's version</ShortDescription>
-		<LongDescription>方法 {1} merely delegates to its superclass's version</LongDescription>
+		<ShortDescription>方法委托给父类方法</ShortDescription>
+		<LongDescription>方法 {1} 委托给父类方法</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method is implemented to just delegate its implementation by calling
-			the superclass method with the same signature. This method can just be removed.</p>
+			<p>这个方法通过调用父类相同签名的方法来实现。这个方法可以直接删除。</p>
 			]]>
 		</Details>
 	</BugPattern>
@@ -2392,7 +2388,7 @@ public float average(int[] arr) {
 		<LongDescription>方法 {1} uses array as basis of collection</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes an array as the key to a Map, element in a Set, or item in a List when
+			<p>这个方法 passes an array as the key to a Map, element in a Set, or item in a List when
 			the contains method is used on the List. Since arrays do not and cannot override the <code>equals</code>
 			method, collection inclusion is based on the reference's address, which is probably not desired.
 			In the case that this is a TreeMap or TreeSet, consider passing a Comparator to the map's
@@ -2406,7 +2402,7 @@ public float average(int[] arr) {
 		<LongDescription>方法 {1} creates DOM node but doesn't attach it to a document</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method creates a DOM node but does not attach it to a DOM document.</p>
+			<p>这个方法 creates a DOM node but does not attach it to a DOM document.</p>
 			]]>
 		</Details>
 	</BugPattern>
@@ -2427,7 +2423,7 @@ public float average(int[] arr) {
 		<LongDescription>方法 {1} builds XML strings through ad hoc concatenation</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method generates an XML based string by concatenating together various
+			<p>这个方法 generates an XML based string by concatenating together various
 			XML fragments, and variable values. Doing so makes the code difficult to read, modify
 			and validate. It is much cleaner to build XML structures in external files that are
 			read in and transformed into the final product, through modification by Transformer.setParameter.</p>
@@ -2440,7 +2436,7 @@ public float average(int[] arr) {
 		<LongDescription>方法 {1} overly synchronizes a block of code</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method implements a synchronized block, but the code found at the beginning
+			<p>这个方法 implements a synchronized block, but the code found at the beginning
 			of this block only accesses local variables, and not member variables or <code>this</code>.
 			For better performance, move the code that accesses local variables only above the
 			synchronized block, and leave the synchronized block only for field accesses, or access
@@ -2454,7 +2450,7 @@ public float average(int[] arr) {
 		<LongDescription>方法 {1} accesses list or array with constant index</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method accesses an array or list using a constant integer index. Often,
+			<p>这个方法 accesses an array or list using a constant integer index. Often,
 			this is a typo where a loop variable is intended to be used. If however, specific
 			list indices mean different specific things, then perhaps replacing the list with
 			a first-class object with meaningful accessors would make the code less brittle.</p>
@@ -2467,7 +2463,7 @@ public float average(int[] arr) {
 		<LongDescription>方法 {1} accesses statically bound class with Class.forName</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method accesses the class object of a class that is already statically bound
+			<p>这个方法 accesses the class object of a class that is already statically bound
 			in this context, with Class.forName. Using Class.forName makes reflection more fragile
 			in regards to code transformations such as obfuscation, and is unneeded here, since
 			the class in question is already 'linked' to this class.</p>
@@ -2480,7 +2476,7 @@ public float average(int[] arr) {
 		<LongDescription>方法 {1} uses 1 element array to simulate call by reference</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses a one-element array to wrap an object that is to be passed to a method as an argument
+			<p>这个方法 uses a one-element array to wrap an object that is to be passed to a method as an argument
 			to simulate call by pointer ala C++. It is better to define a proper return class type that holds all
 			the relevant information retrieved from the called method.</p>
 			]]>
@@ -2492,7 +2488,7 @@ public float average(int[] arr) {
 		<LongDescription>方法 {1} performs time consuming operation in GUI thread</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method implements an AWT or Swing listener and performs time
+			<p>这个方法 implements an AWT or Swing listener and performs time
 			consuming operations. Doing these operations in the GUI thread will cause the
 			interface to appear sluggish and non-responsive to the user. Consider
 			using a separate thread to do the time consuming work so that the user
@@ -2506,7 +2502,7 @@ public float average(int[] arr) {
 		<LongDescription>方法 {1} retrieves instance to load static member</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls a method to load a reference to an object, and then only
+			<p>这个方法 calls a method to load a reference to an object, and then only
 			uses it to load a static member of that instance's class. It is simpler and
 			more performant to just load the static field from the class itself.</p>
 			]]>
@@ -2518,7 +2514,7 @@ public float average(int[] arr) {
 		<LongDescription>方法 {1} uses two date comparisons when one would do</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method compares dates with two comparisons, rather than using the reverse comparison.
+			<p>这个方法 compares dates with two comparisons, rather than using the reverse comparison.
 			So this pattern</p>
 
 <pre><code>
@@ -2563,7 +2559,7 @@ if (!date1.equals( date2 ))
 		<LongDescription>方法 {1} calls wait when await was probably intended</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls wait() on a mutex defined in the java.util.concurrent package.
+			<p>这个方法 calls wait() on a mutex defined in the java.util.concurrent package.
 			These classes define <code>await</code>, instead of <code>wait</code>, and it is most likely that <code>await</code>
 			was intended.</p>
 			]]>
@@ -2575,7 +2571,7 @@ if (!date1.equals( date2 ))
 		<LongDescription>方法 {1} uses JDBC vendor specific classes and methods</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses JDBC vendor-specific classes and methods to perform database work.
+			<p>这个方法 uses JDBC vendor-specific classes and methods to perform database work.
 			This makes the code specific to this vendor, and unable to run on other databases.</p>
 			]]>
 		</Details>
@@ -2633,7 +2629,7 @@ static {
 	   <LongDescription>方法 {1} createa a local JAXBContext on demand</LongDescription>
 	   <Details>
 	       <![CDATA[
-	       <p>This method creates a JAXBContext and stores it in a local variable. This
+	       <p>这个方法 creates a JAXBContext and stores it in a local variable. This
 	       implies that this JAXBContext is created each time on demand, which will cause 
 	       memory bloat issues. It is better to either create this instance as a static field,
 	       or hold onto it with a ConcurrentHashMap, or such. See 
@@ -2647,7 +2643,7 @@ static {
 		<LongDescription>方法 {1} creates local variable-based synchronized collection</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method creates a synchronized collection and stores the reference to it
+			<p>这个方法 creates a synchronized collection and stores the reference to it
 			in a local variable. As local variables are by definition thread-safe, it seems
 			questionable that this collection needs to be synchronized.</p>
 			<p>
@@ -2680,7 +2676,7 @@ static {
 		<LongDescription>类 {0} uses non owned variables to synchronize on</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses a synchronize block where the object that is being synchronized on,
+			<p>这个方法 uses a synchronize block where the object that is being synchronized on,
 			is not owned by this current instance. This means that other instances may use this same
 			object for synchronization for their own purposes, causing synchronization confusion. It is
 			always cleaner and safer to only synchronize on private fields of this class. Note that 'this'
@@ -2756,7 +2752,7 @@ static {
 		<LongDescription>方法 {1} Method explicitly sets the color of a Component</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method sets a Component's explicit foreground or background color which may
+			<p>这个方法 sets a Component's explicit foreground or background color which may
 			cause difficulty for people with vision problems using this application.
 			Colors should be allowed to be set from the operating system.</p>
 			]]>
@@ -2768,7 +2764,7 @@ static {
 		<LongDescription>方法 {1} passes constant string to title/label of component</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method creates a component and passes a string literal to the title or label
+			<p>这个方法 creates a component and passes a string literal to the title or label
 			of the component. As this string will be shown to users, it should be internationalizable
 			through the use of a resource bundle.</p>
 			]]>
@@ -2780,7 +2776,7 @@ static {
 		<LongDescription>方法 {1} passes appended string to title/label of component</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method creates a component and passes a string that was built up from a number of
+			<p>这个方法 creates a component and passes a string that was built up from a number of
 			strings through appending multiple strings together. As foreign languages may order phrases
 			differently, this will make translations difficult.</p>
 			]]>
@@ -2803,7 +2799,7 @@ static {
 		<LongDescription>方法 {1} executes SQL queries inside of loops</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method executes SQL queries inside of a loop. This pattern is often inefficient
+			<p>这个方法 executes SQL queries inside of a loop. This pattern is often inefficient
 			as the number of queries may mushroom in fencepost cases. It is probably more performant
 			to loop over the input and collect the key data needed for the query for all items, and
 			issue one query using an in clause, or similar construct, and then loop over this result
@@ -2830,7 +2826,7 @@ static {
 		<LongDescription>方法 {1} uses instanceof on multiple types to arbitrate logic</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses the instanceof operator in a series of if/else statements to
+			<p>这个方法 uses the instanceof operator in a series of if/else statements to
 			differentiate blocks of code based on type. If these types are related by inheritance,
 			it is cleaner to just define a method in the base class, and use overridden methods
 			in these classes.</p>
@@ -2843,7 +2839,7 @@ static {
 		<LongDescription>方法 {1} creates array using constants</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method creates an array initialized by constants. Each time this method is called
+			<p>这个方法 creates an array initialized by constants. Each time this method is called
 			this array will be recreated. It would be more performant to define the array as a
 			static field of the class instead.</p>
 			]]>
@@ -2855,7 +2851,7 @@ static {
 		<LongDescription>方法 {1} appears to call the same method on the same object redundantly</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method makes two consecutive calls to the same method, using the same constant
+			<p>这个方法 makes two consecutive calls to the same method, using the same constant
 			parameters, on the same instance, without any intervening changes to the objects. If this
 			method does not make changes to the object, which it appears it doesn't, then making
 			two calls is just a waste. These method calls could be combined by assigning the
@@ -2869,7 +2865,7 @@ static {
 		<LongDescription>方法 {1} manually creates array from collection</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method manually loops over a collection, pulling each element out and storing
+			<p>这个方法 manually loops over a collection, pulling each element out and storing
 			it in an array to build an array from the collection. It is easier and clearer to use
 			the built-in Collection method toArray. Given a collection 'mycollection' of type T, use
 			<code>mycollection.toArray(new T[mycollection.size()]);</code></p>
@@ -2882,7 +2878,7 @@ static {
 		<LongDescription>方法 {1} throws alternative exception from catch block without history</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method catches an exception, and throws a different exception, without incorporating the
+			<p>这个方法 catches an exception, and throws a different exception, without incorporating the
 			original exception. Doing so hides the original source of the exception, making debugging and fixing
 			these problems difficult. It is better to use the constructor of this new exception that takes an
 			original exception so that this detail can be passed along to the user. If this exception has no constructor
@@ -2903,7 +2899,7 @@ catch (IOException e) {
 		<LongDescription>方法 {1} passes constant String of length 1 to character overridden method</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes a constant literal <code>String</code> of length 1 as a parameter to a method, when
+			<p>这个方法 passes a constant literal <code>String</code> of length 1 as a parameter to a method, when
 			a similar method is exposed that takes a <code>char</code>. It is simpler and more expedient to handle one
 			character, rather than a <code>String</code>.</p>
 
@@ -2939,7 +2935,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} employs tail recursion</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method recursively calls itself as the last statement of the method
+			<p>这个方法 recursively calls itself as the last statement of the method
 			(Tail Recursion). This method can be easily refactored into a simple loop, which
 			will make it more performant, and reduce the stack size requirements.</p>
 			]]>
@@ -2951,7 +2947,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} returns different types of unrelated Objects</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method returns two or more unrelated types of objects (Related only through java.lang.Object).
+			<p>这个方法 returns two or more unrelated types of objects (Related only through java.lang.Object).
 			This will be very confusing to the code that must call it.</p>
 			]]>
 		</Details>
@@ -2962,7 +2958,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} returns more specific type of object than declared</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method is defined to return a java.lang.Object. However, the return types
+			<p>这个方法 is defined to return a java.lang.Object. However, the return types
 			returned from this method can be defined by a more specific class or interface. Since this
 			method is not derived from a superclass or interface, it would be more clear to
 			change the return type of this method.</p>
@@ -2988,7 +2984,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>类 {0} doesn't serialize superclass fields</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method implements Serializable but is derived from a
+			<p>这个方法 implements Serializable but is derived from a
 			class that does not. The superclass has fields that are not serialized
 			because this class does not take the responsibility of writing these fields out
 			either using Serializable's writeObject method, or Externalizable's writeExternal
@@ -3017,7 +3013,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} passes a negative number as a bit to a BitSet which isn't supported</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes a constant negative value as a bit position to a java.util.BitSet. The BitSet class
+			<p>这个方法 passes a constant negative value as a bit position to a java.util.BitSet. The BitSet class
 			doesn't support negative values, and thus this method call will not work as expected.</p>
 			]]>
 		</Details>
@@ -3028,7 +3024,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} calls intern on a string constant</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls <code>intern</code> on a constant string. As constant strings are already interned, this call
+			<p>这个方法 calls <code>intern</code> on a constant string. As constant strings are already interned, this call
 			is superfluous.</p>
 			]]>
 		</Details>
@@ -3039,7 +3035,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} appears to pass character to StringBuffer or StringBuilder integer constructor</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method constructs a StringBuffer or a StringBuilder using the constructor that takes an integer, but
+			<p>这个方法 constructs a StringBuffer or a StringBuilder using the constructor that takes an integer, but
 			appears to pass a character instead. It is probable that the author assumed that the character would be appended to the
 			StringBuffer/Builder, but instead the integer value of the character is used as an initial size for the buffer.</p>
 			]]>
@@ -3051,7 +3047,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} uses non-standard math constant</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method defines its own version of <em>PI</em> or <em>e</em> and the value is not as precise as the
+			<p>这个方法 defines its own version of <em>PI</em> or <em>e</em> and the value is not as precise as the
 			one defined in the constants Math.PI or Math.E. Use these constants instead.</p>
 			]]>
 		</Details>
@@ -3062,7 +3058,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} assigns a value to a local twice in a row</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method assigns a value twice in a row in a stuttered way such as
+			<p>这个方法 assigns a value twice in a row in a stuttered way such as
 			<code>a = a = 5;</code> This is most probably a cut and paste error where the duplicate
 			assignment can be removed.</p>
 			]]>
@@ -3074,7 +3070,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} compares a {3} to {4}.NaN</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method compares a double or float to the constant <code>Double.NaN</code> or <code>Float.NaN</code>.
+			<p>这个方法 compares a double or float to the constant <code>Double.NaN</code> or <code>Float.NaN</code>.
 			You should use
 			<code>Double.isNaN(d)</code> or <code>Float.isNaN(f)</code>
 			 if the variable is a primitive. If using a boxed primitive <code>d.isNaN()</code> or <code>f.isNaN()</code> should be used.</p>
@@ -3087,7 +3083,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} passes double value to BigDecimal Constructor</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls the BigDecimal constructor that takes a double, and passes a literal double constant value. Since
+			<p>这个方法 calls the BigDecimal constructor that takes a double, and passes a literal double constant value. Since
 			the use of BigDecimal is to get better precision than double, by passing a double, you only get the precision of double number
 			space. To take advantage of the BigDecimal space, pass the number as a string. </p>
 			]]>
@@ -3099,7 +3095,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} passes an empty string to StringBuffer of StringBuilder constructor</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls the StringBuffer or StringBuilder constructor passing in a constant empty string ("").
+			<p>这个方法 calls the StringBuffer or StringBuilder constructor passing in a constant empty string ("").
 			This is the same as calling the default constructor, but makes the code work harder. Consider passing in a
 			default size instead.</p>
 			]]>
@@ -3111,7 +3107,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} calls equals on an enum instance</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls the equals(Object) method on an enum instance. Since enums values are singletons,
+			<p>这个方法 calls the equals(Object) method on an enum instance. Since enums values are singletons,
 			you can use == to safely compare two enum values. In fact, the implementation for Enum.equals does just
 			that.</p>
 			]]>
@@ -3123,7 +3119,7 @@ if (myString.indexOf('e') != -1) {
 		<LongDescription>方法 {1} uses invalid C++ style null check on Boolean</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method attempts to check for null by just referring to the variable name
+			<p>这个方法 attempts to check for null by just referring to the variable name
 			as would be done in C++. This ordinarily would be considered a compile error, except the
 			variable in question is a Boolean, which does an auto unbox to boolean.
 <pre><code>
@@ -3143,7 +3139,7 @@ if (Boolean.TRUE.equals(b))
 		<LongDescription>方法 {1} fetches character array just to do the equivalent of the charAt method</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls the toCharArray method on a String to fetch an array of characters, only
+			<p>这个方法 calls the toCharArray method on a String to fetch an array of characters, only
 			to retrieve one of those characters by index. It is more performant to just use the charAt method.</p>
 			]]>
 		</Details>
@@ -3154,7 +3150,7 @@ if (Boolean.TRUE.equals(b))
 		<LongDescription>方法 {1} uses a ternary operator to cast a boolean to true or false</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method tests the value of a boolean and uses a ternary operator to return either true or false.
+			<p>这个方法 tests the value of a boolean and uses a ternary operator to return either true or false.
 			The ternary operator is completely unnecessary, just use the original boolean value.</p>
 			]]>
 		</Details>
@@ -3166,7 +3162,7 @@ if (Boolean.TRUE.equals(b))
 		treat null and empty strings the same</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method tests a string, and groups null values with real strings, leaving empty strings as another
+			<p>这个方法 tests a string, and groups null values with real strings, leaving empty strings as another
 			case. That is, FindBugs has detected a structure like: <br/>
 <pre><code>
 String a = null, b = "", c = "someString";
@@ -3201,7 +3197,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
 		<LongDescription>方法 {1} converts StringBuffer or Builder to String just to get its length</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls the toString method on a StringBuffer or StringBuilder, only to call length() on the resulting
+			<p>这个方法 calls the toString method on a StringBuffer or StringBuilder, only to call length() on the resulting
 			string. It is faster, and less memory intensive, to just call the length method directly on the StringBuffer or StringBuilder
 			itself.</p>
 			]]>
@@ -3213,7 +3209,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
 		<LongDescription>方法 {1} passes a non calendar object to Calendar.before or Calendar.after</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes a non-calendar object to the java.util.Calendar.after or java.util.Calendar.before methods.
+			<p>这个方法 passes a non-calendar object to the java.util.Calendar.after or java.util.Calendar.before methods.
 			Even though these methods take an Object as a parameter type, only Calendar type objects are supported, otherwise
 			false is returned.</p>
 			]]>
@@ -3237,7 +3233,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
 		<LongDescription>方法 {1} calls keySet() just to call contains, use containsKey instead</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls mySet.keySet().contains("foo") when mySet.containsKey("foo") is simpler.</p>
+			<p>这个方法 calls mySet.keySet().contains("foo") when mySet.containsKey("foo") is simpler.</p>
 			]]>
 		</Details>
 	</BugPattern>
@@ -3247,7 +3243,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
 		<LongDescription>方法 {1} checks the size of a collection against zero rather than using isEmpty()</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls the size() method on a collection and compares the result to zero to see if the collection
+			<p>这个方法 calls the size() method on a collection and compares the result to zero to see if the collection
 			is empty. For better code clarity, it is better to just use col.isEmpty() or !col.isEmpty().</p>
 			]]>
 		</Details>
@@ -3286,7 +3282,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
 		<LongDescription>方法 {1} compares string without case after enforcing a case</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method compares two strings with compareToIgnoreCase or equalsIgnoreCase, after having
+			<p>这个方法 compares two strings with compareToIgnoreCase or equalsIgnoreCase, after having
 			called toUpperCase or toLowerCase on the strings in question. As you are comparing without
 			concern for case, the toUpperCase or toLowerCase calls are pointless and can be removed.</p>
 			]]>
@@ -3298,7 +3294,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
 		<LongDescription>方法 {1} passes a non array object to a parameter that expects an array</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method expects an array to be passed as one of its parameters, but unfortunately defines
+			<p>这个方法 expects an array to be passed as one of its parameters, but unfortunately defines
 			the parameter as Object. This invocation of this method does not pass an array and will throw
 			an exception when run.</p>
 			]]>
@@ -3310,7 +3306,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
 		<LongDescription>方法 {1} passes an empty string to equalsIgnoreCase or compareToIgnoreCase</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes the empty string "" to equalsIgnoreCase or compareToIgnoreCase. As the empty string
+			<p>这个方法 passes the empty string "" to equalsIgnoreCase or compareToIgnoreCase. As the empty string
 			is not case-sensitive, using equals is simpler. It would be even simpler to do a length() == 0 test.</p>
 			]]>
 		</Details>
@@ -3321,7 +3317,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
 		<LongDescription>方法 {1} trims a String temporarily</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls trim() on a String without assigning the new string to another variable.
+			<p>这个方法 calls trim() on a String without assigning the new string to another variable.
 			It then calls length() or equals() on this trimmed string. If trimming the string was important
 			for determining its length or its equality, it probably should be trimmed when you actually use it.
 			It would make more sense to first trim the String, store the trimmed value in a variable, and then
@@ -3335,7 +3331,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
 		<LongDescription>方法 {1} needlessly assigns a StringBuilder to itself, as it's mutable</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls StringBuilder.append and assigns the results to the same StringBuilder like:</p>
+			<p>这个方法 calls StringBuilder.append and assigns the results to the same StringBuilder like:</p>
 			<code>sb = sb.append("foo")</code>
 			<p>StringBuilder is mutable, so this is not necessary.
 			This is also true of StringBuffer.</p>
@@ -3348,7 +3344,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
 		<LongDescription>方法 {1} uses iterator().next() on a List to get the first item</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls myList.iterator().next() on a List to get the first item. It is more performant
+			<p>这个方法 calls myList.iterator().next() on a List to get the first item. It is more performant
 			to just use myList.get(0).</p>
 			]]>
 		</Details>
@@ -3359,7 +3355,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
 		<LongDescription>方法 {1} appends two literal strings back to back to a StringBuilder</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method appends two literal strings to a <code>StringBuilder</code> back to back.
+			<p>这个方法 appends two literal strings to a <code>StringBuilder</code> back to back.
 			Modern compilers will optimize something like:<br/>
 <pre><code>
 public static final string CONST_VAL = "there";
@@ -3394,7 +3390,7 @@ String str = sb.toString();
 		<LongDescription>方法 {1} checks a reference for null before calling instanceof</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method checks a reference for null just before seeing if the reference is an instanceof some class.
+			<p>这个方法 checks a reference for null just before seeing if the reference is an instanceof some class.
 			Since instanceof will return false for null references, the null check is not needed.</p>
 			]]>
 		</Details>
@@ -3405,7 +3401,7 @@ String str = sb.toString();
 	   <LongDescription>方法 {1} calls toString() on an instance of a class that hasn't overridden toString()</LongDescription>
 	   <Details>
 	       <![CDATA[
-	       <p>This method calls <code>toString</code> on an object that hasn't overridden the toString() method, and thus relies on
+	       <p>这个方法 calls <code>toString</code> on an object that hasn't overridden the toString() method, and thus relies on
 	       the version found in java.lang.Object. This string is just a raw display of the object's class and location, and
 	       provides no information about the information of use. You should implement toString in this class.</p>
 	       ]]>
@@ -3417,7 +3413,7 @@ String str = sb.toString();
 	   <LongDescription>方法 {1} calls toString() on a String</LongDescription>
 	   <Details>
 	       <![CDATA[
-	       <p>This method calls <code>toString</code> on a String. Just use the object itself if you want a String.</p>
+	       <p>这个方法 calls <code>toString</code> on a String. Just use the object itself if you want a String.</p>
 	       ]]>
 	   </Details>
 	</BugPattern>
@@ -3427,7 +3423,7 @@ String str = sb.toString();
 	   <LongDescription>方法 {1} calls {3} on a String Literal</LongDescription>
 	   <Details>
 	       <![CDATA[
-	       <p>This method calls a converting method like <code>toLowerCase</code> or <code>trim</code>
+	       <p>这个方法 calls a converting method like <code>toLowerCase</code> or <code>trim</code>
 		   on a <code>String</code> literal. You should make the transformation yourself and use the transformed literal.</p>
 
 		   <p>
@@ -3451,7 +3447,7 @@ return "thisisaconstantstring";
 		<LongDescription>方法 {1} calls equals(Object o) on a StringBuilder or StringBuffer</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls equals on a StringBuilder or StringBuffer. Surprisingly, these classes do not override
+			<p>这个方法 calls equals on a StringBuilder or StringBuffer. Surprisingly, these classes do not override
 			the equals method from Object, and so equals is just defined to be == (or same references). This is most
 			likely not what you would like. If you wish to check that the strings have the same characters, you need to
 			call toString() on these object and compare them as Strings.</p>
@@ -3464,7 +3460,7 @@ return "thisisaconstantstring";
 		<LongDescription>方法 {1} calls String.format on a static (non parameterized) format string</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls String.format, passing a static string that has no replacement markers (starting with %)
+			<p>这个方法 calls String.format, passing a static string that has no replacement markers (starting with %)
 			as the format string. Thus no replacement will happen, and the format method is superfluous. If parameters were intended,
 			add the appropriate format markers as needed; otherwise, just remove the call to String.format and use the static
 			string as is.</p>
@@ -3505,7 +3501,7 @@ return "thisisaconstantstring";
 		<Details>
 			<![CDATA[
 			<p><em>THIS DETECTOR IS HIGHLY EXPERIMENTAL AND IS LIKELY TO CREATE A LOT OF FUD</em></p>
-			<p>This method assigns a value to a variable in an outer scope compared to where the variable is actually used.
+			<p>这个方法 assigns a value to a variable in an outer scope compared to where the variable is actually used.
 			Assuming this evaluation does not have side effects, the assignment can be moved into the inner scope (if block)
 			so that its execution time isn't taken up if the <code>if</code> guard is false. Care should be
 			taken, however, that the right hand side of the assignment does not contain side
@@ -3534,7 +3530,7 @@ return "thisisaconstantstring";
 		<LongDescription>方法 {1} deletes collection element while iterating</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method removes items from a collection using the remove method of the collection, while
+			<p>这个方法 removes items from a collection using the remove method of the collection, while
 			at the same time iterating across the collection. Doing this will invalidate the iterator, and further
 			use of it will cause ConcurrentModificationException to be thrown. To avoid this, the remove
 			method of the iterator should be used.</p>
@@ -3547,7 +3543,7 @@ return "thisisaconstantstring";
 		<LongDescription>方法 {1} modifies collection element while iterating</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method modifies the contents of a collection using the collection API methods, while
+			<p>这个方法 modifies the contents of a collection using the collection API methods, while
 			at the same time iterating across the collection. Doing this will invalidate the iterator, and further
 			use of it will cause ConcurrentModificationException to be thrown.</p>
 			]]>
@@ -3559,7 +3555,7 @@ return "thisisaconstantstring";
 		<LongDescription>方法 {1} builds String array using String Tokenizing</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses a StringTokenizer to split up a String and then walks through the
+			<p>这个方法 uses a StringTokenizer to split up a String and then walks through the
 			separated elements and builds an array from these enumerated values. It is simpler
 			and easier to use the String.split method.</p>
 			<p>PLEASE NOTE: String.split will return an array of 1 element when passed the
@@ -3579,7 +3575,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} uses rt.jar class or method that does not exist for the version the class is compiled for</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls a method that does not exist, on a class that does not exist in the JDK that
+			<p>这个方法 calls a method that does not exist, on a class that does not exist in the JDK that
 			this class has been compiled for. This can happen if you compile the class specifying the -source and
 			-target options, and use a version that is before the version of the compiler's JDK.</p>
 			]]>
@@ -3591,7 +3587,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} uses simple loop to copy contents of one collection to another</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses a simple <code>for</code> loop to copy the contents of a set, list, map key/value, array or other collection
+			<p>这个方法 uses a simple <code>for</code> loop to copy the contents of a set, list, map key/value, array or other collection
 			to another collection. It is simpler and more straightforward to just call the addAll method of the destination collection
 			passing in the source collection. In the case that the source is an array, you can use the Arrays.asList method to wrap the array
 			into a collection.</p>
@@ -3617,7 +3613,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} needlessly implements what is default streaming behavior</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method implements the Serializable interface by performing the same operations that
+			<p>这个方法 implements the Serializable interface by performing the same operations that
 			would be done if this method did not exist. Since this is the case, this method is not needed.</p>
 			]]>
 		</Details>
@@ -3639,7 +3635,7 @@ return new String[0];<br/>
 		<LongDescription>不受限制的方法 {1} converts checked exception to unchecked</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method is not constrained by an interface or superclass, but converts a caught checked exception
+			<p>这个方法 is not constrained by an interface or superclass, but converts a caught checked exception
 			to an unchecked exception and throws it. It would be more appropriate just to throw the checked exception,
 			adding the exception to the throws clause of the method.</p>
 			]]>
@@ -3651,7 +3647,7 @@ return new String[0];<br/>
 		<LongDescription>受限制方法 {1} converts checked exception to unchecked instead of another allowable checked exception</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method's exception signature is constrained by an interface of superclass not to throw a
+			<p>这个方法's exception signature is constrained by an interface of superclass not to throw a
 			checked exception that was caught. Therefore this exception was converted to an unchecked exception and
 			thrown. It would probably be better to throw the closest checked exception allowed, and to annotate
 			the new exception with the original exception using the initial cause field.</p>
@@ -3664,7 +3660,7 @@ return new String[0];<br/>
 		<LongDescription>受限制方法 {1} converts checked exception to unchecked</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method's exception signature is constrained by an interface or superclass not to throw
+			<p>这个方法's exception signature is constrained by an interface or superclass not to throw
 			any checked exceptions. Therefore a caught checked exception was converted to an unchecked exception
 			and thrown. However, it appears that the class in question is owned by the same author as the constraining
 			interface or superclass. Consider changing the signature of this method to include the checked exception.</p>
@@ -3677,7 +3673,7 @@ return new String[0];<br/>
 	   <LongDescription>方法 {1} converts an exception into a boolean 'error code' value</LongDescription>
 	   <Details>
 	       <![CDATA[
-	       <p>This method catches an exception and returns a boolean that represents whether an exception occurred or not.
+	       <p>这个方法 catches an exception and returns a boolean that represents whether an exception occurred or not.
 	       This throws away the value of exception handling and lets code ignore the resultant 'error code' return value.
 	       You should just throw the exception to the caller instead.</p>
 	       ]]>
@@ -3689,7 +3685,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} returns modified parameter</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method appears to modify a parameter, and then return this parameter as the
+			<p>这个方法 appears to modify a parameter, and then return this parameter as the
 			method's return value. This will be confusing to callers of this method, as it won't be
 			apparent that the 'original' passed-in parameter will be changed as well. If the purpose
 			of this method is to change the parameter, it would be more clear to change the method to
@@ -3704,7 +3700,7 @@ return new String[0];<br/>
 		<LongDescription>JUnit test method {1} passes constant to second (actual) assertion parameter</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls <code>assertXXX</code> passing a constant value as the second of the two values. The assert
+			<p>这个方法 calls <code>assertXXX</code> passing a constant value as the second of the two values. The assert
 			methods assume that the expected value is the first parameter, and so it appears that the order
 			of values has been swapped here.</p>
 			]]>
@@ -3716,7 +3712,7 @@ return new String[0];<br/>
 		<LongDescription>JUnit test method {1} asserts that two doubles are exactly equal</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls <code>assertXXX</code> with two doubles or Doubles. Due to the imprecision of doubles, you
+			<p>这个方法 calls <code>assertXXX</code> with two doubles or Doubles. Due to the imprecision of doubles, you
 			should be using the assert method that takes a range parameter that gives a range of error.</p>
 			]]>
 		</Details>
@@ -3727,7 +3723,7 @@ return new String[0];<br/>
 		<LongDescription>JUnit test method {1} asserts that a value is equal to true or false</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method asserts that a value is equal to true or false. It is simpler to just
+			<p>这个方法 asserts that a value is equal to true or false. It is simpler to just
 			use assertTrue or assertFalse instead.</p>
 			]]>
 		</Details>
@@ -3738,7 +3734,7 @@ return new String[0];<br/>
 		<LongDescription>JUnit test method {1} asserts that an autoboxed value is not null</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method asserts that a primitive value that was autoboxed into a boxed primitive was not
+			<p>这个方法 asserts that a primitive value that was autoboxed into a boxed primitive was not
 			null. This will never happen, as primitives are never null, and thus the autoboxed value isn't
 			either.</p>
 			]]>
@@ -3750,7 +3746,7 @@ return new String[0];<br/>
 		<LongDescription>JUnit test method {1} uses Java asserts rather than a JUnit assertion</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses a Java assert to assure that a certain state is in effect. As this is
+			<p>这个方法 uses a Java assert to assure that a certain state is in effect. As this is
 			a JUnit test it makes more sense to either check this condition with a JUnit assert, or allow
 			a following exception to occur.</p>
 			]]>
@@ -3762,7 +3758,7 @@ return new String[0];<br/>
 		<LongDescription>JUnit test method {1} passes null to Assert.assertEquals</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method compares an object's equality to null. It is better to use the Assert.assertNull
+			<p>这个方法 compares an object's equality to null. It is better to use the Assert.assertNull
 			method so that the JUnit failure method is more descriptive of the intended test.</p>
 			]]>
 		</Details>
@@ -3773,7 +3769,7 @@ return new String[0];<br/>
 		<LongDescription>JUnit test method {1} passes null to Assert.assertNotEquals</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method compares an object's inequality to null. It is better to use the Assert.assertNotNull
+			<p>这个方法 compares an object's inequality to null. It is better to use the Assert.assertNotNull
 			method so that the JUnit failure method is more descriptive of the intended test.</p>
 			]]>
 		</Details>
@@ -3784,7 +3780,7 @@ return new String[0];<br/>
 		<LongDescription>JUnit test method {1} passes boolean expression to Assert.assertFalse / Assert.assertTrue</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
+			<p>这个方法 evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
 			It is better to pass the two values that are being equated to the Assert.assertEquals method so that the
 			JUnit failure method is more descriptive of the intended test.</p>
 			]]>
@@ -3796,7 +3792,7 @@ return new String[0];<br/>
 		<LongDescription>JUnit test method {1} passes boolean expression to Assert.assertFalse / Assert.assertTrue</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
+			<p>这个方法 evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
 			It is better to pass the two values that are being equated to the Assert.assertNotEquals method so that the
 			JUnit failure method is more descriptive of the intended test.</p>
 			]]>
@@ -3832,7 +3828,7 @@ return new String[0];<br/>
 		<LongDescription>TestNG test method {1} passes constant to first (actual) assertion parameter</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls <code>assertXXX</code> passing a constant value as the first of the two values. The assert
+			<p>这个方法 calls <code>assertXXX</code> passing a constant value as the first of the two values. The assert
 			method assumes that the expected value is the second parameter, and so it appears that the order
 			of values has been swapped here.</p>
 			]]>
@@ -3844,7 +3840,7 @@ return new String[0];<br/>
 		<LongDescription>TestNG test method {1} asserts that two doubles are exactly equal</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls <code>assertXXX</code> with two doubles or Doubles. Due to the imprecision of doubles, you
+			<p>这个方法 calls <code>assertXXX</code> with two doubles or Doubles. Due to the imprecision of doubles, you
 			should be using the assert method that takes a range parameter that gives a range of error.</p>
 			]]>
 		</Details>
@@ -3855,7 +3851,7 @@ return new String[0];<br/>
 		<LongDescription>TestNG test method {1} asserts that a value is true or false</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method asserts that a value is equal to true or false. It is simpler to just
+			<p>这个方法 asserts that a value is equal to true or false. It is simpler to just
 			use assertTrue, or assertFalse, instead.</p>
 			]]>
 		</Details>
@@ -3866,7 +3862,7 @@ return new String[0];<br/>
 		<LongDescription>TestNG test method {1} asserts that an autoboxed value is not null</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method asserts that a primitive value that was autoboxed into a boxed primitive was not
+			<p>这个方法 asserts that a primitive value that was autoboxed into a boxed primitive was not
 			null. This will never happen, as primitives are never null, and thus the autoboxed value isn't
 			either.</p>
 			]]>
@@ -3878,7 +3874,7 @@ return new String[0];<br/>
 	        <LongDescription>TestNG test method {1} uses Java asserts rather than a TestNG assertion</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses a Java assert to assure that a certain state is in effect. As this is
+			<p>这个方法 uses a Java assert to assure that a certain state is in effect. As this is
 			a TestNG test it makes more sense to either check this condition with a TestNG assert, or allow
 			a following exception to occur.</p>
 			]]>
@@ -3890,7 +3886,7 @@ return new String[0];<br/>
 		<LongDescription>TestNG test method {1} passes null to Assert.assertEquals</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method compares an object's equality to null. It is better to use the Assert.assertNull
+			<p>这个方法 compares an object's equality to null. It is better to use the Assert.assertNull
 			method so that the TestNG failure method is more descriptive of the intended test.</p>
 			]]>
 		</Details>
@@ -3901,7 +3897,7 @@ return new String[0];<br/>
 		<LongDescription>TestNG test method {1} passes null to Assert.assertNotEquals</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method compares an object's inequality to null. It is better to use the Assert.assertNotNull
+			<p>这个方法 compares an object's inequality to null. It is better to use the Assert.assertNotNull
 			method so that the TestNG failure method is more descriptive of the intended test.</p>
 			]]>
 		</Details>
@@ -3912,7 +3908,7 @@ return new String[0];<br/>
 		<LongDescription>TestNG test method {1} passes boolean expression to Assert.assertFalse / Assert.assertTrue</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
+			<p>这个方法 evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
 			It is better to pass the two values that are being equated to the Assert.assertEquals method so that the
 			TestNG failure method is more meaningful of the intended test.</p>
 			]]>
@@ -3924,7 +3920,7 @@ return new String[0];<br/>
 		<LongDescription>TestNG test method {1} passes boolean expression to Assert.assertFalse / Assert.assertTrue</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
+			<p>这个方法 evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
 			It is better to pass the two values that are being equated to the Assert.assertNotEquals method so that the
 			TestNG failure method is more meaningful of the intended test.</p>
 			]]>
@@ -3961,7 +3957,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} throws exception with static message string</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method creates and throws an exception using a static string as the exceptions message.
+			<p>这个方法 creates and throws an exception using a static string as the exceptions message.
 			Without any specific context of this particular exception invocation, such as the values of parameters,
 			key member variables, or local variables, it may be difficult to infer how this exception occurred. Consider
 			adding context to the exception message.</p>
@@ -3974,7 +3970,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} throws a java.lang.Exception that wraps a more useful exception</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method catches an exception and generates a new exception of type java.lang.Exception,
+			<p>这个方法 catches an exception and generates a new exception of type java.lang.Exception,
 			passing the original exception as the new Exception's cause.  If the original Exception was actually
 			a java.lang.Error, this is dubious as you should not be handling errors. If the original exception
 			is a more specific exception, there is no reason to wrap it in a java.lang.Exception;
@@ -3989,7 +3985,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} modifies an http session attribute without calling setAttribute</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method fetches a complex object from an HttpSession object, modifies this object, but does
+			<p>这个方法 fetches a complex object from an HttpSession object, modifies this object, but does
 			not call setAttribute, to inform the application server that this attribute has been changed. This will
 			cause this attribute not to be updated in other servers in a clustered environment, as only changes marked
 			by a call to setAttribute are replicated.</p>
@@ -4002,7 +3998,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} incorrectly passes exception as first argument to logger method</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes an exception as the first argument to a logger method. The stack
+			<p>这个方法 passes an exception as the first argument to a logger method. The stack
 			trace is potentially lost due to the logger emitting the exception using toString(). It
 			is better to construct a log message with sufficient context and pass the exception as
 			the second argument to capture the stack trace.</p>
@@ -4015,7 +4011,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} specifies an unrelated class when allocating a Logger.  Saw "{3}", expected "{4}".</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method creates a Logger by passing in a specification for a class that is unrelated
+			<p>这个方法 creates a Logger by passing in a specification for a class that is unrelated
 			to the class in which the logger is going to be used. This is likely caused by copy/paste code.</p>
 			]]>
 		</Details>
@@ -4038,7 +4034,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} stutters exception message in logger</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses a logger method that takes an exception, and passes the result of
+			<p>这个方法 uses a logger method that takes an exception, and passes the result of
 			the exception's getMessage() method as the log message.
 			Since you are already passing in the exception, that message is already present in the
 			logs, and by passing it in as the message, you are just stuttering information.
@@ -4053,7 +4049,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} attempts to log using numbered formatting anchors</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method attempts to use an SLF4J or Log4j2 logger to log a parameterized expression using formatting anchors.
+			<p>这个方法 attempts to use an SLF4J or Log4j2 logger to log a parameterized expression using formatting anchors.
 			However, SLF4J and Log4j2 use simple non numbered anchors such as {}, rather than anchors with digits in them as the
 			code uses. Thus no parameter replacement will occur.</p>
 			<p>This pattern is invalid:
@@ -4070,7 +4066,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} attempts to log using String.format notation</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method attempts to use an SLF4J or Log4j2 logger to log a parameterized expression using String.format notation.
+			<p>这个方法 attempts to use an SLF4J or Log4j2 logger to log a parameterized expression using String.format notation.
 			However, SLF4J and Log4j2 uses simple non numbered anchors such as {}, rather than anchors with percent signs in them as the
 			code uses. Thus no parameter replacement will occur.</p>
 			<p>This pattern is invalid:
@@ -4087,7 +4083,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} passes an incorrect number of parameters to an SLF4J or Log4j2 logging statement</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes the wrong number of parameters to an SLF4J or Log4j2 logging method (error, warn, info, debug) based on the number of anchors {} in the
+			<p>这个方法 passes the wrong number of parameters to an SLF4J or Log4j2 logging method (error, warn, info, debug) based on the number of anchors {} in the
 			format string. An additional exception argument is allowed if found.</p>
 			]]>
 		</Details>
@@ -4098,7 +4094,7 @@ return new String[0];<br/>
        <LongDescription>方法 {1} creates exception with logger parameter markers in message</LongDescription>
 	   <Details>
 	       <![CDATA[
-	       <p>This method passes a standard exception as a logger parameter, and expects this exception to be substituted in
+	       <p>这个方法 passes a standard exception as a logger parameter, and expects this exception to be substituted in
 	        an SLF4J or Log4j style parameter marker '{}'. This marker will not be translated as SLF4J and Log4j2 don't process the Exception
 	        class for markers.
 	       </p>
@@ -4111,7 +4107,7 @@ return new String[0];<br/>
 	   <LongDescription>方法 {1} passes a concatenated string to SLF4J's or Log4j2's format string</LongDescription>
 	   <Details>
 	       <![CDATA[
-	       <p>This method uses an SLF4J or Log4j2 logger to log a string, where the first (format) string is created using concatenation.
+	       <p>这个方法 uses an SLF4J or Log4j2 logger to log a string, where the first (format) string is created using concatenation.
 	       You should use {} markers to inject dynamic content into the string, so that String building is delayed until the
 	       actual log string is needed. If the log level is high enough that this log statement isn't used, then the appends
 	       will never be executed.</p>
@@ -4125,7 +4121,7 @@ return new String[0];<br/>
 	   <LongDescription>方法 {1} passes a simple String.format result to an SLF4J's or Log4j2's format string</LongDescription>
 	   <Details>
 	       <![CDATA[
-	       <p>This method uses an SLF4J or Log4J2 logger to log a string which was produced through a call to String.format, where
+	       <p>这个方法 uses an SLF4J or Log4J2 logger to log a string which was produced through a call to String.format, where
 	       the format string passed was a constant string containing only simple format markers that could be directly handled
 	       by SLF4J or Log4J. Rather than doing
 	       <pre>
@@ -4145,7 +4141,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} explicitly calls toString() on a logger parameter</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses parameterized logging to avoid the cost of string concatenation in the case that
+			<p>这个方法 uses parameterized logging to avoid the cost of string concatenation in the case that
 			the log level does not meet the needed level. However, one or more of the parameters passed to the logging
 			method uses .toString() to present a String representation for the parameter. This is unneeded as the logger
 			will do this for you, and because it is explicitly done, will always be called even if the log statement is
@@ -4203,7 +4199,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} uses a set of collections</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method creates a set that contains other collections, or a Map whose keySet is
+			<p>这个方法 creates a set that contains other collections, or a Map whose keySet is
 			another collection. As collections tend to calculate hashCode, equals, and compareTo by
 			iterating the contents of the collection, this can perform poorly.</p>
 			<p>In addition, when a set is used, you typically are using it to do 'contains', or 'find'
@@ -4222,7 +4218,7 @@ return new String[0];<br/>
 		<LongDescription>非派生方法 {1} declares throwing an exception that isn't thrown</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method declares that it throws a checked exception that it does not throw. As this method is
+			<p>这个方法 declares that it throws a checked exception that it does not throw. As this method is
 			either a constructor, static method or private method, there is no reason for this method to declare
 			the exception in its throws clause, and just causes calling methods to unnecessarily handle an exception
 			that will never be thrown. The exception in question should be removed from the throws clause.</p>
@@ -4235,7 +4231,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} declares throwing two or more exceptions related by inheritance</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method declares that it throws an exception that is the child of another exception that is
+			<p>这个方法 declares that it throws an exception that is the child of another exception that is
 			also declared to be thrown. Given that the parent exception is declared, there is no need for the child
 			exception to also be declared; it just adds confusion.</p>
 			]]>
@@ -4247,7 +4243,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} checks the result of a new allocation</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method allocates an object with <code>new</code>, and then checks that the object is null
+			<p>这个方法 allocates an object with <code>new</code>, and then checks that the object is null
 			or non null. As the new operator is guaranteed to either succeed or throw an exception,
 			this null check is unnecessary and can be removed.</p>
 			]]>
@@ -4271,7 +4267,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} returns null for Boolean type</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method declares that it returns a Boolean value. However, the code
+			<p>这个方法 declares that it returns a Boolean value. However, the code
 			can return a null value. As this is now three values that can be returned -
 			Boolean.TRUE, Boolean.FALSE, null - you have changed what a Boolean means.
 			It would be clearer to just create a new Enum that has the three values
@@ -4285,7 +4281,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} returns an array that appears not to be initialized</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method returns an array that was allocated but apparently not initialized. It is
+			<p>这个方法 returns an array that was allocated but apparently not initialized. It is
 			possible that the caller of this method will do the work of initializing this array, but
 			that is not a common pattern, and it is assumed that this array has just been forgotten to
 			be initialized.</p>
@@ -4298,7 +4294,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} performs algorithmic operations on the result of a toString() call</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls algorithmic operations on a String that was returned from a toString() method.
+			<p>这个方法 calls algorithmic operations on a String that was returned from a toString() method.
 			As these methods are for debugging/logging purposes, it shouldn't be the basis of core logic in your code.</p>
 			]]>
 		</Details>
@@ -4309,7 +4305,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} uses the same HttpSession attribute name but with different casing</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method sets or gets an HttpSession attribute with a parameter name that was used in other locations
+			<p>这个方法 sets or gets an HttpSession attribute with a parameter name that was used in other locations
 			but with a different casing. As HttpSession attribute are case-sensitive, this will be very confusing.</p>
 			]]>
 		</Details>
@@ -4320,7 +4316,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} uses the same HttpRequest parameter name but with different casing</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method fetches an HttpServletRequest parameter with a parameter name that was used in other locations
+			<p>这个方法 fetches an HttpServletRequest parameter with a parameter name that was used in other locations
 			but with a different casing. As HttpServletRequest parameters are case-sensitive, this will be very confusing.</p>
 			]]>
 		</Details>
@@ -4331,7 +4327,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} manually casts the right hand side of an assignment more specifically than needed</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method casts the right hand side of an expression to a class that is more specific than the
+			<p>这个方法 casts the right hand side of an expression to a class that is more specific than the
 			variable on the left hand side of the assignment. The cast only has to be as specific as the variable
 			that is on the left. Using a more specific type on the right hand side just increases cohesion.</p>
 			]]>
@@ -4343,7 +4339,7 @@ return new String[0];<br/>
 		<LongDescription>方法 {1} defines parameters more abstractly than needed to function properly</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method defines parameters at a more abstract level than is actually needed to function correctly,
+			<p>这个方法 defines parameters at a more abstract level than is actually needed to function correctly,
 			as the code casts these parameters to more concrete types. Since this method is not derivable, you should
 			just define the parameters with the type that is needed.</p>
 			]]>
@@ -4384,7 +4380,7 @@ class Person {
 		<LongDescription>方法 {1} performs a contravariant array assignment</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method contains a contravariant array assignment. Since arrays are mutable data structures, their use
+			<p>这个方法 contains a contravariant array assignment. Since arrays are mutable data structures, their use
 			must be restricted to covariant or invariant usage.</p>
 
 <pre><code>
@@ -4403,7 +4399,7 @@ A[] a = b;
 		<LongDescription>方法 {1} performs a contravariant array element assignment</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method contains a contravariant array element assignment. Since arrays are mutable
+			<p>这个方法 contains a contravariant array element assignment. Since arrays are mutable
 			data structures, their use must be restricted to covariant or invariant usage.</p>
 
 <pre><code>
@@ -4436,7 +4432,7 @@ a[0] = new A(); // results in ArrayStoreException (Runtime)
 		<LongDescription>方法 {1} tests a field for not null as guard and reassigns it</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method tests a field to make sure it's not null before executing a conditional block of
+			<p>这个方法 tests a field to make sure it's not null before executing a conditional block of
 			code. However, in the conditional block it reassigns the field. It is likely that the guard
 			should have been a check to see if the field is null, not that the field was not null.</p>
 			<p>example:
@@ -4456,7 +4452,7 @@ if (name != null) {
 		<LongDescription>方法 {1} tests a local variable for not null as guard and reassigns it</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method tests a local variable to make sure it's not null before executing a conditional block of
+			<p>这个方法 tests a local variable to make sure it's not null before executing a conditional block of
 			code. However, in the conditional block it reassigns the local variable. It is likely that the guard
 			should have been a check to see if the local variable is null, not that the local variable was not null.</p>
 			<p>example:
@@ -4499,7 +4495,7 @@ if (name != null) {
 		<LongDescription>方法 {1} calls BigDecimal.equals(), which is normally a mistake</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method calls <code>equals()</code> to compare two <code>java.math.BigDecimal</code> numbers.
+			<p>这个方法 calls <code>equals()</code> to compare two <code>java.math.BigDecimal</code> numbers.
 			This is normally a mistake, as two <code>BigDecimal</code> objects are only equal if they are
 			equal in both value and scale, so that <i>2.0</i> is not equal to <i>2.00</i>.
 			To compare <code>BigDecimal</code> objects for mathematical equality, use <code>compareTo()</code> instead.</p>
@@ -4665,7 +4661,7 @@ if (name != null) {
 		<LongDescription>方法 {1} uses reflection to call a method available on java.lang.Object</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses reflection to call a method that is defined in java.lang.Object.
+			<p>这个方法 uses reflection to call a method that is defined in java.lang.Object.
 			As these methods are always available, it is not necessary to call these methods with
 			reflection.</p>
 			]]>
@@ -4677,7 +4673,7 @@ if (name != null) {
 		<LongDescription>方法 {1} puts non-String values into a Properties object</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method places non-String objects into a Properties object. As the Properties object
+			<p>这个方法 places non-String objects into a Properties object. As the Properties object
 			is intended to be a String to String map, putting non String objects is wrong, and takes advantage
 			of a design flaw in the Properties class by deriving from Hashtable instead of using aggregation.
 			If you want a collection that holds other types of objects, use a Hashtable, or better still newer collections
@@ -4697,7 +4693,7 @@ if (name != null) {
 		<LongDescription>方法 {1} uses Properties.put instead of Properties.setProperty</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method uses the inherited method from Hashtable put(String key, Object value) in
+			<p>这个方法 uses the inherited method from Hashtable put(String key, Object value) in
 			a Properties object. Since the Properties object was intended to be only a String to String
 			map, use of the derived put method is discouraged. Use the Properties.setProperty method instead.</p>
 			<p>
@@ -4715,7 +4711,7 @@ if (name != null) {
 		<LongDescription>方法 {1} allocates an object that is used in a constant way in a loop</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method allocates an object using the default constructor in a loop, and then
+			<p>这个方法 allocates an object using the default constructor in a loop, and then
 			only uses it in a quasi-static way. It is never assigned to anything that lives outside
 			the loop, and could potentially be allocated once outside the loop. Often this can be
 			achieved by calling a clear() like method in the loop, to reset the state of the object
@@ -4729,7 +4725,7 @@ if (name != null) {
 		<LongDescription>方法 {1} creates and initializes a collection but never reads or gains information from it</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method creates and initializes a collection but then never accesses this collection
+			<p>这个方法 creates and initializes a collection but then never accesses this collection
 			to gain information or fetch items from the collection. It is likely that this collection
 			is left over from a past effort, and can be removed.</p>
 			]]>
@@ -4753,7 +4749,7 @@ if (name != null) {
 		<LongDescription>方法 {1} defines parameter list with array as last argument, rather than vararg</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method defines a parameter list that ends with an array. As this class is compiled with
+			<p>这个方法 defines a parameter list that ends with an array. As this class is compiled with
 			Java 1.5 or better, this parameter could be defined as a vararg parameter instead, which can be
 			more convenient for client developers to use. This is not a bug, per se, just an improvement.</p>
 			]]>
@@ -4765,7 +4761,7 @@ if (name != null) {
 		<LongDescription>方法 {1} serializes an instance of a non-static inner class</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method serializes an instance of a non-static inner class. Since this class has a
+			<p>这个方法 serializes an instance of a non-static inner class. Since this class has a
 			reference to the containing class, this outer class will be serialized as well. This is often
 			not intentional, and will make the amount of data that is serialized much more than is needed.
 			If the outer class is not desired to be serialized, either make the inner class static, or
@@ -4779,7 +4775,7 @@ if (name != null) {
 		<LongDescription>方法 {1} uses a Side Effect Constructor</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method creates an object but does not assign this object to any variable or field.
+			<p>这个方法 creates an object but does not assign this object to any variable or field.
 			This implies that the class operates through side effects in the constructor, which is a
 			bad pattern to use, as it adds unnecessary coupling. Consider pulling the side effect out of
 			the constructor, into a separate method, or into the calling method.</p>
@@ -4792,7 +4788,7 @@ if (name != null) {
 		<LongDescription>方法 {1} uses same bean's getter value for setter</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method retrieves the property of a Java bean, only to use it in the setter
+			<p>这个方法 retrieves the property of a Java bean, only to use it in the setter
 			for the same property of the same bean. This is usually a copy/paste typo.</p>
 			]]>
 		</Details>
@@ -4803,7 +4799,7 @@ if (name != null) {
 		<LongDescription>方法 {1} allocations a java.awt.Graphics object without disposing it</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method allocates a java.awt.Graphics object but doesn't dispose of it when done. While
+			<p>这个方法 allocates a java.awt.Graphics object but doesn't dispose of it when done. While
 			the garbage collector will clean this up, given that a large number of Graphics objects can be
 			created in a short period of time, it is recommended that you explicitly dispose() of them.</p>
 			]]>
@@ -4815,7 +4811,7 @@ if (name != null) {
 		<LongDescription>方法 {1} stacks similar try/catch blocks</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method declares two try-catch blocks one after another, where each
+			<p>这个方法 declares two try-catch blocks one after another, where each
 			catch block catches the same type of exception. They also throw uniformly the
 			same type of exception. These two catch blocks can be combined into one to
 			simplify the method.</p>
@@ -4828,7 +4824,7 @@ if (name != null) {
 		<LongDescription>方法 {1} returns the result of invoking equals() in EqualsBuilder</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method returns the result of <code>equals</code> on the EqualsBuilder type
+			<p>这个方法 returns the result of <code>equals</code> on the EqualsBuilder type
 			instead of calling the method isEqual().</p>
 			]]>
 		</Details>
@@ -4839,7 +4835,7 @@ if (name != null) {
 		<LongDescription>方法 {1} returns the result of invoking hashCode() in HashCodeBuilder</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method returns the result of <code>hashCode</code> on the HashCodeBuilder type
+			<p>这个方法 returns the result of <code>hashCode</code> on the HashCodeBuilder type
 			instead of calling the method toHashCode().</p>
 			]]>
 		</Details>
@@ -4850,7 +4846,7 @@ if (name != null) {
 		<LongDescription>方法 {1} returns the result of invoking toString() without intermediate invocation of append() in ToStringBuilder</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method returns the result of <code>toString</code> on a ToStringBuilder without an
+			<p>这个方法 returns the result of <code>toString</code> on a ToStringBuilder without an
 			intermediate invocation of append().</p>
 			]]>
 		</Details>
@@ -4925,7 +4921,7 @@ if (name != null) {
 		<LongDescription>方法 {1} calls Array.asList on an array of primitive values</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes an array of primitive values to the Arrays.asList call. As primitive
+			<p>这个方法 passes an array of primitive values to the Arrays.asList call. As primitive
 			values in arrays aren't automatically promoted to boxed primitives in arrays, the asList call
 			cannot convert this array to a list of boxed primitives. It therefore just creates an array
 			with one item in it, the array itself. This is rarely what is desired.</p>
@@ -4938,7 +4934,7 @@ if (name != null) {
 		<LongDescription>方法 {1} does not presize the allocation of a collection</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method allocates a collection using the default constructor even though it is known
+			<p>这个方法 allocates a collection using the default constructor even though it is known
 			a priori (or at least can be reasonably guessed) how many items are going to be placed in the collection,
 			and thus needlessly causes intermediate reallocations of the collection.</p>
 			<p>You can use the constructor that takes an initial size and that will be much better, but
@@ -4960,7 +4956,7 @@ if (name != null) {
 		<LongDescription>方法 {1} uses suboptimal sizing to allocate a collection</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method allocates a collection using the a constructor that takes a size parameter. However,
+			<p>这个方法 allocates a collection using the a constructor that takes a size parameter. However,
 			because Maps and Sets have a loading factor, passing in the exact size you want is an
 			incorrect way to presize the collection, and may still cause reallocations. Since you are using
 			Guava, it is better to use
@@ -4985,7 +4981,7 @@ if (name != null) {
 		<LongDescription>方法 {1} declares unbound method template parameter(s)</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method declares a method level template parameter that is not bound by any parameter of this
+			<p>这个方法 declares a method level template parameter that is not bound by any parameter of this
 			method. Therefore the template parameter adds no validation or type safety and can be removed, as it's
 			just confusing to the reader.</p>
 			]]>
@@ -4997,7 +4993,7 @@ if (name != null) {
 		<LongDescription>方法 {1} ignores return value of a non mutating method</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method ignores the return value of a common method that is assumed to be non-mutating.
+			<p>这个方法 ignores the return value of a common method that is assumed to be non-mutating.
 			If this method does in fact not modify the object it is called on, there is no reason to call
 			this method, and it can be removed.</p>
 			]]>
@@ -5009,7 +5005,7 @@ if (name != null) {
 		<LongDescription>方法 {1} attempts to access an array element outside the array's size</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method accesses an array element using a literal index that is known to be outside the size
+			<p>这个方法 accesses an array element using a literal index that is known to be outside the size
 			of the specified array. This will cause an ArrayIndexOutOfBoundsException at runtime.</p>
 			]]>
 		</Details>
@@ -5020,7 +5016,7 @@ if (name != null) {
 		<LongDescription>方法 {1} attempts to store an array element to an array that does not appear to be allocated</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method attempts to store an array element into an array that appears not to have been allocated.</p>
+			<p>这个方法 attempts to store an array element into an array that appears not to have been allocated.</p>
 			]]>
 		</Details>
 	</BugPattern>
@@ -5030,7 +5026,7 @@ if (name != null) {
 		<LongDescription>方法 {1} passes an invalid value as a method argument</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method passes an invalid constant value to a method parameter that expects only a select number of possible values.
+			<p>这个方法 passes an invalid constant value to a method parameter that expects only a select number of possible values.
 			This is likely going to cause this method to fail to operate correctly.</p>
 			]]>
 		</Details>
@@ -5066,7 +5062,7 @@ if (name != null) {
 	   <LongDescription>私有方法或静态方法 {1} has unused parameters</LongDescription>
 	   <Details>
 	       <![CDATA[
-	       <p>This method defines parameters that are never used. As this method is either static or private,
+	       <p>这个方法 defines parameters that are never used. As this method is either static or private,
 	       and can't be derived from, it is safe to remove these parameters and simplify your method.
 	       You should consider, while unlikely, that this method may be used reflectively, and thus you will
 	       want to change that call as well. In this case, it is likely that once you remove the parameter,
@@ -5095,7 +5091,7 @@ if (name != null) {
         <LongDescription>方法 {1} attempts to modify collection that appears to possibly be immutable</LongDescription>
         <Details>
             <![CDATA[
-            <p>This method attempts to modify a collection that it got from a source that could potentially have created an
+            <p>这个方法 attempts to modify a collection that it got from a source that could potentially have created an
             immutable collection, through Arrays.asList, Collections.unmodifiableXXX, or one of Guava's methods.
             Doing so will cause an exception, as these collections are not mutable.</p>
             ]]>
@@ -5281,7 +5277,7 @@ public String requestInfo(URI u) {
     	<LongDescription>方法 {1} is too long to be compiled by the JIT</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method is longer than 8000 bytes. By default the JIT will not attempt to compile this method no matter
+    		<p>这个方法 is longer than 8000 bytes. By default the JIT will not attempt to compile this method no matter
     		how hot it is, and so this method will always be interpreted. If performance is important, you should consider
     		breaking this method up into smaller chunks. (And it's probably a good idea for readability too!)</p>
     		]]>
@@ -5293,7 +5289,7 @@ public String requestInfo(URI u) {
     	<LongDescription>方法 {1} performs arithmetic operations on time values with different units</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method takes two values that appear to be representing time, and performs arithmetic operations on these
+    		<p>这个方法 takes two values that appear to be representing time, and performs arithmetic operations on these
     		two values directly, even though it appears that the two values are representing different time units, such as
     		adding a millisecond value to a nanosecond value. You should convert the two values to the same time unit before
     		performing this calculation in order for it to be meaningful.</p>
@@ -5306,7 +5302,7 @@ public String requestInfo(URI u) {
     	<LongDescription>方法 "{3}" needlessly uses a String literal to define an encoding.  A built-in Charset could be used instead like: {4}</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method uses a string literal to specify a <code>Charset</code> encoding. However, the method invoked has an
+    		<p>这个方法 uses a string literal to specify a <code>Charset</code> encoding. However, the method invoked has an
     		alternative signature that takes a <code>Charset</code> object. You should use this signature, as this class is compiled
     		with JDK 7 (or better), and the <code>Charset</code> in question is available as a constant from the
     		<code>java.nio.charset.StandardCharsets</code> class.</p>
@@ -5321,7 +5317,7 @@ public String requestInfo(URI u) {
     	<LongDescription>方法 {3} should use a StandardCharsets.XXX.name() to specify an encoding</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method uses a hand-typed <code>String</code> literal to specify a <code>Charset</code> encoding. As this class is compiled
+    		<p>这个方法 uses a hand-typed <code>String</code> literal to specify a <code>Charset</code> encoding. As this class is compiled
     		with JDK 7 (or better), and the charset in question is available as a constant from the
     		<code>java.nio.charset.StandardCharsets</code> class, it is better to use the .name() method of the appropriate
     		<code>StandardCharsets</code> constant.</p>
@@ -5338,7 +5334,7 @@ public String requestInfo(URI u) {
     	<LongDescription>方法 {3} uses an unknown character encoding literal "{4}"</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method specifies a <code>Charset</code> encoding with a String literal that is not recognized by the current
+    		<p>这个方法 specifies a <code>Charset</code> encoding with a String literal that is not recognized by the current
     		JDK. It's possible that this application will only be deployed on a JVM that does recognize this encoding, but
     		it seems dubious that this is the case.</p>
     		<p>
@@ -5353,7 +5349,7 @@ public String requestInfo(URI u) {
     	<LongDescription>方法 {1} uses an excessively complex conditional that can be replaced with Set.contains</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method uses an overly complex <code>if</code> expression made up of multiple conditions joined by OR, where the same
+    		<p>这个方法 uses an overly complex <code>if</code> expression made up of multiple conditions joined by OR, where the same
     		local variable is compared to a static value. When the number of conditions grows, it is much cleaner
     		to build a static set of the possible values, and use the contains method on that set. This will
     		shorten the code, and make it more self documenting.</p>
@@ -5366,7 +5362,7 @@ public String requestInfo(URI u) {
     	<LongDescription>方法 {1} is declared more permissively than is used in the code base</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method is declared more permissively than the code is using. Having this method be more
+    		<p>这个方法 is declared more permissively than the code is using. Having this method be more
 			permissive than is needed limits your ability to make observations about this method, like
     		parameter usage, refactorability, and derivability. It is possible that this detector will report
     		erroneously if:
@@ -5385,7 +5381,7 @@ public String requestInfo(URI u) {
         <LongDescription>方法 {0} stores the value of a toString() call into a field</LongDescription>
         <Details>
             <![CDATA[
-            <p>This method calls the toString() method on an object and stores the value in a field. Doing this
+            <p>这个方法 calls the toString() method on an object and stores the value in a field. Doing this
             throws away the type safety of having the object defined by a Class. Using String makes it very easy to
             use the wrong type of value, and the compiler will not catch these mistakes. You should delay converting
             values to Strings for as long as possible, and thus not store them as fields.
@@ -5399,7 +5395,7 @@ public String requestInfo(URI u) {
         <LongDescription>方法 {1} parses a String that is a field</LongDescription>
         <Details>
             <![CDATA[
-            <p>This method calls a parsing method (indexOf, lastIndexOf, startsWith, endsWith, substring, indexOf) on a String
+            <p>这个方法 calls a parsing method (indexOf, lastIndexOf, startsWith, endsWith, substring, indexOf) on a String
             that is a field, or comes from a collection that is a field. This implies that the String in question is holding
             multiple parts of information inside the string, which would be more maintainable and type safe if that value was a
             true collection or a first class object with fields, rather than a String.
@@ -5413,7 +5409,7 @@ public String requestInfo(URI u) {
     	<LongDescription>方法 {1} uses a concatenated String as a map key</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method builds a key for a map, using a StringBuilder, either implicitly or explicitly. This means the type
+    		<p>这个方法 builds a key for a map, using a StringBuilder, either implicitly or explicitly. This means the type
     		of the key is something more than a String constant, it is a properly formatted String. However, there is no
     		type based verification that all uses of this key will follow this formatting. It is much better to use a proper, simple,
     		bean class that holds two (or more) fields so that it is clear what is expected for key use.
@@ -5443,7 +5439,7 @@ public String requestInfo(URI u) {
     	<LongDescription>方法 {1} continues a loop after finding an equality condition</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method continues with a loop, and does not break out of it, after finding and setting a variable in an
+    		<p>这个方法 continues with a loop, and does not break out of it, after finding and setting a variable in an
     		<code>if</code> condition based on equality. Since continuing on in the loop would seem to be unlikely to find the item again,
     		breaking at this point would seem to be the proper action.</p>
     		<p>Example:
@@ -5465,7 +5461,7 @@ for (Person p : people) {
     	<LongDescription>方法 {1} accesses URL resources using the File API</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method fetches a resource from a URL, and uses the File API to manipulate it. If this resource is a
+    		<p>这个方法 fetches a resource from a URL, and uses the File API to manipulate it. If this resource is a
     		classpath resource, it will work if the resource is a file in a directory. If, however, the file is inside a JAR file
     		this will fail. To avoid this confusing inconsistency, use the URL.openStream API instead to access the data of the classpath resource.
     		</p>
@@ -5534,7 +5530,7 @@ for (Person p : people) {
     	<LongDescription>方法 {1} uses IDE generated parameter names</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method appears to have been generated from an interface or superclass using an IDE.
+    		<p>这个方法 appears to have been generated from an interface or superclass using an IDE.
     		As such the IDE generated generic names (arg0, arg1, arg2) for parameters for this method,
     		and the author of this method did not change them to be meaningful. For better understandability
     		it is recommended that you name these parameters with regard to their function.</p>
@@ -5547,7 +5543,7 @@ for (Person p : people) {
     	<LongDescription>方法 {1} prints the stack trace to the console</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method prints a stack trace to the console. This is non configurable, and causes an
+    		<p>这个方法 prints a stack trace to the console. This is non configurable, and causes an
     		application to look unprofessional. Switch to using loggers so that users can control what
     		is logged and where.</p>
     		]]>
@@ -5676,7 +5672,7 @@ for (Person p : people) {
     	<LongDescription>方法 {1} has a Spring @Transactional annotation on it, but is non-public</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method specifies a Spring @Transactional annotation but the method is defined as being non-public.
+    		<p>这个方法 specifies a Spring @Transactional annotation but the method is defined as being non-public.
     		Spring only creates transactional boundaries on methods that are public, and so this annotation is not doing
     		anything for this method. Make the method public, or place the annotation on a more appropriate method.</p>
     		]]>
@@ -5702,7 +5698,7 @@ for (Person p : people) {
     	<LongDescription>方法 {1} annotated with @Transactional is called from a non Spring proxy</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method call is to a method that has a @Transactional annotation on it. However, since this call is from the
+    		<p>这个方法 call is to a method that has a @Transactional annotation on it. However, since this call is from the
     		same class, it is not going through any Spring proxy, and thus the transactional quality of this method is completely
     		lost. @Transactional methods must always be called through a Spring bean that is autowired.</p>
     		]]>
@@ -5728,7 +5724,7 @@ for (Person p : people) {
     	<LongDescription>方法 {1} ignores the return value of EntityManager.merge</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method calls EntityManager.merge, and throws away the resultant value. This result is the
+    		<p>这个方法 calls EntityManager.merge, and throws away the resultant value. This result is the
     		managed entity version of the potentially unmanaged object that was passed to merge. You should use
     		the returned managed entity for any further use.</p>
     		]]>
@@ -5740,7 +5736,7 @@ for (Person p : people) {
     	<LongDescription>方法 {1} does not specify how to handle transaction when exception is thrown</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method declares that it throws one or more non-runtime exceptions. It also is annotated with a
+    		<p>这个方法 declares that it throws one or more non-runtime exceptions. It also is annotated with a
     		@Transactional annotation but fails to describe whether to rollback the transaction or not based on this
     		thrown exception. Use 'rollbackFor' or 'noRollbackFor' attributes of the Transactional annotation to
     		document this.</p>
@@ -5753,7 +5749,7 @@ for (Person p : people) {
     	<LongDescription>方法 {1} declares handling a transactional exception that won't be thrown</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method declares that it either rolls back or does not rollback a transaction based on an
+    		<p>这个方法 declares that it either rolls back or does not rollback a transaction based on an
     		expected exception being thrown. However, neither this exception, nor any derived exceptions can be thrown
     		from this method, and so the annotation is useless.</p>
     		]]>
@@ -5765,7 +5761,7 @@ for (Person p : people) {
     	<LongDescription>方法 {1} orders expressions in a conditional in a sub optimal way</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This method builds a conditional expression, for example, in an <code>if</code> or <code>while</code> statement,
+			<p>这个方法 builds a conditional expression, for example, in an <code>if</code> or <code>while</code> statement,
 			where the expressions contain both simple local variable comparisons and comparisons on method calls.
 			The expression orders these so that the method calls come before the simple local variable comparisons.
 			This causes method calls to be executed in conditions when they do not need to be, and thus potentially causes a lot of code
@@ -5791,7 +5787,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} passes a Buffered Stream/Reader/Writer to a already buffering copy method</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method copies data from input to output using streams or reader/writers using a well known copy method, from java.nio, commons-io,
+    		<p>这个方法 copies data from input to output using streams or reader/writers using a well known copy method, from java.nio, commons-io,
     		springframework, guava or poi. These methods are efficient in that they copy these files using buffers. However, this method is also
     		buffering the streams, causing a double buffering to occur. So data first goes to one buffer, then is copied to another buffer, before
     		making it to the destination (or vice-versa). This just causes the copy operation to be inefficient both from a time perspective and
@@ -5805,7 +5801,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} performs bulk stream copy with a java.io.Reader derived input</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method copies data from a java.io.Reader derived class to an output class, using a bulk copy method
+    		<p>这个方法 copies data from a java.io.Reader derived class to an output class, using a bulk copy method
     		supplied by java.nio, commons-io, springframework, guava or poi. Since you are copying the entire stream, you
     		don't care about its contents, and thus using a Reader is wasteful, as a reader has to do the hard work of
     		converting byte data to characters, when there is no need to do this. Use stream based inputs for better performance.</p>
@@ -5818,7 +5814,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} uses a FileInputStream or FileOutputStream constructor</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method creates and uses a java.io.FileInputStream or java.io.FileOutputStream object. Unfortunately both
+    		<p>这个方法 creates and uses a java.io.FileInputStream or java.io.FileOutputStream object. Unfortunately both
     		of these classes implement a finalize method, which means that objects created will likely hang around until a
     		full garbage collection occurs, which will leave excessive garbage on the heap for longer, and potentially much
     		longer than expected. Java 7 introduced two ways to create streams for reading and writing files that do not have this concern.
@@ -5837,7 +5833,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} creates a ZLIB Inflater or Deflater and doesn't appear to end() it</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method constructs a java.util.zip.Inflater or java.util.zip.Deflater and does not appear to call end() on
+    		<p>这个方法 constructs a java.util.zip.Inflater or java.util.zip.Deflater and does not appear to call end() on
     		it. This will cause a potentially large amount of memory to hang around inside the object until the object gets 
     		garbage collected. To avoid this unnecessary bloat, put a call to end() in a finally block of the code where you
     		are using this instance.
@@ -5851,7 +5847,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>类 {0} holds a map-type field {1}, but uses it as only a List</LongDescription>
     	<Details>
 			<![CDATA[
-			<p>This method instantiates a map-type field in a static initializer or constructor, but then only uses it
+			<p>这个方法 instantiates a map-type field in a static initializer or constructor, but then only uses it
 			through iteration. This means that this data structure should really just be a List&lt;SomeObject&gt;,
 			where the class held by the list contains the two fields held by the key and value of the Map.
 			It was likely done this way to avoid having to create a class, but this just obfuscates the purpose of the field.
@@ -5890,7 +5886,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} allocates an object with new when the class is defined as an autowireable bean</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method allocates an object with new, but the class of the object that is being created is marked with a Spring annotation
+    		<p>这个方法 allocates an object with new, but the class of the object that is being created is marked with a Spring annotation
     		denoting that this class is to be used through an @Autowire annotation. Allocating it with <code>new</code> will likely mean that fields on the
     		class will not be autowired, but instead be null. You should just autowire an instance of this class into the class in question, or if
     		need be, use Spring's getBean(name) method to fetch one.</p>
@@ -5916,7 +5912,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} gets and sets a value of a ConcurrentHashMap in a racy manner </LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method retrieves the value of a key from a ConcurrentHashMap, where the value is itself a collection. It checks this
+    		<p>这个方法 retrieves the value of a key from a ConcurrentHashMap, where the value is itself a collection. It checks this
     		value for null, and if it is so, creates a new collection and places it in the map. This may cause thread race conditions
     		where two threads overwrite each other's values. You should be using
     		<code>
@@ -5932,7 +5928,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} manually handles closing an auto-closeable resource</LongDescription>
     	<Details>
     		<![CDATA[[
-    		<p>This method allocates and uses an auto closeable resource. However, it manually closes the resource in a finally block.
+    		<p>这个方法 allocates and uses an auto closeable resource. However, it manually closes the resource in a finally block.
     		While this is correct management, it doesn't rely on the idiomatic way available to JDK 7 and above, allows for possible
     		subtle problems, and complicates the reading of code by developers expecting the use of try-with-resources.
     		</p>
@@ -5951,7 +5947,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} calls a method from a class that has been shaded by a 3rdparty jar</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method calls a method found in a 3rd-party library, which appears to be shaded from another 3rd-party library.
+    		<p>这个方法 calls a method found in a 3rd-party library, which appears to be shaded from another 3rd-party library.
     		This occurs when a jar includes other code that uses tools like the maven shade plugin. It is likely you wanted to use the
     		"first-class" class from the original jar, rather than the class with the shaded package structure, but your IDE pulled in
     		the wrong import.</p>
@@ -5973,7 +5969,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} of Singleton class writes to a field in an unsynchronized manner</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method writes to a field of this class. Since this class is seen as a Singleton this can produce race
+    		<p>这个方法 writes to a field of this class. Since this class is seen as a Singleton this can produce race
     		conditions, or cause non-visible changes to other threads, because the field isn't accessed synchronously.
     		]]>
     	</Details>
@@ -5984,7 +5980,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} uses immediate execution of a block of code that is often not used</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method uses the Optional.orElse() method passing in some code that will execute immediately, whether
+    		<p>这个方法 uses the Optional.orElse() method passing in some code that will execute immediately, whether
     		or not the else case of the Optional is needed. This may cause incorrect side effects to happen, or at the
     		minimum, code to execute for no reason. It would be better to use Optional.orElseGet()
     		]]>
@@ -5996,7 +5992,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} uses immediate execution of a block of code that is trivial</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method uses the Optional.orElseGet() method passing in a simple variable or constant value.
+    		<p>这个方法 uses the Optional.orElseGet() method passing in a simple variable or constant value.
     		As this value takes no time to execute and causes no side effects, the use of Optional.orElseGet is
     		unnecessary and potentially confusing. You can use Optional.orElse() instead.
     		]]>
@@ -6008,7 +6004,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} checks an Optional reference for null</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method compares an Optional reference variable against null. As the whole point of the
+    		<p>这个方法 compares an Optional reference variable against null. As the whole point of the
     		Optional class is to avoid the null pointer exception, this use pattern is highly suspect.
     		The code should always make sure the Optional reference is valid, and should count on the APIs
     		of this class to check for the held reference instead.
@@ -6021,7 +6017,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} uses a java.util.Optional when use of OptionalInt, OptionalLong, OptionalDouble would be more clear</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method creates an Optional object to hold an int, double or long. In these cases it
+    		<p>这个方法 creates an Optional object to hold an int, double or long. In these cases it
     		is more natural to use the Optional variants OptionalInt, OptionalDouble and OptionalLong.
     		</p>
     		]]>
@@ -6033,7 +6029,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} uses Optional.orElseGet(null)</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method uses Optional.orElseGet(null). This method is supposed to to receive a lambda expression for what to execute
+    		<p>这个方法 uses Optional.orElseGet(null). This method is supposed to to receive a lambda expression for what to execute
     		when the Optional is not there. If you want to just return null, use Optional.orElse(null) instead.
     		</p>
     		]]>
@@ -6045,7 +6041,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} constructs a Date object, merely to convert it to an Instant object</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method creates a java.time.Instant object by first creating a java.util.Date object, and then calling
+    		<p>这个方法 creates a java.time.Instant object by first creating a java.util.Date object, and then calling
     		toInstant() on it. It is simpler to just construct the Instant object directly, say by using
     		{@code Instant.now()} to get the current time, of by using {@code Instant.parse(CharSequence)} to convert a String.
     		</p>
@@ -6058,7 +6054,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} constructs a File object, merely to convert it to a Path object</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method creates a java.nio.file.Path object by first creating a java.io.File object, and then calling
+    		<p>这个方法 creates a java.nio.file.Path object by first creating a java.io.File object, and then calling
     		toPath() on it. It is simpler to just construct the Path object directly, say by using
     		{@code Paths.get(String...)}.
     		</p>
@@ -6071,7 +6067,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} uses AccessibleObject.setAccessible to modify accessibility of classes</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method uses the reflective setAccessible method to alter the behavior of methods and fields in classes
+    		<p>这个方法 uses the reflective setAccessible method to alter the behavior of methods and fields in classes
     		in ways that were not expected to be accessed by the author. Doing so circumvents the protections that the author
     		provided through the class definition, and may expose your application to unexpected side effects and problems. This
     		functionality is deprecated in Java 9, and in Java 10 it is expected that this functionality won't work at all.
@@ -6084,7 +6080,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} that can return null, is missing a @Nullable annotation</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method can return null, but is not annotated with an @Nullable annotation. Without this annotation,
+    		<p>这个方法 can return null, but is not annotated with an @Nullable annotation. Without this annotation,
     		various IDEs, and static analysis tools may not be able to fully discover possible NullPointerExceptions in
     		your code. By adding these annotations, you will discover problems around null-ness, more easily.</p>
     		<p>Unfortunately there isn't just one @Nullable annotation, but this detector will recognize:</p>
@@ -6108,7 +6104,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} calls size() on a sub collection of a Map</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method calls <code>size</code> on the keySet(), entrySet() or values() collections of a Map. These sub collections
+    		<p>这个方法 calls <code>size</code> on the keySet(), entrySet() or values() collections of a Map. These sub collections
     		will have the same size as the base Map and so it is just simpler to call size on that Map. Calling size() on
     		one of these sub collections will causes unnecessary allocations to occur.
     		</p>
@@ -6121,7 +6117,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} checks a map with containsKey(), before using get()</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method checks for the presence of a key in a map using containsKey(), before attempting to fetch the value of the key
+    		<p>这个方法 checks for the presence of a key in a map using containsKey(), before attempting to fetch the value of the key
     	    using get(). This equates to doing two map lookups in a row. It is much simpler to just fetch the value with get, and checking
     	    for non null instead.</p>
     	    <p>As an example, instead of using
@@ -6180,7 +6176,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} gets an item from a map with get(), before using remove()</LongDescription>
     	<Details>
     		<![CDATA[
-    		<p>This method fetches the value of an entry in a map using get(K k), and then follows it up with a remove(K k).
+    		<p>这个方法 fetches the value of an entry in a map using get(K k), and then follows it up with a remove(K k).
     		Since a remove() also returns the value, there is no point for doing the get, and just causes two map lookups
     		to occur when it can be done with just one.</p>
     	    <p>As an example, instead of using
@@ -6208,7 +6204,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} builds a list from one element using Arrays.asList rather than Collections.singletonList</LongDescription>
     	<Details>
     	<![CDATA[
-    	<p>This method builds a list using Arrays.asList(foo), passing in a single element. Arrays.asList needs to first create an array from this one
+    	<p>这个方法 builds a list using Arrays.asList(foo), passing in a single element. Arrays.asList needs to first create an array from this one
     	element, and then build a List that wraps this array. It is simpler to use Collections.singletonList(foo), which does not create the array, and
     	produces a far simpler instance of List. Since both of these arrays are immutable (from the List's point of view) they are equivalent from a usage
     	standpoint.
@@ -6225,7 +6221,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} uses collection streaming to get first item in a List</LongDescription>
     	<Details>
     	<![CDATA[
-    	<p>This method fetches the first item in a List using collection streaming. As a list is already ordered
+    	<p>这个方法 fetches the first item in a List using collection streaming. As a list is already ordered
     	there is no need to do that, just use the regular get(0) interface.<br/>
     	Example:
     	<code><pre>
@@ -6245,7 +6241,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} passes a temporary one item list to Collection.addAll()</LongDescription>
     	<Details>
     	<![CDATA[
-    	<p>This method creates a temporary list using Collections.singletonList, or Arrays.asList with one
+    	<p>这个方法 creates a temporary list using Collections.singletonList, or Arrays.asList with one
     	element in it, and then turns around and calls the addAll() method on another collection. Since you
     	are only adding one element to the collection, it is simpler to just call the add(object) method on
     	the collection you are using and by pass creating the intermediate List.</p>
@@ -6258,7 +6254,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
         <LongDescription>方法 {1} calls contains() on a collected lambda expresssion</LongDescription>
         <Details>
         <![CDATA[
-        <p>This method builds a collection using lambda expressions with a collect terminal operation. It then immediately
+        <p>这个方法 builds a collection using lambda expressions with a collect terminal operation. It then immediately
         calls the contains() method on it, to see if an item is present. This is sub optimal as the lambda still needs to 
         build the entire collection, iterating the entire source list. It is better to use anyMatch() to short
         circuit the building of the collection.
@@ -6282,7 +6278,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     	<LongDescription>方法 {1} creates an anonymous lamda expression instead of specifying a method reference</LongDescription>
     	<Details>
     	<![CDATA[
-    	<p>This method defines an anonymous lambda function to be called to fetch a single value from the passed in value. While
+    	<p>这个方法 defines an anonymous lambda function to be called to fetch a single value from the passed in value. While
     	this will work, it is needlessly complex as this function merely calls a single getter method on the object, and thus
     	the code can be simplied by just passing in a method reference instead.</p>
     	<p>
@@ -6304,7 +6300,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
         <LongDescription>方法 {1} suboptimally finds any match in a stream</LongDescription>
         <Details>
         <![CDATA[
-        <p>This method looks for one item in a stream using filter().findFirst.isPresent() when .anyMatch() will do the same thing more succintly</p>
+        <p>这个方法 looks for one item in a stream using filter().findFirst.isPresent() when .anyMatch() will do the same thing more succintly</p>
         ]]></Details>
     </BugPattern>
     
@@ -6313,7 +6309,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
         <LongDescription>方法 {1} collects a List from a stream() just to get the first element</LongDescription>
         <Details>
         <![CDATA[
-        <p>This method streams data into a List just to call get(0) to get the first item. You can just use findFirst() to short circuit the
+        <p>这个方法 streams data into a List just to call get(0) to get the first item. You can just use findFirst() to short circuit the
         processing of the stream.</p>
         <p>
         Instead of
@@ -6334,7 +6330,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
         <LongDescription>方法 {1} implements a stream using back to back filters</LongDescription>
         <Details>
         <![CDATA[
-        <p>This method streams data using more than one filter back to back. These can just be combined into one filter</p>
+        <p>这个方法 streams data using more than one filter back to back. These can just be combined into one filter</p>
         ]]>
         </Details>
     </BugPattern>
@@ -6344,7 +6340,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
         <LongDescription>方法 {1} declares an identity lambda function rather than using Function.identity()</LongDescription>
         <Details>
         <![CDATA[
-            <p>This method declares a no-op (identity) lambda method rather than just specifying Function.identity()</p>
+            <p>这个方法 declares a no-op (identity) lambda method rather than just specifying Function.identity()</p>
         ]]>
         </Details>
     </BugPattern>
@@ -6354,7 +6350,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
         <LongDescription>方法 {1} calls size() on a collected lambda expresssion</LongDescription>
         <Details>
         <![CDATA[
-        <p>This method builds a collection using lambda expressions with a collect terminal operation. It then immediately
+        <p>这个方法 builds a collection using lambda expressions with a collect terminal operation. It then immediately
         calls the size() method on it, to get a count of items. This is sub optimal as the lambda still needs to 
         build the entire collection, iterating the entire source list. It is better to use count() predicate to short
         circuit the building of the collection. If you were using a Set, then also add the distinct() predicate.
@@ -6382,7 +6378,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
         <LongDescription>方法 {1} checks for an item in a set with contains, before using add()</LongDescription>
         <Details>
             <![CDATA[
-            <p>This method checks to see if an element is not in a set before adding it. This is unnecessary as you can just
+            <p>这个方法 checks to see if an element is not in a set before adding it. This is unnecessary as you can just
             add the item, and if the item exists, it won't add it, otherwise it will.</p>
             <p>As an example, instead of using
             <code>
@@ -6411,7 +6407,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
         <LongDescription>方法 {1} checks for an item in a set with contains, before using remove()</LongDescription>
         <Details>
             <![CDATA[
-            <p>This method checks to see if an element is in a set before removing it. This is unnecessary as you can just
+            <p>这个方法 checks to see if an element is in a set before removing it. This is unnecessary as you can just
             remove the item, and if the item exists, it will return true.</p>
             <p>As an example, instead of using
             <code>
@@ -6440,7 +6436,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
         <LongDescription>方法 {1} invokes a method with parameters that seem incorrect for their intended use</LongDescription>
         <Details>
             <![CDATA[
-            <p>This method calls a method passing arguments that seem incorrect for the intended purpose of the method. Make sure that the argument types are valid</p>
+            <p>这个方法 calls a method passing arguments that seem incorrect for the intended purpose of the method. Make sure that the argument types are valid</p>
             <ul>
             <li><p>For Match.hasEntry it seems unlikely you want to pass a Matcher and non-Matcher at the same time</p></li>
             </ul>
