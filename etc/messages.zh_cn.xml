@@ -2803,36 +2803,33 @@ static {
 		<LongDescription>方法 {1} creates array using constants</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 creates an array initialized by constants. Each time this method is called
-			this array will be recreated. It would be more performant to define the array as a
-			static field of the class instead.</p>
+			<p>这个方法创建常量数组。
+			每次调用此方法时，都会重新创建此数组。
+			最好将数组定义为类的静态字段。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS">
-		<ShortDescription>方法 appears to call the same method on the same object redundantly</ShortDescription>
-		<LongDescription>方法 {1} appears to call the same method on the same object redundantly</LongDescription>
+		<ShortDescription>方法似乎在同一对象上冗余地调用了相同的方法</ShortDescription>
+		<LongDescription>方法 {1} 似乎在同一对象上冗余地调用了相同的方法</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 makes two consecutive calls to the same method, using the same constant
-			parameters, on the same instance, without any intervening changes to the objects. If this
-			method does not make changes to the object, which it appears it doesn't, then making
-			two calls is just a waste. These method calls could be combined by assigning the
-			result into a temporary variable, and using the variable the second time.</p>
+			<p>这个方法在相同实例上使用相同的参数连续两次调用相同的方法，而没有对实例对象进行任何修改。
+			如果此方法未对对象进行更改（看起来没有更改），则进行两次调用将很浪费。
+			通过将结果分配给一个临时变量，然后第二次使用该变量，可以减少这些方法调用。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="UTA_USE_TO_ARRAY">
-		<ShortDescription>方法 manually creates array from collection</ShortDescription>
-		<LongDescription>方法 {1} manually creates array from collection</LongDescription>
+		<ShortDescription>方法从集合手动创建数组</ShortDescription>
+		<LongDescription>方法 {1} 从集合手动创建数组</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 manually loops over a collection, pulling each element out and storing
-			it in an array to build an array from the collection. It is easier and clearer to use
-			the built-in Collection method toArray. Given a collection 'mycollection' of type T, use
-			<code>mycollection.toArray(new T[mycollection.size()]);</code></p>
+			<p>这个方法手动遍历集合，将每个元素拉出并存储在数组中以从集合构建数组。
+			使用内置的Collection方法toArray更加轻松明了。
+			给定类型T的集合"mycollection"，请使用<code>mycollection.toArray(new T[mycollection.size()]);</code></p>
 			]]>
 		</Details>
 	</BugPattern>
