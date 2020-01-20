@@ -1871,7 +1871,7 @@ System.out.println("Problem with the object :" + someObj);
 		<LongDescription>方法 {1} 在同步集合上创建迭代器</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法用 Collections.synchronizedXXXX 创建了一个同步集合，但使用迭代器来访问它。 因为迭代器在定义上是线程不安全的，所以这里有观念上的冲突。当使用迭代器时，你需要自己做同步控制。</p>
+			<p>这个方法用 Collections.synchronizedXXXX 创建了一个同步集合，但使用迭代器来读取它。 因为迭代器在定义上是线程不安全的，所以这里有观念上的冲突。当使用迭代器时，你需要自己做同步控制。</p>
 			]]>
 		</Details>
 	</BugPattern>
@@ -1933,7 +1933,7 @@ private void appendToList(List&lt;String&gt; list) {
 		<LongDescription>方法 {1} 将一个不相关的类型放入集合或数组</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法将一个不相关的类型放入集合或数组，这要求更小心地访问集合里的数据，也导致了程序更脆弱，容易出问题。如果有必要，创建一个单独的类，放入必要的信息，将该类的实例放入集合或数组里。</p>
+			<p>这个方法将一个不相关的类型放入集合或数组，这要求更小心地读取集合里的数据，也导致了程序更脆弱，容易出问题。如果有必要，创建一个单独的类，放入必要的信息，将该类的实例放入集合或数组里。</p>
 			]]>
 		</Details>
 	</BugPattern>
@@ -2384,168 +2384,153 @@ public float average(int[] arr) {
 	</BugPattern>
 
 	<BugPattern type="ABC_ARRAY_BASED_COLLECTIONS">
-		<ShortDescription>方法 uses array as basis of collection</ShortDescription>
-		<LongDescription>方法 {1} uses array as basis of collection</LongDescription>
+		<ShortDescription>方法使用数组作为集合的基础</ShortDescription>
+		<LongDescription>方法 {1} 使用数组作为集合的基础</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 passes an array as the key to a Map, element in a Set, or item in a List when
-			the contains method is used on the List. Since arrays do not and cannot override the <code>equals</code>
-			method, collection inclusion is based on the reference's address, which is probably not desired.
-			In the case that this is a TreeMap or TreeSet, consider passing a Comparator to the map's
-			constructor.</p>
+			<p>这个方法 将数组作为键传递给Map, 作为集合中的元素, 或作为列表中的项目且会用到 contains 方法. 
+			由于数组没有<code>equals</code>方法中，包含里存的实际是引用的地址，这可能是不希望的。
+			如果这是TreeMap或TreeSet，请考虑将Comparator传递到构造方法。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="ODN_ORPHANED_DOM_NODE">
-		<ShortDescription>方法 creates DOM node but doesn't attach it to a document</ShortDescription>
-		<LongDescription>方法 {1} creates DOM node but doesn't attach it to a document</LongDescription>
+		<ShortDescription>方法创建了DOM节点但未将其附加到文档</ShortDescription>
+		<LongDescription>方法 {1} 创建了DOM节点但未将其附加到文档</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 creates a DOM node but does not attach it to a DOM document.</p>
+			<p>这个方法创建了DOM节点但未将其附加到文档。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="AOM_ABSTRACT_OVERRIDDEN_METHOD">
-		<ShortDescription>抽象方法 overrides a concrete implementation</ShortDescription>
-		<LongDescription>抽象方法 {1} overrides a concrete implementation</LongDescription>
+		<ShortDescription>抽象方法覆盖了具体的实现</ShortDescription>
+		<LongDescription>抽象方法 {1} 覆盖了具体的实现</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This abstract method is derived from a concrete method implementation. It is highly
-			suspect that the superclass method's implementation would be cast away.</p>
+			<p>这个抽象方法是从具体的方法实现中派生的。高度怀疑父类方法的实现将被丢弃。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="CBX_CUSTOM_BUILT_XML">
-		<ShortDescription>方法 builds XML strings through ad hoc concatenation</ShortDescription>
-		<LongDescription>方法 {1} builds XML strings through ad hoc concatenation</LongDescription>
+		<ShortDescription>方法通过临时连接构建XML字符串</ShortDescription>
+		<LongDescription>方法 {1} 通过临时连接构建XML字符串</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 generates an XML based string by concatenating together various
-			XML fragments, and variable values. Doing so makes the code difficult to read, modify
-			and validate. It is much cleaner to build XML structures in external files that are
-			read in and transformed into the final product, through modification by Transformer.setParameter.</p>
+			<p>这个方法通过拼接XML片段、变量为字符串来生成XML。
+			这样做会使代码难以阅读、修改并验证。 
+			在外部文件中构建XML结构要干净得多：通过Transformer.setParameter进行修改，读入并转换为最终产品。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="BSB_BLOATED_SYNCHRONIZED_BLOCK">
-		<ShortDescription>方法 overly synchronizes a block of code</ShortDescription>
-		<LongDescription>方法 {1} overly synchronizes a block of code</LongDescription>
+		<ShortDescription>方法同步代码块过大</ShortDescription>
+		<LongDescription>方法 {1} 同步代码块过大</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 implements a synchronized block, but the code found at the beginning
-			of this block only accesses local variables, and not member variables or <code>this</code>.
-			For better performance, move the code that accesses local variables only above the
-			synchronized block, and leave the synchronized block only for field accesses, or access
-			to <code>this</code>.</p>
+			<p>这个方法使用同步，但是在同步块开头只读取局部变量，而不读取成员变量或<code>this</code>。
+			为了获得更好的性能，请将仅读取局部变量的代码移到同步块外，仅将同步块留给读取成员变量或读取<code>this</code>。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="CLI_CONSTANT_LIST_INDEX">
-		<ShortDescription>方法 accesses list or array with constant index</ShortDescription>
-		<LongDescription>方法 {1} accesses list or array with constant index</LongDescription>
+		<ShortDescription>方法使用常量索引读取列表或数组</ShortDescription>
+		<LongDescription>方法 {1} 使用常量索引读取列表或数组</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 accesses an array or list using a constant integer index. Often,
-			this is a typo where a loop variable is intended to be used. If however, specific
-			list indices mean different specific things, then perhaps replacing the list with
-			a first-class object with meaningful accessors would make the code less brittle.</p>
+			<p>这个方法使用常量索引读取数组或列表。一般，这是使用循环变量的笔误。
+			但是，如果特定列表索引表示不同的意义，则可以将列表替换为有意义的类将使代码不那么脆弱。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SCR_SLOPPY_CLASS_REFLECTION">
-		<ShortDescription>方法 accesses statically bound class with Class.forName</ShortDescription>
+		<ShortDescription>方法使用Class.forName访问静态绑定的类</ShortDescription>
 		<LongDescription>方法 {1} accesses statically bound class with Class.forName</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 accesses the class object of a class that is already statically bound
-			in this context, with Class.forName. Using Class.forName makes reflection more fragile
-			in regards to code transformations such as obfuscation, and is unneeded here, since
-			the class in question is already 'linked' to this class.</p>
+			<p>这个方法使用Class.forName读取已经静态绑定入上下文的类的对象。
+			使用Class.forName会使代码转换（例如混淆）的反射更加脆弱，并且在此不需要，因为相关的类已经链接到该类。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="AWCBR_ARRAY_WRAPPED_CALL_BY_REFERENCE">
-		<ShortDescription>方法 uses 1 element array to simulate call by reference</ShortDescription>
-		<LongDescription>方法 {1} uses 1 element array to simulate call by reference</LongDescription>
+		<ShortDescription>方法使用单元素数组模拟按引用调用</ShortDescription>
+		<LongDescription>方法 {1} 使用单元素数组模拟按引用调用</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 uses a one-element array to wrap an object that is to be passed to a method as an argument
-			to simulate call by pointer ala C++. It is better to define a proper return class type that holds all
-			the relevant information retrieved from the called method.</p>
+			<p>这个方法使用单元素数组来包装要作为参数传递给方法的对象，模拟C++的按引用调用。
+			最好定义一个适当的返回类类型来容纳所有从被调用方法中检索到的相关信息。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SG_SLUGGISH_GUI">
-		<ShortDescription>方法 performs time consuming operation in GUI thread</ShortDescription>
-		<LongDescription>方法 {1} performs time consuming operation in GUI thread</LongDescription>
+		<ShortDescription>方法在GUI线程中执行耗时的操作</ShortDescription>
+		<LongDescription>方法 {1} 在GUI线程中执行耗时的操作</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 implements an AWT or Swing listener and performs time
-			consuming operations. Doing these operations in the GUI thread will cause the
-			interface to appear sluggish and non-responsive to the user. Consider
-			using a separate thread to do the time consuming work so that the user
-			has a better experience.</p>
+			<p>这个方法实现了AWT或Swing侦听器，并执行高耗时操作。 
+			在GUI线程中执行这些操作将导致界面显得缓慢且对用户无响应。
+			考虑使用单独的线程来完成耗时的工作，以便用户获得更好的体验。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="NIR_NEEDLESS_INSTANCE_RETRIEVAL">
-		<ShortDescription>方法 retrieves instance to load static member</ShortDescription>
-		<LongDescription>方法 {1} retrieves instance to load static member</LongDescription>
+		<ShortDescription>方法通过实例加载静态成员</ShortDescription>
+		<LongDescription>方法 {1} 通过实例加载静态成员</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 calls a method to load a reference to an object, and then only
-			uses it to load a static member of that instance's class. It is simpler and
-			more performant to just load the static field from the class itself.</p>
+			<p>这个方法调用方法以加载对象，然后仅使用它来加载该实例的静态成员。
+			从类本身加载静态字段会更简单，更高效。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="DDC_DOUBLE_DATE_COMPARISON">
-		<ShortDescription>方法 uses two date comparisons when one would do</ShortDescription>
-		<LongDescription>方法 {1} uses two date comparisons when one would do</LongDescription>
+		<ShortDescription>方法使用两次日期比较来完成一次即可的工作</ShortDescription>
+		<LongDescription>方法 {1} 使用两次日期比较来完成一次即可的工作</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 compares dates with two comparisons, rather than using the reverse comparison.
-			So this pattern</p>
+			<p>这个方法通过两次比较来比较日期，而不是使用反向比较。
+			所以这个模式</p>
 
 <pre><code>
 if ((date1.equals( date2 )) || (date1.after( date2 )))
 </code></pre>
 
-			could become:<br/>
+			可成为：<br/>
 
 <pre><code>
 if (date1.compareTo( date2 ) >= 0)
 </code></pre><br/>
 
-			and<br/>
+			又比如<br/>
 
 <pre><code>
 if ((date1.equals( date2 )) || (date1.before( date2 )))
 </code></pre>
 
-			could become <br/>
+			可成为：<br/>
 
 <pre><code>
 if (date1.compareTo( date2 ) <= 0)
 </code></pre><br/>
 
-			and<br/>
+			又比如<br/>
 
 <pre><code>
 if ((date1.before( date2 )) || (date1.after( date2 )))
 </code></pre>
 
-			could become<br/>
+			可成为：<br/>
 
 <pre><code>
 if (!date1.equals( date2 ))
@@ -2555,45 +2540,40 @@ if (!date1.equals( date2 ))
 	</BugPattern>
 
 	<BugPattern type="SWCO_SUSPICIOUS_WAIT_ON_CONCURRENT_OBJECT">
-		<ShortDescription>方法 calls wait when await was probably intended</ShortDescription>
-		<LongDescription>方法 {1} calls wait when await was probably intended</LongDescription>
+		<ShortDescription>方法应使用await而不是wait</ShortDescription>
+		<LongDescription>方法 {1} 应使用await而不是wait</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 calls wait() on a mutex defined in the java.util.concurrent package.
-			These classes define <code>await</code>, instead of <code>wait</code>, and it is most likely that <code>await</code>
-			was intended.</p>
+			<p>这个方法在java.util.concurrent包中定义的互斥体上调用wait().
+			这些类定义了<code>await</code>，代替<code>wait</code>，并且很可能想调用的就是<code>await</code>。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="JVR_JDBC_VENDOR_RELIANCE">
-		<ShortDescription>方法 uses JDBC vendor specific classes and methods</ShortDescription>
-		<LongDescription>方法 {1} uses JDBC vendor specific classes and methods</LongDescription>
+		<ShortDescription>方法使用特定JDBC供应商的类和方法</ShortDescription>
+		<LongDescription>方法 {1} 使用特定JDBC供应商的类和方法</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 uses JDBC vendor-specific classes and methods to perform database work.
-			This makes the code specific to this vendor, and unable to run on other databases.</p>
+			<p>这个方法使用JDBC供应商特定的类和方法来执行数据库工作。
+			这使得该代码特定于该供应商，并且无法在其他数据库上运行。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="PMB_POSSIBLE_MEMORY_BLOAT">
-		<ShortDescription>Potential memory bloat in static field</ShortDescription>
-		<LongDescription>类 {0} defines static field "{1}" which appears to allow memory bloat</LongDescription>
+		<ShortDescription>静态字段中的潜在内存膨胀</ShortDescription>
+		<LongDescription>类 {0} 定义的字段 "{1}" 存在内存膨胀</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This class defines static fields that are <code>Collection</code>s, <code>StringBuffer</code>s, or <code>StringBuilder</code>s
-			that do not appear to have any way to clear or reduce their size. That is, a collection is defined
-			and has method calls like <br/>
-			{<code>add()</code>, <code>append()</code>, <code>offer()</code>, <code>put()</code>, ...} <br/>
-			with no method calls to removal methods like<br/>
-			{<code>clear()</code>, <code>delete()</code>, <code>pop()</code>, <code>remove()</code>, ...}<br/>
-			This means that the collection in question can only ever increase in size, which is
-			a potential cause of memory bloat.</p>
+			<p>此类定义了<code>Collection</code>，<code>StringBuffer</code>或<code>StringBuilder</code>的静态字段。
+			似乎没有任何办法清除或减小其大小。 
+			也就是说，定义了一个集合，并具有类似的方法调用{<code>add()</code>，<code>append()</code>，<code>offer()</code>，<code>put()</code>，...} <br/>
+			没有方法调用类似<br/>的删除方法{<code>clear()</code>，<code>delete()</code>，<code>pop()</code>，<code>remove()</code>，...} <br/>
+			这意味着相关集合的大小只能增加，即可能导致内存膨胀。</p>
 
 			<p>
-			If this collection is a list, set or otherwise of static things (e.g. a List&lt;String&gt; for month names), consider
-			adding all of the elements in a static initializer, which can only be called once:<br/>
+			如果此集合是List, set 或 其他静态的东西 (例如一个List&lt;String&gt; 存储月份名称), 考虑将所有元素添加到静态初始化器中，该初始化器只能调用一次：<br/>
 <pre><code>
 private static List&lt;String&gt; monthNames = new ArrayList&lt;String&gt;();
 static {
@@ -2610,45 +2590,41 @@ static {
 	</BugPattern>
 	
 	<BugPattern type="PMB_INSTANCE_BASED_THREAD_LOCAL">
-	   <ShortDescription>字段 is an instance based ThreadLocal variable</ShortDescription>
-	   <LongDescription>字段 {1} is an instance based ThreadLocal variable</LongDescription>
-	   <Details>
-	       <![CDATA[
-	       <p>This ThreadLocal field is defined as being instance based (not static). As all
-	       ThreadLocal variables describe permanent reachability roots so far as the garbage
-	       collector is concerned, these variables will never be reclaimed (so long as the Thread lives).
-	       Since this ThreadLocal is instanced, you potentially will be creating many non-reclaimable
-	       variables, even after the owning instance has been reclaimed. It is almost a certainty that
-	       you want to use static based ThreadLocal variables.</p>
-	       ]]>
-	   </Details>
+	    <ShortDescription>字段是实例内的ThreadLocal变量</ShortDescription>
+	    <LongDescription>字段 {1} 是实例内的ThreadLocal变量</LongDescription>
+	    <Details>
+	        <![CDATA[
+	        <p>该ThreadLocal字段被定义为基于实例（不是静态的）。
+			就垃圾回收器而言，由于所有ThreadLocal变量都描述了永久的可达性根，因此这些变量将永远不会被回收（只要Thread存活）。
+			由于此ThreadLocal是实例化的，因此即使在拥有实例被回收后，您也可能会创建许多不可回收的变量。
+			几乎可以肯定，应该使用基于静态的ThreadLocal变量。</p>
+	        ]]>
+	    </Details>
 	</BugPattern>
 	
 	<BugPattern type="PMB_LOCAL_BASED_JAXB_CONTEXT">
-	   <ShortDescription>Local JAXBContext created on demand</ShortDescription>
-	   <LongDescription>方法 {1} createa a local JAXBContext on demand</LongDescription>
-	   <Details>
-	       <![CDATA[
-	       <p>这个方法 creates a JAXBContext and stores it in a local variable. This
-	       implies that this JAXBContext is created each time on demand, which will cause 
-	       memory bloat issues. It is better to either create this instance as a static field,
-	       or hold onto it with a ConcurrentHashMap, or such. See 
-	       https://javaee.github.io/jaxb-v2/doc/user-guide/ch03.html#other-miscellaneous-topics-performance-and-thread-safety </p>
-	       ]]>
-	   </Details>
+	    <ShortDescription>按需创建本地JAXBContext</ShortDescription>
+	    <LongDescription>方法 {1} 按需创建本地JAXBContext</LongDescription>
+	    <Details>
+	        <![CDATA[
+	        <p>这个方法创建一个JAXBContext并将其存储在本地变量中。
+			这个表示此JAXBContext每次按需创建，这将导致内存膨胀问题。
+			最好将此实例创建为静态字段，或使用ConcurrentHashMap等将其保留。 
+			参考： https://javaee.github.io/jaxb-v2/doc/user-guide/ch03.html#other-miscellaneous-topics-performance-and-thread-safety </p>
+	        ]]>
+	    </Details>
 	</BugPattern>
 
 	<BugPattern type="LSYC_LOCAL_SYNCHRONIZED_COLLECTION">
-		<ShortDescription>方法 creates local variable-based synchronized collection</ShortDescription>
-		<LongDescription>方法 {1} creates local variable-based synchronized collection</LongDescription>
+		<ShortDescription>方法创建用于局部变量的同步集合</ShortDescription>
+		<LongDescription>方法 {1} 创建用于局部变量的同步集合</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 creates a synchronized collection and stores the reference to it
-			in a local variable. As local variables are by definition thread-safe, it seems
-			questionable that this collection needs to be synchronized.</p>
+			<p>这个方法创建一个同步集合并存储在局部变量中。 
+			由于局部变量按照定义是线程安全的，因此使用同步集合是可疑的。</p>
 			<p>
 			<table>
-				<tr><th>If you are using</th><th>consider using</th></tr>
+				<tr><th>如果您正在使用</th><th>考虑使用</th></tr>
 				<tr><td>java.util.Vector</td><td>java.util.ArrayList</td></tr>
 				<tr><td>java.util.Hashtable</td><td>java.util.HashMap</td></tr>
 				<tr><td>java.lang.StringBuffer</td><td>java.lang.StringBuilder</td></tr>
@@ -2659,177 +2635,165 @@ static {
 	</BugPattern>
 
 	<BugPattern type="FCBL_FIELD_COULD_BE_LOCAL">
-		<ShortDescription>类 defines fields that are used only as locals</ShortDescription>
-		<LongDescription>类 {0} defines fields that are used only as locals</LongDescription>
+		<ShortDescription>类定义仅当作局部变量用的字段</ShortDescription>
+		<LongDescription>类 {0} 定义仅当作局部变量用的字段</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This class defines fields that are used in a local only fashion,
-			specifically private fields or protected fields in final classes that are accessed
-			first in each method with a store vs. a load. This field could be replaced by one
-			or more local variables.</p>
+			此类定义了仅当作局部变量用的字段，特别是不可继承类中的私有字段或受保护字段，这些字段在每种方法中首先通过存储与加载进行访问。
+			该字段可以用一个或多个局部变量代替。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="NOS_NON_OWNED_SYNCHRONIZATION">
-		<ShortDescription>类 uses non owned variables to synchronize on</ShortDescription>
-		<LongDescription>类 {0} uses non owned variables to synchronize on</LongDescription>
+		<ShortDescription>类使用不是自己拥有的变量进行同步</ShortDescription>
+		<LongDescription>类 {0} 使用不是自己拥有的变量进行同步</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 uses a synchronize block where the object that is being synchronized on,
-			is not owned by this current instance. This means that other instances may use this same
-			object for synchronization for their own purposes, causing synchronization confusion. It is
-			always cleaner and safer to only synchronize on private fields of this class. Note that 'this'
-			is not owned by the current instance, but is owned by whomever assigns it to a field of its
-			class. Synchronizing on 'this' is also not a good idea.</p>
+			<p>这个方法使用一个同步块，在该块上要同步的对象不属于当前实例。 
+			这意味着其他实例可能出于自己的目的使用同一对象进行同步，从而导致同步混乱。
+			仅在此类的私有字段上进行同步总是更干净，更安全。
+			请注意，"this"不属于当前实例，属于将其该对象分配给类内字段的任何人。
+			在"this"上同步也不是一个好主意。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="NRTL_NON_RECYCLEABLE_TAG_LIB">
-		<ShortDescription>Tag library is not recycleable</ShortDescription>
-		<LongDescription>Tag library {0} is not recycleable</LongDescription>
+		<ShortDescription>标签库不可回收</ShortDescription>
+		<LongDescription>标签库 {0} 不可回收</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This tag library class implements an attribute whose associated backing store field
-			is modified at another point in the tag library. In order for a tag library to be
-			recycleable, only the container is allowed to change this attribute, through the use
-			of the setXXX method of the taglib. By modifying the value programmatically, the
-			container will not initialize the attribute correctly on reuse.</p>
+			<p>这个标签库实现了一个属性，其关联的存储用字段又在标签库另一个地方被修改。
+			为了使标记库可回收，仅允许容器通过使用taglib的setXXX方法来更改此属性。
+			以编程方式修改值，容器在重用标签库时将无法正确初始化属性。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="S508C_NULL_LAYOUT">
-		<ShortDescription>GUI uses absolute layout</ShortDescription>
-		<LongDescription>GUI {0} uses absolute layout</LongDescription>
+		<ShortDescription>GUI使用绝对布局</ShortDescription>
+		<LongDescription>GUI {0} 使用绝对布局</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This class passes null to <code>setLayout</code>, which specifies that components are
-			to be laid out using absolute coordinates. This makes making changes for
-			font sizes, etc, difficult as items will not reposition.</p>
+			<p>此类将null传递给<code>setLayout</code>，代表指定要使用绝对坐标对组件进行布局。
+			这使得难以更改字体大小等，因为控件将不会重新定位。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="S508C_NO_SETLABELFOR">
-		<ShortDescription>JLabel doesn't specify what it's labeling</ShortDescription>
-		<LongDescription>JLabel in method {1} doesn't specify what it's labeling</LongDescription>
+		<ShortDescription>JLabel 没有指定其标签</ShortDescription>
+		<LongDescription>方法 {1} 中的 JLabel 没有指定其标签</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This class uses JLabels that do not specify what fields are being labeled.
-			This hampers screen readers from giving appropriate feedback to users. Use
-			the JLabel.setLabelFor method to accomplish this.</p>
+			<p>此类使用不指定要标记哪些字段的JLabel。
+			这阻碍了屏幕阅读器向用户提供适当的反馈。
+			使用 JLabel.setLabelFor 方法可以完成此操作。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="S508C_NO_SETSIZE">
-		<ShortDescription>Window sets size manually, and doesn't use pack</ShortDescription>
-		<LongDescription>Window {0} sets size manually, and doesn't use pack</LongDescription>
+		<ShortDescription>窗口手动设置大小，不使用pack</ShortDescription>
+		<LongDescription>窗口 {0} 手动设置大小，不使用pack</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This class creates a window, and sizes the window using setSize. It is better,
-			for handling font size changes, to use the pack method.</p>
+			<p>此类创建一个窗口，并使用setSize调整窗口大小。
+			为了处理字体大小更改，最好使用pack方法。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="S508C_NON_ACCESSIBLE_JCOMPONENT">
-		<ShortDescription>类 extends JComponent but does not implement Accessible interface</ShortDescription>
-		<LongDescription>类 {0} extends JComponent but does not implement Accessible interface</LongDescription>
+		<ShortDescription>类 扩展JComponent但未实现Accessible接口</ShortDescription>
+		<LongDescription>类 {0} 扩展JComponent但未实现Accessible接口</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This class extends the JComponent GUI control but does not implement the Accessibility interface.
-			This makes this control unable to be processed by screen readers, etc, for people with reading/vision
-			difficulties.</p>
+			<p>此类扩展了JComponent GUI控件，但未实现Accessibility接口。
+			对于有阅读/视觉困难的人来说，这使得屏幕阅读器等无法处理此控件。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="S508C_SET_COMP_COLOR">
-		<ShortDescription>方法 explicitly sets the color of a Component</ShortDescription>
-		<LongDescription>方法 {1} Method explicitly sets the color of a Component</LongDescription>
+		<ShortDescription>方法显式设置组件的颜色</ShortDescription>
+		<LongDescription>方法 {1} 显式设置组件的颜色</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 sets a Component's explicit foreground or background color which may
-			cause difficulty for people with vision problems using this application.
-			Colors should be allowed to be set from the operating system.</p>
+			<p>这个方法设置组件的显式前景色或背景色，可能会给使用此应用程序的视力障碍人士带来困难。
+			应该允许从操作系统设置颜色。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="S508C_NON_TRANSLATABLE_STRING">
-		<ShortDescription>方法 passes constant string to title/label of component</ShortDescription>
-		<LongDescription>方法 {1} passes constant string to title/label of component</LongDescription>
+		<ShortDescription>方法将常量字符串传递给组件的标题/标签</ShortDescription>
+		<LongDescription>方法 {1} 将常量字符串传递给组件的标题/标签</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 creates a component and passes a string literal to the title or label
-			of the component. As this string will be shown to users, it should be internationalizable
-			through the use of a resource bundle.</p>
+			<p>这个方法创建一个组件并将字符串传递给该组件的标题或标签。
+			由于此字符串将显示给用户，因此应该通过使用资源包将其国际化。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="S508C_APPENDED_STRING">
-		<ShortDescription>方法 passes appended string to title/label of component</ShortDescription>
-		<LongDescription>方法 {1} passes appended string to title/label of component</LongDescription>
+		<ShortDescription>方法将拼接字符串传递给组件的标题/标签</ShortDescription>
+		<LongDescription>方法 {1} 将拼接字符串传递给组件的标题/标签</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 creates a component and passes a string that was built up from a number of
-			strings through appending multiple strings together. As foreign languages may order phrases
-			differently, this will make translations difficult.</p>
+			<p>这个方法创建一个组件，并通过将多个字符串拼接在一起作为字符串传递给组件的标题/标签。
+			由于外语对短语的顺序可能有所不同，因此翻译会很困难。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="UEC_USE_ENUM_COLLECTIONS">
-		<ShortDescription>类 uses an ordinary set or map with an enum class as the key</ShortDescription>
-		<LongDescription>类 {0} uses an ordinary set or map with an enum class as the key</LongDescription>
+		<ShortDescription>类使用枚举类作为普通Set或Map的键</ShortDescription>
+		<LongDescription>类 {0} 使用枚举类作为普通Set或Map的键</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This class uses an ordinary set or map collection and uses an enum class as the key type.
-			It is more performant to use the JDK 1.5 EnumSet or EnumMap classes.</p>
+			<p>此类使用普通的set或map集合，并使用enum类作为键类型。
+			使用JDK 1.5 EnumSet或EnumMap类的性能更高。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SIL_SQL_IN_LOOP">
-		<ShortDescription>方法 executes SQL queries inside of loops</ShortDescription>
-		<LongDescription>方法 {1} executes SQL queries inside of loops</LongDescription>
+		<ShortDescription>方法在循环内执行SQL查询</ShortDescription>
+		<LongDescription>方法 {1} 在循环内执行SQL查询</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 executes SQL queries inside of a loop. This pattern is often inefficient
-			as the number of queries may mushroom in fencepost cases. It is probably more performant
-			to loop over the input and collect the key data needed for the query for all items, and
-			issue one query using an in clause, or similar construct, and then loop over this result
-			set, and fetch all the data at once.</p>
+			<p>这个方法在循环内执行SQL查询。
+			这种模式通常效率低下，因为在循环中查询数量可能迅速增加。
+			这样可能更有效：遍历输入并收集所有查询所需的关键数据， 
+			然后使用in子句或类似的结构发出一个查询，
+			然后遍历此结果集，
+			并一次获取所有数据。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="NMCS_NEEDLESS_MEMBER_COLLECTION_SYNCHRONIZATION">
-		<ShortDescription>类 defines unneeded synchronization on member collection</ShortDescription>
-		<LongDescription>类 {0} defines unneeded synchronization on member collection</LongDescription>
+		<ShortDescription>类在成员集合上定义不需要的同步</ShortDescription>
+		<LongDescription>类 {0} 在成员集合上定义不需要的同步</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This class defines a private collection member as synchronized. It appears, however,
-			that this collection is only modified in a static initializer, or constructor. As these
-			two areas are guaranteed to be thread safe, defining this collection as synchronized is
-			unnecessary and a potential performance bottleneck.</p>
+			<p>此类将私有集合成员定义为需要同步。
+			但是，似乎仅在静态初始化程序或构造函数中修改了此集合。
+			这两个区域保证线程安全，因此不需要将此集合定义为需要同步，这是潜在的性能瓶颈。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="ITC_INHERITANCE_TYPE_CHECKING">
-		<ShortDescription>方法 uses instanceof on multiple types to arbitrate logic</ShortDescription>
-		<LongDescription>方法 {1} uses instanceof on multiple types to arbitrate logic</LongDescription>
+		<ShortDescription>方法在多种类型上使用instanceof来路由逻辑</ShortDescription>
+		<LongDescription>方法 {1} 在多种类型上使用instanceof来路由逻辑</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 uses the instanceof operator in a series of if/else statements to
-			differentiate blocks of code based on type. If these types are related by inheritance,
-			it is cleaner to just define a method in the base class, and use overridden methods
-			in these classes.</p>
+			<p>这个方法在一系列if/else语句中使用instanceof运算符根据类型调用不同代码块。
+			如果这些类型通过继承相关联，则只需要基类中定义一个方法，然后在分支中使用这些类覆盖的方法就更干净了。</p>
 			]]>
 		</Details>
 	</BugPattern>
