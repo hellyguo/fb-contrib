@@ -3040,41 +3040,40 @@ if (myString.indexOf('e') != -1) {
 	</BugPattern>
 
 	<BugPattern type="SPP_STRINGBUFFER_WITH_EMPTY_STRING">
-		<ShortDescription>方法 passes an empty string to StringBuffer of StringBuilder constructor</ShortDescription>
-		<LongDescription>方法 {1} passes an empty string to StringBuffer of StringBuilder constructor</LongDescription>
+		<ShortDescription>方法将空字符串传递给StringBuilder构造函数</ShortDescription>
+		<LongDescription>方法 {1} 将空字符串传递给StringBuilder构造函数</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 calls the StringBuffer or StringBuilder constructor passing in a constant empty string ("").
-			This is the same as calling the default constructor, but makes the code work harder. Consider passing in a
-			default size instead.</p>
+			<p>这个方法调用StringBuffer或StringBuilder构造函数，并传入一个恒定的空字符串（“”）。
+			这与调用默认构造函数相同，但是使代码更难工作。
+			考虑改用默认大小。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_EQUALS_ON_ENUM">
-		<ShortDescription>方法 calls equals on an enum instance</ShortDescription>
-		<LongDescription>方法 {1} calls equals on an enum instance</LongDescription>
+		<ShortDescription>方法在枚举实例上调用equals</ShortDescription>
+		<LongDescription>方法 {1}在枚举实例上调用equals</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 calls the equals(Object) method on an enum instance. Since enums values are singletons,
-			you can use == to safely compare two enum values. In fact, the implementation for Enum.equals does just
-			that.</p>
+			<p>这个方法在枚举实例上调用equals（Object）方法。
+			由于枚举值是单例，因此可以使用==安全比较两个枚举值。
+			实际上，Enum.equals的实现就是这样做。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_INVALID_BOOLEAN_NULL_CHECK">
-		<ShortDescription>方法 uses invalid C++ style null check on Boolean</ShortDescription>
-		<LongDescription>方法 {1} uses invalid C++ style null check on Boolean</LongDescription>
+		<ShortDescription>方法对布尔使用无效的C++样式null检查</ShortDescription>
+		<LongDescription>方法 {1} 对布尔使用无效的C++样式null检查</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 attempts to check for null by just referring to the variable name
-			as would be done in C++. This ordinarily would be considered a compile error, except the
-			variable in question is a Boolean, which does an auto unbox to boolean.
+			<p>这个方法尝试仅通过引用变量名来检查是否为空，就像在C++中那样。
+			通常，这将被视为编译错误，除了所涉及的变量是布尔值之外，它会自动拆箱为布尔值。
 <pre><code>
 if (b && b.booleanValue())
 </code></pre>
-			should be<br/>
+			应该<br/>
 <pre><code>
 if (Boolean.TRUE.equals(b))
 </code></pre>
@@ -3084,12 +3083,12 @@ if (Boolean.TRUE.equals(b))
 	</BugPattern>
 
 	<BugPattern type="SPP_USE_CHARAT">
-		<ShortDescription>方法 fetches character array just to do the equivalent of the charAt method</ShortDescription>
-		<LongDescription>方法 {1} fetches character array just to do the equivalent of the charAt method</LongDescription>
+		<ShortDescription>方法提取字符数组只是为了执行与charAt方法等效的操作</ShortDescription>
+		<LongDescription>方法 {1} 提取字符数组只是为了执行与charAt方法等效的操作</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 calls the toCharArray method on a String to fetch an array of characters, only
-			to retrieve one of those characters by index. It is more performant to just use the charAt method.</p>
+			<p>这个方法在String上调用toCharArray方法以获取字符数组，仅按索引检索这些字符之一。
+			仅使用charAt方法的性能更高。</p>
 			]]>
 		</Details>
 	</BugPattern>
