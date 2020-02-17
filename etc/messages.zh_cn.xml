@@ -2859,27 +2859,27 @@ catch (IOException e) {
 		<LongDescription>方法 {1} 将长度为1的常量字符串传递给字符重写方法</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 passes a constant literal <code>String</code> of length 1 as a parameter to a method, when a similar method is exposed that takes a <code>char</code>. 
-			It is simpler and more expedient to handle one character, rather than a <code>String</code>.</p>
+			<p>这个方法存在以<char>char</code>为参数的类似方法，将长度为1的常量<code>String</code>作为参数传递给方法。
+			处理一个字符而不是<code>String</code>更简单，更方便。</p>
 
 			<p>
-			Instead of making calls like: <br/>
+			不像这样调用：<br/>
 <pre><code>
 String myString = ...
 if (myString.indexOf("e") != -1) {
     int i = myString.lastIndexOf("e");
-    System.out.println(myString + ":" + i);  //the Java compiler will use a StringBuilder internally here [builder.append(":")]
+    System.out.println(myString + ":" + i);  // Java编译器将在此处隐式使用StringBuilder [builder.append(":")]
     ...
     return myString.replace("m","z");
 }
 </code></pre>
-			Replace the single letter <code>String</code>s with their <code>char</code> equivalents like so:<br/>
+			用等效的<code>char</code>替换单个字母<code>String</code>，如下所示：<br/>
 
 <pre><code>
 String myString = ...
 if (myString.indexOf('e') != -1) {
     int i = myString.lastIndexOf('e');
-    System.out.println(myString + ':' + i);  //the Java compiler will use a StringBuilder internally here [builder.append(':')]
+    System.out.println(myString + ':' + i);  // Java编译器将在此处隐式使用StringBuilder [builder.append(':')]
     ...
     return myString.replace('m','z');
 }
@@ -2890,161 +2890,151 @@ if (myString.indexOf('e') != -1) {
 	</BugPattern>
 
 	<BugPattern type="TR_TAIL_RECURSION">
-		<ShortDescription>方法 employs tail recursion</ShortDescription>
-		<LongDescription>方法 {1} employs tail recursion</LongDescription>
+		<ShortDescription>方法使用尾递归</ShortDescription>
+		<LongDescription>方法 {1} 使用尾递归</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 recursively calls itself as the last statement of the method
-			(Tail Recursion). This method can be easily refactored into a simple loop, which
-			will make it more performant, and reduce the stack size requirements.</p>
+			<p>这个方法递归地将自身作为本方法的最后一条语句（尾递归）。
+			此方法可以轻松地重构为一个简单的循环，从而使其性能更高，并减少堆栈大小要求。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="URV_UNRELATED_RETURN_VALUES">
-		<ShortDescription>方法 returns different types of unrelated Objects</ShortDescription>
-		<LongDescription>方法 {1} returns different types of unrelated Objects</LongDescription>
+		<ShortDescription>方法返回不同类型的不相关对象</ShortDescription>
+		<LongDescription>方法 {1} 返回不同类型的不相关对象</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 returns two or more unrelated types of objects (Related only through java.lang.Object).
-			This will be very confusing to the code that must call it.</p>
+			<p>这个方法返回两种或两种以上不相关的对象类型（仅通过java.lang.Object相关）。
+			这将对必须调用它的代码造成混乱。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="URV_CHANGE_RETURN_TYPE">
-		<ShortDescription>方法 returns more specific type of object than declared</ShortDescription>
-		<LongDescription>方法 {1} returns more specific type of object than declared</LongDescription>
+		<ShortDescription>方法返回比声明更具体的对象类型</ShortDescription>
+		<LongDescription>方法 {1} 返回比声明更具体的对象类型</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 is defined to return a java.lang.Object. However, the return types
-			returned from this method can be defined by a more specific class or interface. Since this
-			method is not derived from a superclass or interface, it would be more clear to
-			change the return type of this method.</p>
+			<p>这个方法定义为返回java.lang.Object。
+			但是，从此方法返回的返回类型可以由更特定的类或接口定义。
+			由于此方法不是从超类或接口派生的，因此更改此方法的返回类型会更加清楚。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="URV_INHERITED_METHOD_WITH_RELATED_TYPES">
-		<ShortDescription>继承的方法 returns more specific type of object than declared</ShortDescription>
-		<LongDescription>继承的方法 {1} returns more specific type of object than declared</LongDescription>
+		<ShortDescription>继承的方法返回比声明更具体的对象类型</ShortDescription>
+		<LongDescription>继承的方法 {1} 返回比声明更具体的对象类型</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This inherited method is defined to return a java.lang.Object. However, the return types returned
-			from this method can be defined by a more specific class or interface. If possible consider changing the
-			return type in the inheritance hierarchy of this method, otherwise the caller of this method will be brittle
-			in handling of the return type.</p>
+			<p>定义此继承方法以返回java.lang.Object。
+			但是，从此方法返回的返回类型可以由更特定的类或接口定义。
+			如果可能的话，请考虑在此方法的继承层次结构中更改返回类型，否则此方法的调用者将很难处理返回类型。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="PIS_POSSIBLE_INCOMPLETE_SERIALIZATION">
-		<ShortDescription>类 doesn't serialize superclass fields</ShortDescription>
-		<LongDescription>类 {0} doesn't serialize superclass fields</LongDescription>
+		<ShortDescription>类未序列化超类字段</ShortDescription>
+		<LongDescription>类 {0} 未序列化超类字段</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 implements Serializable but is derived from a
-			class that does not. The superclass has fields that are not serialized
-			because this class does not take the responsibility of writing these fields out
-			either using Serializable's writeObject method, or Externalizable's writeExternal
-			method. Therefore when this class is read from a stream, the superclass fields
-			will only be initialized to the values specified in its default constructor.
-			If possible, change the superclass to implement Serializable, or implement
-			Serializable or Externalizable methods in the child class.</p>
+			<p>这个类实现Serializable，但从没有实现的类派生。
+			超类具有未序列化的字段，因为此类不能承担使用Serializable的writeObject方法或Externalizable的writeExternal方法将这些字段写出的责任。
+			因此，从流中读取此类时，超类字段将仅初始化为其默认构造函数中指定的值。
+			如果可能，请更改超类以实现Serializable，或在子类中实现Serializable或Externalizable方法。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SCRV_SUSPICIOUS_COMPARATOR_RETURN_VALUES">
-		<ShortDescription>比较方法 doesn't seem to return all ordering values</ShortDescription>
-		<LongDescription>比较方法 {1} doesn't seem to return all ordering values</LongDescription>
+		<ShortDescription>比较方法似乎没有返回有序值</ShortDescription>
+		<LongDescription>比较方法 {1} 似乎没有返回有序值</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>This compareTo or compare method returns constant values to represent less than,
-			equals, and greater than. However, it does not return each type, or it unconditionally returns a non zero value.
-			Given that comparators are transitive, this seems incorrect.</p>
+			<p>此compareTo或compare方法返回表示小于，等于和大于的常量值。
+			但是，它不会返回每种类型，或者会无条件地返回非零值。
+			考虑到比较器是可传递的，这似乎是不正确的。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_NEGATIVE_BITSET_ITEM">
-		<ShortDescription>方法 passes a negative number as a bit to a BitSet which isn't supported</ShortDescription>
-		<LongDescription>方法 {1} passes a negative number as a bit to a BitSet which isn't supported</LongDescription>
+		<ShortDescription>方法将一个负数作为参数传递给不支持的BitSet</ShortDescription>
+		<LongDescription>方法 {1} 将一个负数作为参数传递给不支持的BitSet</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 passes a constant negative value as a bit position to a java.util.BitSet. The BitSet class
-			doesn't support negative values, and thus this method call will not work as expected.</p>
+			<p>这个方法将恒定的负值作为参数传递给java.util.BitSet。 
+			BitSet类不支持负值，因此此方法调用将无法按预期进行。</ p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_INTERN_ON_CONSTANT">
-		<ShortDescription>方法 calls intern on a string constant</ShortDescription>
-		<LongDescription>方法 {1} calls intern on a string constant</LongDescription>
+		<ShortDescription>方法在字符串常量上调用intern</ShortDescription>
+		<LongDescription>方法 {1} 在字符串常量上调用intern</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 calls <code>intern</code> on a constant string. As constant strings are already interned, this call
-			is superfluous.</p>
+			<p>这个方法在常量字符串上调用<code>intern</code>。
+			由于常量字符串已经被插入，因此此调用是多余的。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_NO_CHAR_SB_CTOR">
-		<ShortDescription>方法 appears to pass character to StringBuffer or StringBuilder integer constructor</ShortDescription>
-		<LongDescription>方法 {1} appears to pass character to StringBuffer or StringBuilder integer constructor</LongDescription>
+		<ShortDescription>方法似乎将字符传递给StringBuffer(int)或StringBuilder(int)</ShortDescription>
+		<LongDescription>方法 {1} 似乎将字符传递给StringBuffer(int)或StringBuilder(int)</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 constructs a StringBuffer or a StringBuilder using the constructor that takes an integer, but
-			appears to pass a character instead. It is probable that the author assumed that the character would be appended to the
-			StringBuffer/Builder, but instead the integer value of the character is used as an initial size for the buffer.</p>
+			<p>这个方法使用构造函数构造一个StringBuffer或StringBuilder，该构造函数接受一个整数参数，但似乎传入了一个字符。
+			作者可能会假定该字符会附加到StringBuffer / Builder上，但是该字符的整数值将用作缓冲区的初始大小。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_USE_MATH_CONSTANT">
-		<ShortDescription>方法 uses non-standard math constant</ShortDescription>
-		<LongDescription>方法 {1} uses non-standard math constant</LongDescription>
+		<ShortDescription>方法使用非标准数学常数</ShortDescription>
+		<LongDescription>方法 {1} 使用非标准数学常数</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 defines its own version of <em>PI</em> or <em>e</em> and the value is not as precise as the
-			one defined in the constants Math.PI or Math.E. Use these constants instead.</p>
+			<p>这个方法定义自己的<em>PI</em>或<em>e</em>版本，其值没有在常量Math.PI或Math.E中定义的精确。 
+			请改用这些常量。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_STUTTERED_ASSIGNMENT">
-		<ShortDescription>方法 assigns a value to a local twice in a row</ShortDescription>
-		<LongDescription>方法 {1} assigns a value to a local twice in a row</LongDescription>
+		<ShortDescription>方法连续两次向本地分配值</ShortDescription>
+		<LongDescription>方法 {1} 连续两次向本地分配值</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 assigns a value twice in a row in a stuttered way such as
-			<code>a = a = 5;</code> This is most probably a cut and paste error where the duplicate
-			assignment can be removed.</p>
+			<p>这个方法以连续赋值方式连续两次分配一个值，例如<code>a = a = 5;</code> 
+			这很可能是剪切和粘贴错误，可以删除重复的作业。</p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_USE_ISNAN">
-		<ShortDescription>方法 incorrectly compares a floating point number to NaN</ShortDescription>
-		<LongDescription>方法 {1} compares a {3} to {4}.NaN</LongDescription>
+		<ShortDescription>方法错误地将浮点数与NaN进行比较</ShortDescription>
+		<LongDescription>方法 {1} 将一个 {3} 与 {4}.NaN 比较</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 compares a double or float to the constant <code>Double.NaN</code> or <code>Float.NaN</code>.
-			You should use
-			<code>Double.isNaN(d)</code> or <code>Float.isNaN(f)</code>
-			 if the variable is a primitive. If using a boxed primitive <code>d.isNaN()</code> or <code>f.isNaN()</code> should be used.</p>
+			<p>这个方法将double或float与常数<code>Double.NaN</code>或<code>Float.NaN</code>进行比较。
+			如果变量是基本类型，则应使用<code>Double.isNaN(d)</code>或<code>Float.isNaN(f)</code>。
+			如果使用包装类型，请使用<code>d.isNaN()</code>或<code>f.isNaN()</code>。</ p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_USE_BIGDECIMAL_STRING_CTOR">
-		<ShortDescription>方法 passes double value to BigDecimal Constructor</ShortDescription>
-		<LongDescription>方法 {1} passes double value to BigDecimal Constructor</LongDescription>
+		<ShortDescription>方法将双精度值传递给BigDecimal构造函数</ShortDescription>
+		<LongDescription>方法 {1} 将双精度值传递给BigDecimal构造函数</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 calls the BigDecimal constructor that takes a double, and passes a literal double constant value. Since
-			the use of BigDecimal is to get better precision than double, by passing a double, you only get the precision of double number
-			space. To take advantage of the BigDecimal space, pass the number as a string. </p>
+			<p>这个方法调用接受双精度数的BigDecimal构造函数，并传递一个固定双精度常数值。
+			由于使用BigDecimal是为了获得比double更好的精度，但通过传递double值，您只会得到double级别的精度。
+			要利用BigDecimal空间，请将数字作为字符串传递。</p>
 			]]>
 		</Details>
 	</BugPattern>
