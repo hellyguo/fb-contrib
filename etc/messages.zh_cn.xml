@@ -2799,12 +2799,12 @@ static {
 	</BugPattern>
 
 	<BugPattern type="SACM_STATIC_ARRAY_CREATED_IN_METHOD">
-		<ShortDescription>方法 creates array using constants</ShortDescription>
-		<LongDescription>方法 {1} creates array using constants</LongDescription>
+		<ShortDescription>方法创建数组作为常量使用</ShortDescription>
+		<LongDescription>方法 {1} 创建数组作为常量使用</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法创建常量数组。
-			每次调用此方法时，都会重新创建此数组。
+			<p>这个方法 初始化创建了一个数组，作为常量使用。
+			每次调用此方法，该数组将被重新创建。 
 			最好将数组定义为类的静态字段。</p>
 			]]>
 		</Details>
@@ -2827,23 +2827,22 @@ static {
 		<LongDescription>方法 {1} 从集合手动创建数组</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法手动遍历集合，将每个元素拉出并存储在数组中以从集合构建数组。
+			<p>这个方法手动遍历集合，将每个元素取出并存储在数组中以从集合构建数组。
 			使用内置的Collection方法toArray更加轻松明了。
-			给定类型T的集合"mycollection"，请使用<code>mycollection.toArray(new T[mycollection.size()]);</code></p>
+			给定类型T的集合“mycollection”，请使用<code>mycollection.toArray(new T[mycollection.size()]); </code></p>
 			]]>
 		</Details>
 	</BugPattern>
 
 	<BugPattern type="LEST_LOST_EXCEPTION_STACK_TRACE">
-		<ShortDescription>方法 throws alternative exception from catch block without history</ShortDescription>
-		<LongDescription>方法 {1} throws alternative exception from catch block without history</LongDescription>
+		<ShortDescription>方法从catch块抛出替代异常却没有带上历史信息</ShortDescription>
+		<LongDescription>方法 {1} 从catch块抛出替代异常却没有带上历史信息</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 catches an exception, and throws a different exception, without incorporating the
-			original exception. Doing so hides the original source of the exception, making debugging and fixing
-			these problems difficult. It is better to use the constructor of this new exception that takes an
-			original exception so that this detail can be passed along to the user. If this exception has no constructor
-			that takes an initial cause parameter, use the initCause method to initialize it instead.</p>
+			<p>这个方法捕获异常，并引发其他异常，而没有合并原始异常。
+			这样做隐藏了异常的原始来源，使调试和解决这些问题变得困难。
+			最好使用这个带有原始异常的新异常的构造函数，以便将此详细信息传递给用户。
+			如果此异常没有使用初始cause参数的构造函数，请使用initCause方法对其进行初始化。</p>
 			<p>
 <pre><code>
 catch (IOException e) {
@@ -2856,13 +2855,12 @@ catch (IOException e) {
 	</BugPattern>
 
 	<BugPattern type="UCPM_USE_CHARACTER_PARAMETERIZED_METHOD">
-		<ShortDescription>方法 passes constant String of length 1 to character overridden method</ShortDescription>
-		<LongDescription>方法 {1} passes constant String of length 1 to character overridden method</LongDescription>
+		<ShortDescription>方法将长度为1的常量字符串传递给字符重写方法</ShortDescription>
+		<LongDescription>方法 {1} 将长度为1的常量字符串传递给字符重写方法</LongDescription>
 		<Details>
 			<![CDATA[
-			<p>这个方法 passes a constant literal <code>String</code> of length 1 as a parameter to a method, when
-			a similar method is exposed that takes a <code>char</code>. It is simpler and more expedient to handle one
-			character, rather than a <code>String</code>.</p>
+			<p>这个方法 passes a constant literal <code>String</code> of length 1 as a parameter to a method, when a similar method is exposed that takes a <code>char</code>. 
+			It is simpler and more expedient to handle one character, rather than a <code>String</code>.</p>
 
 			<p>
 			Instead of making calls like: <br/>
@@ -3358,49 +3356,49 @@ String str = sb.toString();
 	</BugPattern>
 
 	<BugPattern type="SPP_NON_USEFUL_TOSTRING">
-	   <ShortDescription>方法 calls toString() on an instance of a class that hasn't overridden toString()</ShortDescription>
-	   <LongDescription>方法 {1} calls toString() on an instance of a class that hasn't overridden toString()</LongDescription>
-	   <Details>
-	       <![CDATA[
-	       <p>这个方法 calls <code>toString</code> on an object that hasn't overridden the toString() method, and thus relies on
-	       the version found in java.lang.Object. This string is just a raw display of the object's class and location, and
-	       provides no information about the information of use. You should implement toString in this class.</p>
-	       ]]>
-	   </Details>
+	    <ShortDescription>方法 calls toString() on an instance of a class that hasn't overridden toString()</ShortDescription>
+	    <LongDescription>方法 {1} calls toString() on an instance of a class that hasn't overridden toString()</LongDescription>
+	    <Details>
+	        <![CDATA[
+	        <p>这个方法 calls <code>toString</code> on an object that hasn't overridden the toString() method, and thus relies on
+	        the version found in java.lang.Object. This string is just a raw display of the object's class and location, and
+	        provides no information about the information of use. You should implement toString in this class.</p>
+	        ]]>
+	    </Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_TOSTRING_ON_STRING">
-	   <ShortDescription>方法 calls toString() on a String</ShortDescription>
-	   <LongDescription>方法 {1} calls toString() on a String</LongDescription>
-	   <Details>
-	       <![CDATA[
-	       <p>这个方法 calls <code>toString</code> on a String. Just use the object itself if you want a String.</p>
-	       ]]>
-	   </Details>
+	    <ShortDescription>方法 calls toString() on a String</ShortDescription>
+	    <LongDescription>方法 {1} calls toString() on a String</LongDescription>
+	    <Details>
+	        <![CDATA[
+	        <p>这个方法 calls <code>toString</code> on a String. Just use the object itself if you want a String.</p>
+	        ]]>
+	    </Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_CONVERSION_OF_STRING_LITERAL">
-	<ShortDescription>方法 converts a String literal</ShortDescription>
-	   <LongDescription>方法 {1} calls {3} on a String Literal</LongDescription>
-	   <Details>
-	       <![CDATA[
-	       <p>这个方法 calls a converting method like <code>toLowerCase</code> or <code>trim</code>
-		   on a <code>String</code> literal. You should make the transformation yourself and use the transformed literal.</p>
+		<ShortDescription>方法 converts a String literal</ShortDescription>
+	    <LongDescription>方法 {1} calls {3} on a String Literal</LongDescription>
+	    <Details>
+	        <![CDATA[
+	        <p>这个方法 calls a converting method like <code>toLowerCase</code> or <code>trim</code>
+		    on a <code>String</code> literal. You should make the transformation yourself and use the transformed literal.</p>
 
-		   <p>
-		   For example, instead of :<br/>
+		    <p>
+		    For example, instead of :<br/>
 <pre><code>
 return "ThisIsAConstantString".toLowerCase().trim();
 </code></pre>
-		   just do <br/>
+		    just do <br/>
 <pre><code>
 return "thisisaconstantstring";
 </code></pre>
-		   for shorter and easier to read code.  An exception might be made when locale-specific transformations need
-		   to be done (in the case of <code>toUpperCase()</code> and <code>toLowerCase()</code>.
-		   </p>
-	       ]]>
-	   </Details>
+		    for shorter and easier to read code.  An exception might be made when locale-specific transformations need
+		    to be done (in the case of <code>toUpperCase()</code> and <code>toLowerCase()</code>.
+		    </p>
+	        ]]>
+	    </Details>
 	</BugPattern>
 
 	<BugPattern type="SPP_EQUALS_ON_STRING_BUILDER">
@@ -3630,15 +3628,15 @@ return new String[0];<br/>
 	</BugPattern>
 
 	<BugPattern type="EXS_EXCEPTION_SOFTENING_RETURN_FALSE">
-	   <ShortDescription>方法 converts an exception into a boolean 'error code' value</ShortDescription>
-	   <LongDescription>方法 {1} converts an exception into a boolean 'error code' value</LongDescription>
-	   <Details>
-	       <![CDATA[
-	       <p>这个方法 catches an exception and returns a boolean that represents whether an exception occurred or not.
-	       This throws away the value of exception handling and lets code ignore the resultant 'error code' return value.
-	       You should just throw the exception to the caller instead.</p>
-	       ]]>
-	   </Details>
+	    <ShortDescription>方法 converts an exception into a boolean 'error code' value</ShortDescription>
+	    <LongDescription>方法 {1} converts an exception into a boolean 'error code' value</LongDescription>
+	    <Details>
+	        <![CDATA[
+	        <p>这个方法 catches an exception and returns a boolean that represents whether an exception occurred or not.
+	        This throws away the value of exception handling and lets code ignore the resultant 'error code' return value.
+	        You should just throw the exception to the caller instead.</p>
+	        ]]>
+	    </Details>
 	</BugPattern>
 
 	<BugPattern type="CFS_CONFUSING_FUNCTION_SEMANTICS">
@@ -4051,50 +4049,50 @@ return new String[0];<br/>
 	</BugPattern>
 
 	<BugPattern type="LO_EXCEPTION_WITH_LOGGER_PARMS">
-       <ShortDescription>方法 creates exception with logger parameter markers in message</ShortDescription>
-       <LongDescription>方法 {1} creates exception with logger parameter markers in message</LongDescription>
-	   <Details>
-	       <![CDATA[
-	       <p>这个方法 passes a standard exception as a logger parameter, and expects this exception to be substituted in
+        <ShortDescription>方法 creates exception with logger parameter markers in message</ShortDescription>
+        <LongDescription>方法 {1} creates exception with logger parameter markers in message</LongDescription>
+	    <Details>
+	        <![CDATA[
+	        <p>这个方法 passes a standard exception as a logger parameter, and expects this exception to be substituted in
 	        an SLF4J or Log4j style parameter marker '{}'. This marker will not be translated as SLF4J and Log4j2 don't process the Exception
 	        class for markers.
-	       </p>
-	       ]]>
-	   </Details>
+	        </p>
+	        ]]>
+	    </Details>
 	</BugPattern>
 
 	<BugPattern type="LO_APPENDED_STRING_IN_FORMAT_STRING">
-	   <ShortDescription>方法 passes a concatenated string to SLF4J's or Log4j2's format string</ShortDescription>
-	   <LongDescription>方法 {1} passes a concatenated string to SLF4J's or Log4j2's format string</LongDescription>
-	   <Details>
-	       <![CDATA[
-	       <p>这个方法 uses an SLF4J or Log4j2 logger to log a string, where the first (format) string is created using concatenation.
-	       You should use {} markers to inject dynamic content into the string, so that String building is delayed until the
-	       actual log string is needed. If the log level is high enough that this log statement isn't used, then the appends
-	       will never be executed.</p>
-	       ]]>
-	   </Details>
+	    <ShortDescription>方法 passes a concatenated string to SLF4J's or Log4j2's format string</ShortDescription>
+	    <LongDescription>方法 {1} passes a concatenated string to SLF4J's or Log4j2's format string</LongDescription>
+	    <Details>
+	        <![CDATA[
+	        <p>这个方法 uses an SLF4J or Log4j2 logger to log a string, where the first (format) string is created using concatenation.
+	        You should use {} markers to inject dynamic content into the string, so that String building is delayed until the
+	        actual log string is needed. If the log level is high enough that this log statement isn't used, then the appends
+	        will never be executed.</p>
+	        ]]>
+	    </Details>
 	</BugPattern>
 
 
 	<BugPattern type="LO_EMBEDDED_SIMPLE_STRING_FORMAT_IN_FORMAT_STRING">
-	   <ShortDescription>方法 passes a simple String.format result to an SLF4J's or Log4j2's format string</ShortDescription>
-	   <LongDescription>方法 {1} passes a simple String.format result to an SLF4J's or Log4j2's format string</LongDescription>
-	   <Details>
-	       <![CDATA[
-	       <p>这个方法 uses an SLF4J or Log4J2 logger to log a string which was produced through a call to String.format, where
-	       the format string passed was a constant string containing only simple format markers that could be directly handled
-	       by SLF4J or Log4J. Rather than doing
-	       <pre>
-	          logger.error(String.format("This %s is an error", s));
-	       <pre>
-	       do
-	       <pre>
-	          logger.error("This {} is an error", s);
-	       </pre>
-	       </p>
-	       ]]>
-	   </Details>
+	    <ShortDescription>方法 passes a simple String.format result to an SLF4J's or Log4j2's format string</ShortDescription>
+	    <LongDescription>方法 {1} passes a simple String.format result to an SLF4J's or Log4j2's format string</LongDescription>
+	    <Details>
+	        <![CDATA[
+	        <p>这个方法 uses an SLF4J or Log4J2 logger to log a string which was produced through a call to String.format, where
+	        the format string passed was a constant string containing only simple format markers that could be directly handled
+	        by SLF4J or Log4J. Rather than doing
+	        <pre>
+	            logger.error(String.format("This %s is an error", s));
+	        <pre>
+	        do
+	        <pre>
+	            logger.error("This {} is an error", s);
+	        </pre>
+	        </p>
+	        ]]>
+	    </Details>
 	</BugPattern>
 
 	<BugPattern type="LO_TOSTRING_PARAMETER">
