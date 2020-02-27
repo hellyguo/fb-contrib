@@ -1860,7 +1860,7 @@ builder.append(someObj);
 ...
 System.out.println("Problem with the object :" + someObj);
 </code></pre>
-            来避免当一个对象确实 是空（<code>null</code>） 时报出 <code>NullPointerException</code> 的可能性<code>null</code>.
+            来避免当一个对象确实 是空(<code>null</code>) 时报出 <code>NullPointerException</code> 的可能性<code>null</code>.
             </p>
             ]]>
         </Details>
@@ -2455,7 +2455,7 @@ public float average(int[] arr) {
         <Details>
             <![CDATA[
             <p>这个方法使用Class.forName读取已经静态绑定入上下文的类的对象。
-            使用Class.forName会使代码转换（例如混淆）的反射更加脆弱，并且在此不需要，因为相关的类已经链接到该类。</p>
+            使用Class.forName会使代码转换(例如混淆)的反射更加脆弱，并且在此不需要，因为相关的类已经链接到该类。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -2594,8 +2594,8 @@ static {
         <LongDescription>字段 {1} 是实例内的ThreadLocal变量</LongDescription>
         <Details>
             <![CDATA[
-            <p>该ThreadLocal字段被定义为基于实例（不是静态的）。
-            就垃圾回收器而言，由于所有ThreadLocal变量都描述了永久的可达性根，因此这些变量将永远不会被回收（只要Thread存活）。
+            <p>该ThreadLocal字段被定义为基于实例(不是静态的)。
+            就垃圾回收器而言，由于所有ThreadLocal变量都描述了永久的可达性根，因此这些变量将永远不会被回收(只要Thread存活)。
             由于此ThreadLocal是实例化的，因此即使在拥有实例被回收后，您也可能会创建许多不可回收的变量。
             几乎可以肯定，应该使用基于静态的ThreadLocal变量。</p>
             ]]>
@@ -2816,7 +2816,7 @@ static {
         <Details>
             <![CDATA[
             <p>这个方法在相同实例上使用相同的参数连续两次调用相同的方法，而没有对实例对象进行任何修改。
-            如果此方法未对对象进行更改（看起来没有更改），则进行两次调用将很浪费。
+            如果此方法未对对象进行更改(看起来没有更改)，则进行两次调用将很浪费。
             通过将结果分配给一个临时变量，然后第二次使用该变量，可以减少这些方法调用。</p>
             ]]>
         </Details>
@@ -2894,7 +2894,7 @@ if (myString.indexOf('e') != -1) {
         <LongDescription>方法 {1} 使用尾递归</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法递归地将自身作为本方法的最后一条语句（尾递归）。
+            <p>这个方法递归地将自身作为本方法的最后一条语句(尾递归)。
             此方法可以轻松地重构为一个简单的循环，从而使其性能更高，并减少堆栈大小要求。</p>
             ]]>
         </Details>
@@ -2905,7 +2905,7 @@ if (myString.indexOf('e') != -1) {
         <LongDescription>方法 {1} 返回不同类型的不相关对象</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法返回两种或两种以上不相关的对象类型（仅通过java.lang.Object相关）。
+            <p>这个方法返回两种或两种以上不相关的对象类型(仅通过java.lang.Object相关)。
             这将对必须调用它的代码造成混乱。</p>
             ]]>
         </Details>
@@ -3044,7 +3044,7 @@ if (myString.indexOf('e') != -1) {
         <LongDescription>方法 {1} 将空字符串传递给StringBuilder构造函数</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法调用StringBuffer或StringBuilder构造函数，并传入一个恒定的空字符串（“”）。
+            <p>这个方法调用StringBuffer或StringBuilder构造函数，并传入一个恒定的空字符串(“”)。
             这与调用默认构造函数相同，但是使代码更难工作。
             考虑改用默认大小。</p>
             ]]>
@@ -3056,7 +3056,7 @@ if (myString.indexOf('e') != -1) {
         <LongDescription>方法 {1}在枚举实例上调用equals</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法在枚举实例上调用equals（Object）方法。
+            <p>这个方法在枚举实例上调用equals(Object)方法。
             由于枚举值是单例，因此可以使用==安全比较两个枚举值。
             实际上，Enum.equals的实现就是这样做。</p>
             ]]>
@@ -3172,8 +3172,8 @@ if ({{FLAWED_TEST_LOGIC}}) {
     </BugPattern>
 
     <BugPattern type="MUI_USE_CONTAINSKEY">
-        <ShortDescription>方法 仅通过keySet（）来调用contains，请改用containsKey</ShortDescription>
-        <LongDescription>方法 {1} 仅通过keySet（）来调用contains，请改用containsKey</LongDescription>
+        <ShortDescription>方法 仅通过keySet()来调用contains，请改用containsKey</ShortDescription>
+        <LongDescription>方法 {1} 仅通过keySet()来调用contains，请改用containsKey</LongDescription>
         <Details>
             <![CDATA[
             <p>这个方法调用mySet.keySet().contains("foo")，而mySet.containsKey("foo")更简单。</p>
@@ -3182,12 +3182,12 @@ if ({{FLAWED_TEST_LOGIC}}) {
     </BugPattern>
 
     <BugPattern type="SPP_USE_ISEMPTY">
-        <ShortDescription>方法通过检查集合的大小是否为零判断是否为空，而没有使用isEmpty（）</ShortDescription>
-        <LongDescription>方法 {1} 通过检查集合的大小是否为零判断是否为空，而没有使用isEmpty（）</LongDescription>
+        <ShortDescription>方法通过检查集合的大小是否为零判断是否为空，而没有使用isEmpty()</ShortDescription>
+        <LongDescription>方法 {1} 通过检查集合的大小是否为零判断是否为空，而没有使用isEmpty()</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法在集合上调用size（）方法，并将结果与​​零进行比较，以查看集合是否为空。
-			为了使代码更清晰，最好只使用col.isEmpty（）或！col.isEmpty（）。</p>
+            <p>这个方法在集合上调用size()方法，并将结果与​​零进行比较，以查看集合是否为空。
+			为了使代码更清晰，最好只使用col.isEmpty()或！col.isEmpty()。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -3242,155 +3242,155 @@ if ({{FLAWED_TEST_LOGIC}}) {
     </BugPattern>
 
     <BugPattern type="SPP_EMPTY_CASING">
-        <ShortDescription>方法 passes an empty string to equalsIgnoreCase or compareToIgnoreCase</ShortDescription>
-        <LongDescription>方法 {1} passes an empty string to equalsIgnoreCase or compareToIgnoreCase</LongDescription>
+        <ShortDescription>方法将空字符串传递给equalsIgnoreCase或compareToIgnoreCase</ShortDescription>
+        <LongDescription>方法 {1} 将空字符串传递给equalsIgnoreCase或compareToIgnoreCase</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 passes the empty string "" to equalsIgnoreCase or compareToIgnoreCase. As the empty string
-            is not case-sensitive, using equals is simpler. It would be even simpler to do a length() == 0 test.</p>
+            <p>这个方法将空字符串“”传递给equalsIgnoreCase或compareToIgnoreCase。
+			由于空字符串不区分大小写，因此使用equals更简单。
+			进行length()== 0测试甚至更简单。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_TEMPORARY_TRIM">
-        <ShortDescription>方法 trims a String temporarily</ShortDescription>
-        <LongDescription>方法 {1} trims a String temporarily</LongDescription>
+        <ShortDescription>方法临时修剪字符串</ShortDescription>
+        <LongDescription>方法 {1} 临时修剪字符串</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 calls trim() on a String without assigning the new string to another variable.
-            It then calls length() or equals() on this trimmed string. If trimming the string was important
-            for determining its length or its equality, it probably should be trimmed when you actually use it.
-            It would make more sense to first trim the String, store the trimmed value in a variable, and then
-            continue to test and use that trimmed string.</p>
+            <p>这个方法在String上调用trim()，而不将新字符串分配给另一个变量。
+			然后，它在此修剪后的字符串上调用length()或equals()。
+			如果修整字符串对于确定其长度或相等性很重要，则在实际使用时可能应修整它。
+            首先修剪字符串，将修剪后的值存储在变量中，然后继续测试并使用修剪后的字符串，这样会更有意义。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_STRINGBUILDER_IS_MUTABLE">
-        <ShortDescription>方法 needlessly assigns a StringBuilder to itself, as it's mutable</ShortDescription>
-        <LongDescription>方法 {1} needlessly assigns a StringBuilder to itself, as it's mutable</LongDescription>
+        <ShortDescription>方法因为它是可变的，所以不需要为其本身分配StringBuilder</ShortDescription>
+        <LongDescription>方法 {1} 因为它是可变的，所以不需要为其本身分配StringBuilder</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 calls StringBuilder.append and assigns the results to the same StringBuilder like:</p>
+            <p>这个方法调用StringBuilder.append并将结果分配给相同的StringBuilder，例如：</p>
             <code>sb = sb.append("foo")</code>
-            <p>StringBuilder is mutable, so this is not necessary.
-            This is also true of StringBuffer.</p>
+            <p>StringBuilder是可变的，因此这不是必需的。
+            StringBuffer也是如此。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_USE_GET0">
-        <ShortDescription>方法 uses iterator().next() on a List to get the first item</ShortDescription>
-        <LongDescription>方法 {1} uses iterator().next() on a List to get the first item</LongDescription>
+        <ShortDescription>方法 在List上使用iterator().next()获取第一项</ShortDescription>
+        <LongDescription>方法 {1} 在List上使用iterator().next()获取第一项</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 calls myList.iterator().next() on a List to get the first item. It is more performant
-            to just use myList.get(0).</p>
+            <p>这个方法在List上调用myList.iterator().next()以获取第一项。
+			仅使用myList.get(0)会更高效。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_DOUBLE_APPENDED_LITERALS">
-        <ShortDescription>方法 appends two literal strings back to back to a StringBuilder</ShortDescription>
-        <LongDescription>方法 {1} appends two literal strings back to back to a StringBuilder</LongDescription>
+        <ShortDescription>方法将两个固定字符串拼接到StringBuilder</ShortDescription>
+        <LongDescription>方法 {1} 将两个固定字符串拼接到StringBuilder</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 appends two literal strings to a <code>StringBuilder</code> back to back.
-            Modern compilers will optimize something like:<br/>
+            <p>这个方法将两个文字字符串背对背附加到<code>StringBuilder</code>。
+            现代编译器将优化以下内容：<br/>
 <pre><code>
 public static final string CONST_VAL = "there";
 ...
 String str = "Hello" + " "+ CONST_VAL + " " +"world!";
 </code></pre>
-            to: <br/>
+            至: <br/>
 <pre><code>
 public static final string CONST_VAL = "there";
 ...
 String str = "Hello there world!";
 </code></pre>
-            This means the concatenation is done during compile time, not at runtime, so there's <b>no need</b> to do: <br/>
+            这意味着连接是在编译时完成的，而不是在运行时完成的，因此<b>不需要</b>进行操作：<br/>
 <pre><code>
 public static final string CONST_VAL = "there";
 ...
 StringBuilder sb = new StringBuilder("Hello").append(" ").append(CONST_VAL).append(" ").append("world!");
 String str = sb.toString();
 </code></pre>
-            which is harder to read and will result in more complex bytecode.
+            这更难阅读，并且会导致更复杂的字节码。
             </p>
 
             <p>
-            Simply append your constants with the "+" symbol, don't append them with <code>StringBuilder.append()</code>.
+            只需在常量上加上“+”符号，就不要在它们之间加上<code>StringBuilder.append()</code>。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_NULL_BEFORE_INSTANCEOF">
-        <ShortDescription>方法 checks a reference for null before calling instanceof</ShortDescription>
-        <LongDescription>方法 {1} checks a reference for null before calling instanceof</LongDescription>
+        <ShortDescription>方法在调用instanceof之前检查引用是否为null</ShortDescription>
+        <LongDescription>方法 {1} 在调用instanceof之前检查引用是否为null</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 checks a reference for null just before seeing if the reference is an instanceof some class.
-            Since instanceof will return false for null references, the null check is not needed.</p>
+            <p>这个方法在查看引用是否是某个类的实例之前，检查该引用是否为null。
+            由于instanceof对于空引用将返回false，因此不需要空检查。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_NON_USEFUL_TOSTRING">
-        <ShortDescription>方法 calls toString() on an instance of a class that hasn't overridden toString()</ShortDescription>
-        <LongDescription>方法 {1} calls toString() on an instance of a class that hasn't overridden toString()</LongDescription>
+        <ShortDescription>方法在尚未重写toString()的类的实例上调用toString()</ShortDescription>
+        <LongDescription>方法 {1} 在尚未重写toString()的类的实例上调用toString()</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 calls <code>toString</code> on an object that hasn't overridden the toString() method, and thus relies on
-            the version found in java.lang.Object. This string is just a raw display of the object's class and location, and
-            provides no information about the information of use. You should implement toString in this class.</p>
+            <p>这个方法在尚未覆盖toString()方法的对象上调用<code> toString</code>，因此依赖于java.lang.Object中的实现。
+			该字符串只是该对象的类和位置的原始显示，不提供有关使用信息的信息。
+			您应该在此类中实现toString。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_TOSTRING_ON_STRING">
-        <ShortDescription>方法 calls toString() on a String</ShortDescription>
-        <LongDescription>方法 {1} calls toString() on a String</LongDescription>
+        <ShortDescription>方法在字符串上调用toString()</ShortDescription>
+        <LongDescription>方法 {1} 在字符串上调用toString()</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 calls <code>toString</code> on a String. Just use the object itself if you want a String.</p>
+            <p>这个方法在字符串上调用<code>toString</code>。如果需要字符串，只需使用对象本身。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_CONVERSION_OF_STRING_LITERAL">
-        <ShortDescription>方法 converts a String literal</ShortDescription>
-        <LongDescription>方法 {1} calls {3} on a String Literal</LongDescription>
+        <ShortDescription>方法转换一个固定字符串</ShortDescription>
+        <LongDescription>方法 {1} 在固定字符串上调用 {3}</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 calls a converting method like <code>toLowerCase</code> or <code>trim</code>
-            on a <code>String</code> literal. You should make the transformation yourself and use the transformed literal.</p>
+            <p>这个方法在<code>String</code>常量上调用诸如<code>toLowerCase</code>或<code>trim</code>的转换方法。
+			您应该自己进行转换并使用转换后的文字。</p>
 
             <p>
-            For example, instead of :<br/>
+            例如，为代替：<br/>
 <pre><code>
 return "ThisIsAConstantString".toLowerCase().trim();
 </code></pre>
-            just do <br/>
+            只需要 <br/>
 <pre><code>
 return "thisisaconstantstring";
 </code></pre>
-            for shorter and easier to read code.  An exception might be made when locale-specific transformations need
-            to be done (in the case of <code>toUpperCase()</code> and <code>toLowerCase()</code>.
+			以便更短，更容易阅读代码。
+			而且当需要进行特定于语言环境的转换时(在<code>toUpperCase()</code>和<code>toLowerCase()</code>的情况下，可能会发生异常)。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_EQUALS_ON_STRING_BUILDER">
-        <ShortDescription>方法 calls equals(Object o) on a StringBuilder or StringBuffer</ShortDescription>
-        <LongDescription>方法 {1} calls equals(Object o) on a StringBuilder or StringBuffer</LongDescription>
+        <ShortDescription>方法在StringBuilder或StringBuffer上调用equals(Object o)</ShortDescription>
+        <LongDescription>方法 {1} 在StringBuilder或StringBuffer上调用equals(Object o)</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 calls equals on a StringBuilder or StringBuffer. Surprisingly, these classes do not override
-            the equals method from Object, and so equals is just defined to be == (or same references). This is most
-            likely not what you would like. If you wish to check that the strings have the same characters, you need to
-            call toString() on these object and compare them as Strings.</p>
+            <p>这个方法在StringBuilder或StringBuffer上调用equals。
+			令人惊讶的是，这些类没有覆盖Object中的equals方法，因此equals仅定义为==(或相同的引用)。
+			这很可能不是您想要的。
+			如果要检查字符串是否具有相同的字符，则需要在这些对象上调用toString()并将它们与字符串进行比较。</p>
             ]]>
         </Details>
     </BugPattern>
