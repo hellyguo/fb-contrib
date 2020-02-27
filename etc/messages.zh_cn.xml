@@ -44,13 +44,13 @@
             <![CDATA[
             <p>Looks for appending strings inside of calls to StringBuffer or StringBuilder append.</p>
             <pre>
-               StringBuilder sb = new StringBuilder();
-               sb.append(a + b);
-               return sb.toString();
+                StringBuilder sb = new StringBuilder();
+                sb.append(a + b);
+                return sb.toString();
             </pre>
             You should use the .append method to append values
             <pre>
-               sb.append(a).append(b);
+                sb.append(a).append(b);
             </pre>
             <p>It is a fast detector.</p>
             ]]>
@@ -234,17 +234,17 @@
             <p>Looks for method calls to collection classes where the method is not defined by the Collections interface, and an equivalent method exists in the interface.
             Examples include:<br/>
             <table border="1">
-               <tr><th>Old Method</th><th>New Method</th></tr>
-               <tr><td>Hashtable.contains</td><td>Map.containsValue</td></tr>
-               <tr><td>Hashtable.elements</td><td>Map.elements</td></tr>
-               <tr><td>Hashtable.keys</td><td>Map.keySet</td></tr>
-               <tr><td>Vector.addElement</td><td>List.add</td></tr>
-               <tr><td>Vector.elementAt</td><td>List.get</td></tr>
-               <tr><td>Vector.insertElementAt</td><td>List.add</td></tr>
-               <tr><td>Vector.removeAllElements</td><td>List.clear</td></tr>
-               <tr><td>Vector.removeElement</td><td>List.remove</td></tr>
-               <tr><td>Vector.removeElementAt</td><td>List.remove</td></tr>
-               <tr><td>Vector.setElementAt</td><td>List.set</td></tr>
+                <tr><th>Old Method</th><th>New Method</th></tr>
+                <tr><td>Hashtable.contains</td><td>Map.containsValue</td></tr>
+                <tr><td>Hashtable.elements</td><td>Map.elements</td></tr>
+                <tr><td>Hashtable.keys</td><td>Map.keySet</td></tr>
+                <tr><td>Vector.addElement</td><td>List.add</td></tr>
+                <tr><td>Vector.elementAt</td><td>List.get</td></tr>
+                <tr><td>Vector.insertElementAt</td><td>List.add</td></tr>
+                <tr><td>Vector.removeAllElements</td><td>List.clear</td></tr>
+                <tr><td>Vector.removeElement</td><td>List.remove</td></tr>
+                <tr><td>Vector.removeElementAt</td><td>List.remove</td></tr>
+                <tr><td>Vector.setElementAt</td><td>List.set</td></tr>
             </table>
             </p>
             <p>It is a fast detector.</p>
@@ -311,14 +311,14 @@ public void test(int i)
             <p>Looks for methods that pass a primitive wrapper class object to the same class' Constructor.
             Patterns found are: 
             <ul>
-               <li>new Boolean(Boolean)</li>
-               <li>new Byte(Byte)</li>
-               <li>new Character(Character)</li>
-               <li>new Short(Short)</li>
-               <li>new Integer(Integer)</li>
-               <li>new Long(Long)</li>
-               <li>new Float(Float)</li>
-               <li>new Double(Double)</li>
+                <li>new Boolean(Boolean)</li>
+                <li>new Byte(Byte)</li>
+                <li>new Character(Character)</li>
+                <li>new Short(Short)</li>
+                <li>new Integer(Integer)</li>
+                <li>new Long(Long)</li>
+                <li>new Float(Float)</li>
+                <li>new Double(Double)</li>
             </ul>
             Since primitive wrapper classes are immutable this is needless garbage being created.
             Just use the original reference.
@@ -805,10 +805,10 @@ public void test(int i)
             <p>Looks for JUnit or TestNG test case methods that use assertions with odd parameters.
             Included in this is:
             <ul>
-               <li>Passing a constant as the second (actual) parameter in a JUnit test</li>
-               <li>Not using the three parameter version of asserts for doubles</li>
-               <li>Passing true or false as the first parameter instead of using assertTrue, or assertFalse</li>
-               <li>Using the assert keyword</li>
+                <li>Passing a constant as the second (actual) parameter in a JUnit test</li>
+                <li>Not using the three parameter version of asserts for doubles</li>
+                <li>Passing true or false as the first parameter instead of using assertTrue, or assertFalse</li>
+                <li>Using the assert keyword</li>
             </ul>
             </p>
             <p>It is a fast detector.</p>
@@ -862,9 +862,9 @@ public void test(int i)
             As these classes are not officially released from the API vendor, they are subject to change or removal, and thus, should not be counted on.</p>
             Packages that shouldn't be used are: 
             <ul>
-               <li>sun.xxx</li>
-               <li>org.apache.xerces.xxx</li>
-               <li>org.apache.xalan.xxx</li>
+                <li>sun.xxx</li>
+                <li>org.apache.xerces.xxx</li>
+                <li>org.apache.xalan.xxx</li>
             </ul>
             <p>It is a fast detector.</p>
             ]]>
@@ -1398,8 +1398,8 @@ a[0] = new A(); // results in ArrayStoreException (Runtime)
             <![CDATA[
             <p>Looks for classes that store fields that are Strings that impersonate instances of classes, or collections that are fields that hold Strings that impersonate a class.
             Examples of String impersonation are storing: <ul>
-               <li>The result of a toString call</li>
-               <li>Strings built from parsing or building strings from other objects, such as "1,2,3,4" or "Project:3"</li>
+                <li>The result of a toString call</li>
+                <li>Strings built from parsing or building strings from other objects, such as "1,2,3,4" or "Project:3"</li>
             </ul>
             By using Strings you are throwing away type-safety, and making it difficult to reason about what the values of variables in use are.
             If a String has multiple parts to it, it probably belongs as a first-class Class.
@@ -1522,7 +1522,7 @@ a[0] = new A(); // results in ArrayStoreException (Runtime)
             <![CDATA[
             <p>Looks for problems with using concurrent collections.
             <ul>
-               <li>Adding a collection as a value of a Concurrent map, without the use of putIfAbsent</li>
+                <li>Adding a collection as a value of a Concurrent map, without the use of putIfAbsent</li>
             </ul>
             </p>
             <p>It is a fast detector.</p>
@@ -1785,14 +1785,14 @@ private void appendToList(ArrayList&lt;String&gt; list) {
 }
 </code></pre>
 
-               参数 list 被定义为<code>ArrayList</code>，一个<code>List</code>接口的具体实现。
-               这里没必要特别指定 <code>ArrayList</code>，因为我们没有用到任何<code>ArrayList</code>特定的方法(像<code>ensureCapacity()</code> 或 <code>trimToSize()</code>)。
-               相比于使用具体类型，像这样做更好：<br/>
+                参数 list 被定义为<code>ArrayList</code>，一个<code>List</code>接口的具体实现。
+                这里没必要特别指定 <code>ArrayList</code>，因为我们没有用到任何<code>ArrayList</code>特定的方法(像<code>ensureCapacity()</code> 或 <code>trimToSize()</code>)。
+                相比于使用具体类型，像这样做更好：<br/>
 <pre><code>
 private void appendToList(List&lt;String&gt; list) {
     ...
 </code></pre>
-               就算设计变了，比如用<code>LinkedList</code>代替，代码也不需要变动。
+                就算设计变了，比如用<code>LinkedList</code>代替，代码也不需要变动。
 
             </p>
 
@@ -2247,7 +2247,7 @@ public Boolean someMethod() {
             <p>此方法将返回值存于一个局部变量，然后立即返回这个局部变量。
             这可以简化为直接返回赋给这个局部变量的值。</p>
             <p>
-               为替代下面的代码：<br/>
+                为替代下面的代码：<br/>
 
 <pre><code>
 public float average(int[] arr) {
@@ -2260,7 +2260,7 @@ public float average(int[] arr) {
 }
 </code></pre>
 
-               只需要简单修改方法返回除法的结果：<br/>
+                只需要简单修改方法返回除法的结果：<br/>
 
 <pre><code>
 public float average(int[] arr) {
@@ -2540,10 +2540,10 @@ static {
             由于局部变量按照定义是线程安全的，因此使用同步集合是可疑的。</p>
             <p>
             <table>
-               <tr><th>如果您正在使用</th><th>考虑使用</th></tr>
-               <tr><td>java.util.Vector</td><td>java.util.ArrayList</td></tr>
-               <tr><td>java.util.Hashtable</td><td>java.util.HashMap</td></tr>
-               <tr><td>java.lang.StringBuffer</td><td>java.lang.StringBuilder</td></tr>
+                <tr><th>如果您正在使用</th><th>考虑使用</th></tr>
+                <tr><td>java.util.Vector</td><td>java.util.ArrayList</td></tr>
+                <tr><td>java.util.Hashtable</td><td>java.util.HashMap</td></tr>
+                <tr><td>java.lang.StringBuffer</td><td>java.lang.StringBuilder</td></tr>
             </table>
             </p>
             ]]>
@@ -3039,13 +3039,13 @@ if ({{FLAWED_TEST_LOGIC}}) {
 
             这可能是完全正确的，但是通常，逻辑上应以相同的方式处理空值和空字符串，因此此测试可能有缺陷。</p>
             <p>找到的模式是以下之一： <ul>
-               <li><code>if ((s == null) || (s.length() &gt; 0))</code> --- 你的意图是
-               <code>((s == null) || (s.length() == 0))</code>?</li>
-               <li><code>if ((s == null) || (s.length() != 0))</code> -- 你的意图是
-               <code>((s == null) || (s.length() == 0))</code>?</li>
-               <li><code>if ((s != null) && (s.length() == 0))</code> -- 你的意图是
-               <code>((s != null) && (s.length() &gt; 0))</code> 或
-               <code>((s == null) || (s.length() == 0))</code>?</li>
+                <li><code>if ((s == null) || (s.length() &gt; 0))</code> --- 你的意图是
+                <code>((s == null) || (s.length() == 0))</code>?</li>
+                <li><code>if ((s == null) || (s.length() != 0))</code> -- 你的意图是
+                <code>((s == null) || (s.length() == 0))</code>?</li>
+                <li><code>if ((s != null) && (s.length() == 0))</code> -- 你的意图是
+                <code>((s != null) && (s.length() &gt; 0))</code> 或
+                <code>((s == null) || (s.length() == 0))</code>?</li>
             </ul>
             </p>
             ]]>
@@ -3587,80 +3587,80 @@ return new String[0];<br/>
     </BugPattern>
 
     <BugPattern type="UTAO_JUNIT_ASSERTION_ODDITIES_USE_ASSERT_NULL">
-        <ShortDescription>JUnit测试方法 passes null Assert.assertEquals</ShortDescription>
-        <LongDescription>JUnit测试方法 {1} passes null to Assert.assertEquals</LongDescription>
+        <ShortDescription>JUnit测试方法传递null给Assert.assertEquals</ShortDescription>
+        <LongDescription>JUnit测试方法 {1} 传递null给Assert.assertEquals</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 compares an object's equality to null.
-            It is better to use the Assert.assertNull method so that the JUnit failure method is more descriptive of the intended test.</p>
+            <p>此方法比较一个对象是否与null相等。
+            最好使用Assert.assertNull方法，以便JUnit故障处理方法可以更好地描述预期的测试。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_JUNIT_ASSERTION_ODDITIES_USE_ASSERT_NOT_NULL">
-        <ShortDescription>JUnit测试方法 passes null Assert.assertNotEquals</ShortDescription>
-        <LongDescription>JUnit测试方法 {1} passes null to Assert.assertNotEquals</LongDescription>
+        <ShortDescription>JUnit测试方法传递null给Assert.assertNotEquals</ShortDescription>
+        <LongDescription>JUnit测试方法 {1} 传递null给Assert.assertNotEquals</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 compares an object's inequality to null.
-            It is better to use the Assert.assertNotNull method so that the JUnit failure method is more descriptive of the intended test.</p>
+            <p>此方法比较一个对象是否与null相等。
+            最好使用Assert.assertNotNull方法，以便JUnit故障处理方法可以更好地描述预期的测试。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_JUNIT_ASSERTION_ODDITIES_USE_ASSERT_EQUALS">
-        <ShortDescription>JUnit测试方法 passes boolean expression to Assert.assertFalse / Assert.assertTrue</ShortDescription>
-        <LongDescription>JUnit测试方法 {1} passes boolean expression to Assert.assertFalse / Assert.assertTrue</LongDescription>
+        <ShortDescription>JUnit测试方法将布尔表达式传递给Assert.assertFalse / Assert.assertTrue</ShortDescription>
+        <LongDescription>JUnit测试方法 {1} 将布尔表达式传递给Assert.assertFalse / Assert.assertTrue</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
-            It is better to pass the two values that are being equated to the Assert.assertEquals method so that the JUnit failure method is more descriptive of the intended test.</p>
+            <p>此方法计算一个布尔表达式并将其传递给Assert.assertFalse / Assert.assertTrue。
+            最好传递两个值以调用Assert.assertEquals，以便JUnit故障处理方法可以更好地描述预期的测试。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_JUNIT_ASSERTION_ODDITIES_USE_ASSERT_NOT_EQUALS">
-        <ShortDescription>JUnit测试方法 passes boolean expression to Assert.assertFalse / Assert.assertTrue</ShortDescription>
-        <LongDescription>JUnit测试方法 {1} passes boolean expression to Assert.assertFalse / Assert.assertTrue</LongDescription>
+        <ShortDescription>JUnit测试方法将布尔表达式传递给Assert.assertFalse / Assert.assertTrue</ShortDescription>
+        <LongDescription>JUnit测试方法 {1} 将布尔表达式传递给Assert.assertFalse / Assert.assertTrue</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
-            It is better to pass the two values that are being equated to the Assert.assertNotEquals method so that the JUnit failure method is more descriptive of the intended test.</p>
+            <p>此方法计算一个布尔表达式并将其传递给Assert.assertFalse / Assert.assertTrue。
+            最好传递两个值以调用Assert.assertNotEquals，以便JUnit故障处理方法可以更好地描述预期的测试。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_JUNIT_ASSERTION_ODDITIES_NO_ASSERT">
-        <ShortDescription>JUnit测试方法 appears to have no assertions</ShortDescription>
-        <LongDescription>JUnit测试方法 {1} appears to have no assertions</LongDescription>
+        <ShortDescription>JUnit测试方法似乎没有断言</ShortDescription>
+        <LongDescription>JUnit测试方法 {1} 似乎没有断言</LongDescription>
         <Details>
             <![CDATA[
-            <p>This JUnit测试方法 has no assertions.
-            While a unit test could still be valid if it relies on whether or not an exception is thrown, it is usually a sign of a weak test if there are no assertions.
-            Consider calling <code>fail</code> after an exception was expected.
-            It is also possible that assertions occur in a called method that is not seen by this detector, but this makes the logic of this test more difficult to reason about.</p>
+            <p>此JUnit测试方法没有断言.
+            虽然单元测试依赖于是否引发异常，但仍然有效，但如果没有断言，通常表明测试很弱。
+            考虑在出现异常后调用<code>fail</code>。
+            断言也有可能在此检测器无法看到的调用方法中发生，但这使该测试的逻辑更加难以推理。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_JUNIT_ASSERTION_ODDITIES_USING_DEPRECATED">
-        <ShortDescription>JUnit 4 test using deprecated junit.framework.* classes</ShortDescription>
-        <LongDescription>JUnit 4 test {1} using deprecated junit.framework.* classes</LongDescription>
+        <ShortDescription>在JUnit 4测试中使用不推荐使用的junit.framework.*类</ShortDescription>
+        <LongDescription>在JUnit 4测试 {1} 中使用不推荐使用的junit.framework.*类</LongDescription>
         <Details>
             <![CDATA[
-            <p>This JUnit 4 test is still using classes from the junit.framework.* package.
-            You should switch them over to the corresponding org.junit.* set of classes, instead.</p>
+            <p>此JUnit 4测试仍在使用junit.framework。*包中的类。
+            您应该将它们切换到相应的org.junit。*类集。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_TESTNG_ASSERTION_ODDITIES_ACTUAL_CONSTANT">
-        <ShortDescription>TestNG test method passes constant to first (actual) assertion parameter</ShortDescription>
-        <LongDescription>TestNG test method {1} passes constant to first (actual) assertion parameter</LongDescription>
+        <ShortDescription>TestNG测试方法将常量传递给第一个（实际）断言参数</ShortDescription>
+        <LongDescription>TestNG测试方法 {1} 将常量传递给第一个（实际）断言参数</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 calls <code>assertXXX</code> passing a constant value as the first of the two values.
-            The assert method assumes that the expected value is the second parameter, and so it appears that the order of values has been swapped here.</p>
+            <p>此方法调用<code>assertXXX</code>传递一个常量值作为两个值中的第一个。
+            assert方法假定期望值是第二个参数，因此似乎在这里交换了值的顺序。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -3934,11 +3934,11 @@ return new String[0];<br/>
             <![CDATA[
             <p>此方法 uses an SLF4J or Log4J2 logger to log a string which was produced through a call to String.format, where the format string passed was a constant string containing only simple format markers that could be directly handled by SLF4J or Log4J.
             Rather than doing <pre>
-               logger.error(String.format("This %s is an error", s));
+                logger.error(String.format("This %s is an error", s));
             <pre>
             do
             <pre>
-               logger.error("This {} is an error", s);
+                logger.error("This {} is an error", s);
             </pre>
             </p>
             ]]>
@@ -3964,22 +3964,22 @@ return new String[0];<br/>
         <LongDescription>类 {0} defines a non private logger using a static class context</LongDescription>
         <Details>
             <![CDATA[
-               <p>This class defines a static logger as non private.
+                <p>This class defines a static logger as non private.
             It does so by passing the name of a class such as <code><pre>public static final Logger LOG = LoggerFactory.getLogger(Foo.class);</pre></code>
-               Since this class is public it may be used in other classes, but doing so will provide the incorrect
-               class reference as the class is hard coded.
-               </p>
-               <p>
-               It is recommend to define static loggers as private, and just redefine a new logger in any class
-               that you need to have logging done.
-               <p>
-               <p>If you wish to have a base class define the logger, and have derived classes use that logger, you can
-               potentially use instance based logging, such as
-               <code><pre>protected final Logger LOG = LoggerFactory.getLogger(getClass());</pre></code>
-               However this has the downside of being an instance based logger, and creating a logger object in each instance
-               of the class where it is used.
-               </p>
-               ]]>
+                Since this class is public it may be used in other classes, but doing so will provide the incorrect
+                class reference as the class is hard coded.
+                </p>
+                <p>
+                It is recommend to define static loggers as private, and just redefine a new logger in any class
+                that you need to have logging done.
+                <p>
+                <p>If you wish to have a base class define the logger, and have derived classes use that logger, you can
+                potentially use instance based logging, such as
+                <code><pre>protected final Logger LOG = LoggerFactory.getLogger(getClass());</pre></code>
+                However this has the downside of being an instance based logger, and creating a logger object in each instance
+                of the class where it is used.
+                </p>
+                ]]>
         </Details>
     </BugPattern>
 
@@ -3992,9 +3992,9 @@ return new String[0];<br/>
             As these classes are not documented, nor externally released as part of the API, they are subject to change or removal.
             You should not be using these classes.</p>
             Packages that shouldn't be used are: <ul>
-               <li>sun.xxx</li>
-               <li>org.apache.xerces.xxx</li>
-               <li>org.apache.xalan.xxx</li>
+                <li>sun.xxx</li>
+                <li>org.apache.xerces.xxx</li>
+                <li>org.apache.xalan.xxx</li>
             </ul>
             ]]>
         </Details>
@@ -4328,7 +4328,7 @@ if (name != null) {
         </p>
 
             <p>
-               As of Java 6, you may use <code>new Random(new SecureRandom().nextLong())</code> or <code>new SecureRandom()</code> instead.
+                As of Java 6, you may use <code>new Random(new SecureRandom().nextLong())</code> or <code>new SecureRandom()</code> instead.
             </p>
             ]]>
         </Details>
@@ -4709,9 +4709,10 @@ if (name != null) {
             <![CDATA[
             <p>此方法 allocates a collection using the default constructor even though it is known a priori (or at least can be reasonably guessed) how many items are going to be placed in the collection, and thus needlessly causes intermediate reallocations of the collection.</p>
             <p>You can use the constructor that takes an initial size and that will be much better, but due to the loadFactor of Maps and Sets, even this will not be a correct estimate.</p>
-            <p>If you are using Guava, use its methods that allocate maps and sets with a predetermined size, to get the best chance for no reallocations, such as: <ul>
-               <li>Sets.newHashSetWithExpectedSize(int)</li>
-               <li>Maps.newHashMapWithExpectedSize(int)</li>
+            <p>If you are using Guava, use its methods that allocate maps and sets with a predetermined size, to get the best chance for no reallocations, such as: 
+            <ul>
+                <li>Sets.newHashSetWithExpectedSize(int)</li>
+                <li>Maps.newHashMapWithExpectedSize(int)</li>
             </ul>
             If not, a good estimate would be the expectedSize / {LOADING_FACTOR} which by default is 0.75 </p>
             ]]>
@@ -4725,12 +4726,13 @@ if (name != null) {
             <![CDATA[
             <p>此方法 allocates a collection using the a constructor that takes a size parameter.
             However, because Maps and Sets have a loading factor, passing in the exact size you want is an incorrect way to presize the collection, and may still cause reallocations.
-            Since you are using Guava, it is better to use <code><pre>
-               Maps.newHashMapWithExpectedSize(c.size());
+            Since you are using Guava, it is better to use 
+            <code><pre>
+                Maps.newHashMapWithExpectedSize(c.size());
             </pre></code>
             or
             <code><pre>
-               Sets.newHashSetWithExpectedsize(c.size());
+                Sets.newHashSetWithExpectedsize(c.size());
             </pre></code>
             as this method calculates the correct size taking into account the loading factor.
 
@@ -4866,11 +4868,8 @@ if (name != null) {
             <![CDATA[
             <p>Most <code>ExecutorService</code> objects must be explicitly shut down, otherwise their internal threads can prolong the running of the JVM, even when everything else has stopped.</p>
 
-            <p>FindBugs has detected that there are no calls to either the <code>shutdown()</code> or <code>shutdownNow()</code>
-            method, and thus, the <code>ExecutorService</code> is not guaranteed to ever terminate.
-            This is especially
-            problematic for <code>Executors.newFixedThreadPool()</code> and most of the other convenience methods in
-            the <code>Executors</code> class.</p>
+            <p>FindBugs has detected that there are no calls to either the <code>shutdown()</code> or <code>shutdownNow()</code> method, and thus, the <code>ExecutorService</code> is not guaranteed to ever terminate.
+            This is especially problematic for <code>Executors.newFixedThreadPool()</code> and most of the other convenience methods in the <code>Executors</code> class.</p>
 
             <p>Even though there are some exceptions to this, particularly when a custom <code>ThreadFactory</code> is provided, or for <code>ThreadPoolExecutor</code>s with <code>allowsCoreThreadTimeOut()</code> set to true, it is good practice to explicitly shutdown the <code>ExecutorService</code> when its utility is done.</p>
             ]]>
@@ -4951,11 +4950,11 @@ public String requestInfo(URI u) {
     return null;
 }
 </code></pre>
-               will freeze after a few requests, usually with no indication as to why.  </p>
+                will freeze after a few requests, usually with no indication as to why.  </p>
 
             <p>
-               The reason this code freezes is because <code>org.apache.http.HttpRequest</code>s need to explicitly release their connection
-               with a call to either <code>reset()</code> or <code>releaseConnection()</code>.  The above example can be easily fixed:<br/>
+                The reason this code freezes is because <code>org.apache.http.HttpRequest</code>s need to explicitly release their connection
+                with a call to either <code>reset()</code> or <code>releaseConnection()</code>.  The above example can be easily fixed:<br/>
 <pre><code>
 private HttpGet httpGet;
 ...
@@ -4997,14 +4996,14 @@ public String requestInfo(URI u) {
     return null;
 }
 </code></pre>
-               will freeze after a few requests, usually with no indication as to why. </p>
+                will freeze after a few requests, usually with no indication as to why. </p>
 
             <p>
-               The reason this code freezes is because <code>org.apache.http.HttpRequest</code>s need to explicitly release their connection
-               with a call to either <code>reset()</code> or <code>releaseConnection()</code>, <b>even if the request is a local</b>.
-               The garbage collector will not release these resources, leading to the frustrating freezing scenario described above.
-
-               <br/>The above example can be easily fixed:<br/>
+                The reason this code freezes is because <code>org.apache.http.HttpRequest</code>s need to explicitly release their connection
+                with a call to either <code>reset()</code> or <code>releaseConnection()</code>, <b>even if the request is a local</b>.
+                The garbage collector will not release these resources, leading to the frustrating freezing scenario described above.<br/>
+                
+                The above example can be easily fixed:<br/>
 <pre><code>
 public String requestInfo(URI u) {
     HttpGet httpGet = new HttpGet(u);
@@ -5111,11 +5110,11 @@ public String requestInfo(URI u) {
             <![CDATA[
             <p>此方法 is declared more permissively than the code is using.
             Having this method be more permissive than is needed limits your ability to make observations about this method, like parameter usage, refactorability, and derivability.
-               It is possible that this detector will report erroneously if:
+            It is possible that this detector will report erroneously if:
             <ul>
-               <li>The method is called from code not being scanned, such as unit tests</li>
-               <li>The method is an API method, expected to be used by unknown client code</li>
-               <li>The method is called through reflection
+                <li>The method is called from code not being scanned, such as unit tests</li>
+                <li>The method is an API method, expected to be used by unknown client code</li>
+                <li>The method is called through reflection
             </ul>
             </p>
             ]]>
@@ -5160,21 +5159,21 @@ public String requestInfo(URI u) {
             </p>
             <p>
             Example<br/>
-               instead of
-               <pre><code>
-                   V v = myMap.get(tableName + "-" + columnName);
-               </code></pre>
-               use
-               <pre><code>
-                   V v = myMap.get(new ColumnSpec(tableName, columnName));
-               </code></pre>
-               where ColumnSpec is a simple bean-like class of your creation.
-                   The advantages, are
-               <ul>
-                   <li>The ColumnSpec fully describes what is expected, you need a tableName and columnName</li>
-                   <li>There is no guessing by the programmer what the format is, was it tableName + "_" + columnName?</li>
-               </ul>
-               </p>
+            instead of
+            <pre><code>
+                V v = myMap.get(tableName + "-" + columnName);
+            </code></pre>
+            use
+            <pre><code>
+                V v = myMap.get(new ColumnSpec(tableName, columnName));
+            </code></pre>
+            where ColumnSpec is a simple bean-like class of your creation.
+            The advantages, are
+            <ul>
+                <li>The ColumnSpec fully describes what is expected, you need a tableName and columnName</li>
+                <li>There is no guessing by the programmer what the format is, was it tableName + "_" + columnName?</li>
+            </ul>
+            </p>
             ]]>
         </Details>
     </BugPattern>
@@ -5364,17 +5363,17 @@ for (Person p : people) {
         <Details>
             <![CDATA[
             <p>This JAX-RS endpoint annotates a parameter with a @Context annotation.
-               This annotation can supply values for the following types:
+                This annotation can supply values for the following types:
             <ul>
-               <li>javax.ws.rs.core.UriInfo</li>
-               <li>javax.ws.rs.core.HttpHeaders</li>
-               <li>javax.ws.rs.core.Request</li>
-               <li>javax.ws.rs.core.SecurityContext</li>
-               <li>javax.ws.rs.ext.Providers</li>
-               <li>javax.servlet.ServletConfig</li>
-               <li>javax.servlet.ServletContext</li>
-               <li>javax.servlet.HttpServletRequest</li>
-               <li>javax.servlet.HttpServletResponse</li>
+                <li>javax.ws.rs.core.UriInfo</li>
+                <li>javax.ws.rs.core.HttpHeaders</li>
+                <li>javax.ws.rs.core.Request</li>
+                <li>javax.ws.rs.core.SecurityContext</li>
+                <li>javax.ws.rs.ext.Providers</li>
+                <li>javax.servlet.ServletConfig</li>
+                <li>javax.servlet.ServletContext</li>
+                <li>javax.servlet.HttpServletRequest</li>
+                <li>javax.servlet.HttpServletResponse</li>
             </ul>
             It is possible that your container can supply additional types, but these types are not standard and may not be supported on other application servers.</p>
             ]]>
@@ -5546,9 +5545,11 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             <p>此方法 creates and uses a java.io.FileInputStream or java.io.FileOutputStream object.
             Unfortunately both of these classes implement a finalize method, which means that objects created will likely hang around until a full garbage collection occurs, which will leave excessive garbage on the heap for longer, and potentially much longer than expected.
             Java 7 introduced two ways to create streams for reading and writing files that do not have this concern.
-               You should consider switching from these above classes to
-<code>
-            InputStream is = java.nio.file.Files.newInputStream(myfile.toPath()); OutputStream os = java.nio.file.Files.newOutputStream(myfile.toPath()); </code>
+            You should consider switching from these above classes to
+            <code>
+            InputStream is = java.nio.file.Files.newInputStream(myfile.toPath());
+            OutputStream os = java.nio.file.Files.newOutputStream(myfile.toPath()); 
+            </code>
             </p>
             ]]>
         </Details>
@@ -5635,9 +5636,9 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             <p>此方法 retrieves the value of a key from a ConcurrentHashMap, where the value is itself a collection.
             It checks this value for null, and if it is so, creates a new collection and places it in the map.
             This may cause thread race conditions where two threads overwrite each other's values.
-               You should be using
+            You should be using
             <code>
-               ConcurrentHashMap.putIfAbsent(K, V)
+                ConcurrentHashMap.putIfAbsent(K, V)
             </code>
             instead.
             ]]>
@@ -5655,9 +5656,9 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             </p>
             <p>Switch to using try with resources, as:
             <pre>
-               try (InputStream is = getAStream()) {
-                   useTheStream(is);
-               }
+                try (InputStream is = getAStream()) {
+                    useTheStream(is);
+                }
             </pre>
             ]]>
         </Details>
@@ -5838,21 +5839,21 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             <p>As an example, instead of using
             <code>
             <pre>
-               Map<String, String> myMap = getSomeMap();
-               if (myMap.containsKey("foo")) {
-                   String value = myMap.get("foo");
-                   ....
-               }
+                Map<String, String> myMap = getSomeMap();
+                if (myMap.containsKey("foo")) {
+                    String value = myMap.get("foo");
+                    ....
+                }
             </pre>
             </code>
             convert this to
             <code>
             <pre>
-               Map<String, String> myMap = getSomeMap();
-               String value = myMap.get("foo");
-               if (value != null) {
-                   ....
-               }
+                Map<String, String> myMap = getSomeMap();
+                String value = myMap.get("foo");
+                if (value != null) {
+                    ....
+                }
             </pre>
             </code>
             </p>
@@ -5861,11 +5862,11 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             However, this is a very subtle programming paradigm, and likely to cause problems.
             If you wish to mark an entry as not being present, it is better to use a named 'sentinel' value to denote this, so instead of: <code>
             <pre>
-               Map<String, String> myMap = getSomeMap();
-               if (myMap.containsKey("foo")) {
-                   String value = myMap.get("foo");
-                   ....
-               }
+                Map<String, String> myMap = getSomeMap();
+                if (myMap.containsKey("foo")) {
+                    String value = myMap.get("foo");
+                    ....
+                }
             </pre>
             </code>
             convert this to
@@ -5873,10 +5874,10 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             <pre>
                 Map<String, String> myMap = getSomeMap();
                 String value = myMap.get("foo");
-               if (NOT_FOUND.equals(value)) {
-                   ....
-               }
-               where NOT_FOUND is some constant that denotes this special status.
+                if (NOT_FOUND.equals(value)) {
+                    ....
+                }
+                where NOT_FOUND is some constant that denotes this special status.
             Of course you will need to find a special sentinel value for each type you are using that isn't possible to have normally.
             </pre>
             </code>
@@ -5885,7 +5886,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
         </Details>
     </BugPattern>
 
-     <BugPattern type="MUI_GET_BEFORE_REMOVE">
+    <BugPattern type="MUI_GET_BEFORE_REMOVE">
         <ShortDescription>方法 gets an item from a map with get(), before using remove()</ShortDescription>
         <LongDescription>方法 {1} gets an item from a map with get(), before using remove()</LongDescription>
         <Details>
@@ -5895,16 +5896,16 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             <p>As an example, instead of using
             <code>
             <pre>
-               Map<String, String> myMap = getSomeMap();
-               String v = myMap.get("foo")) {
-               myMap.remove("foo");
+                Map<String, String> myMap = getSomeMap();
+                String v = myMap.get("foo")) {
+                myMap.remove("foo");
             </pre>
             </code>
             convert this to
             <code>
             <pre>
-               Map<String, String> myMap = getSomeMap();
-               String v = myMap.remove("foo");
+                Map<String, String> myMap = getSomeMap();
+                String v = myMap.remove("foo");
             </pre>
             </code>
             </p>
@@ -6096,18 +6097,18 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             <p>As an example, instead of using
             <code>
             <pre>
-               Set<String> mySet = getSomeSet();
-               if (!mySet.contains("foo")) {
-                   mySet.add("foo");
-               }
+                Set<String> mySet = getSomeSet();
+                if (!mySet.contains("foo")) {
+                    mySet.add("foo");
+                }
             </pre>
             </code>
             convert this to
             <code>
             <pre>
-               Set<String> mySet = getSomeSet();
-               if (mySet.add("foo")) {
-               }
+                Set<String> mySet = getSomeSet();
+                if (mySet.add("foo")) {
+                }
             </pre>
             </code>
             </p>
@@ -6125,18 +6126,18 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             <p>As an example, instead of using
             <code>
             <pre>
-               Set<String> mySet = getSomeSet();
-               if (mySet.contains("foo")) {
-                   mySet.remove("foo");
-               }
+                Set<String> mySet = getSomeSet();
+                if (mySet.contains("foo")) {
+                    mySet.remove("foo");
+                }
             </pre>
             </code>
             convert this to
             <code>
             <pre>
-               Set<String> mySet = getSomeSet();
-               if (mySet.remove("foo")) {
-               }
+                Set<String> mySet = getSomeSet();
+                if (mySet.remove("foo")) {
+                }
             </pre>
             </code>
             </p>
