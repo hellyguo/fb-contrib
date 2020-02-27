@@ -3094,46 +3094,44 @@ if (Boolean.TRUE.equals(b))
     </BugPattern>
 
     <BugPattern type="SPP_USELESS_TERNARY">
-        <ShortDescription>方法 uses a ternary operator to cast a boolean to true or false</ShortDescription>
-        <LongDescription>方法 {1} uses a ternary operator to cast a boolean to true or false</LongDescription>
+        <ShortDescription>方法使用三元运算符将布尔值转换为true或false</ShortDescription>
+        <LongDescription>方法 {1} 使用三元运算符将布尔值转换为true或false</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 tests the value of a boolean and uses a ternary operator to return either true or false.
-            The ternary operator is completely unnecessary, just use the original boolean value.</p>
+            <p>这个方法测试布尔值，并使用三元运算符返回true或false。
+            三元运算符完全没有必要，只需使用原始的布尔值即可。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_SUSPECT_STRING_TEST">
-        <ShortDescription>方法 possibly mixes up normal strings and empty strings in branching logic</ShortDescription>
-        <LongDescription>方法 {1} treats null and normal strings the same, when it should probably
-        treat null and empty strings the same</LongDescription>
+        <ShortDescription>方法可能在分支逻辑中混合了普通字符串和空字符串</ShortDescription>
+        <LongDescription>方法 {1} 将null和正常字符串视为相同，应将null和空字符串视为相同</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 tests a string, and groups null values with real strings, leaving empty strings as another
-            case. That is, FindBugs has detected a structure like: <br/>
+            <p>这个方法测试一个字符串，并将空值与实际字符串分组，而将空字符串保留为另一种情况。
+			也就是说，FindBugs已检测到如下结构：<br/>
 <pre><code>
 String a = null, b = "", c = "someString";
 
-String testStr = ...;  //one of a, b or c
+String testStr = ...;  //a，b或c之一
 if ({{FLAWED_TEST_LOGIC}}) {
-    // Strings a and c fall into this branch... which is not typical.
+    // 字符串a和c属于该分支...这不是典型的。
 } else {
-    // String b falls into this branch.
+    // 字符串b落入该分支。
 }
 </code></pre>
 
-            This might be perfectly valid, but normally, null strings and empty strings are logically handled the same way,
-            and so this test may be flawed.</p>
-            <p>Pattern found is one of the following:
+            这可能是完全正确的，但是通常，逻辑上应以相同的方式处理空值和空字符串，因此此测试可能有缺陷。</p>
+            <p>找到的模式是以下之一：
             <ul>
-                <li><code>if ((s == null) || (s.length() &gt; 0))</code> --- did you mean
+                <li><code>if ((s == null) || (s.length() &gt; 0))</code> --- 你的意图是
                 <code>((s == null) || (s.length() == 0))</code>?</li>
-                <li><code>if ((s == null) || (s.length() != 0))</code> -- did you mean
-                <code>((s == null) || (s.length() == 0))</code>? </li>
-                <li><code>if ((s != null) && (s.length() == 0))</code> -- did you mean
-                <code>((s != null) && (s.length() &gt; 0))</code> or perhaps
-                <code>((s == null) || (s.length() == 0))</code>? </li>
+                <li><code>if ((s == null) || (s.length() != 0))</code> -- 你的意图是
+                <code>((s == null) || (s.length() == 0))</code>?</li>
+                <li><code>if ((s != null) && (s.length() == 0))</code> -- 你的意图是
+                <code>((s != null) && (s.length() &gt; 0))</code> 或
+                <code>((s == null) || (s.length() == 0))</code>?</li>
             </ul>
             </p>
             ]]>
@@ -3141,110 +3139,104 @@ if ({{FLAWED_TEST_LOGIC}}) {
     </BugPattern>
 
     <BugPattern type="SPP_USE_STRINGBUILDER_LENGTH">
-        <ShortDescription>方法 converts StringBuffer or Builder to String just to get its length</ShortDescription>
-        <LongDescription>方法 {1} converts StringBuffer or Builder to String just to get its length</LongDescription>
+        <ShortDescription>方法将StringBuffer或Builder转换为String只是为了获取其长度</ShortDescription>
+        <LongDescription>方法 {1} 将StringBuffer或Builder转换为String只是为了获取其长度</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 calls the toString method on a StringBuffer or StringBuilder, only to call length() on the resulting
-            string. It is faster, and less memory intensive, to just call the length method directly on the StringBuffer or StringBuilder
-            itself.</p>
+            <p>这个方法在StringBuffer或StringBuilder上调用toString方法，仅在结果字符串上调用length()。 
+			仅在StringBuffer或StringBuilder本身上直接调用length方法会更快，更省内存。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_INVALID_CALENDAR_COMPARE">
-        <ShortDescription>方法 passes a non calendar object to Calendar.before or Calendar.after</ShortDescription>
-        <LongDescription>方法 {1} passes a non calendar object to Calendar.before or Calendar.after</LongDescription>
+        <ShortDescription>方法将非日历对象传递给Calendar.before或Calendar.after</ShortDescription>
+        <LongDescription>方法 {1} 将非日历对象传递给Calendar.before或Calendar.after</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 passes a non-calendar object to the java.util.Calendar.after or java.util.Calendar.before methods.
-            Even though these methods take an Object as a parameter type, only Calendar type objects are supported, otherwise
-            false is returned.</p>
+            <p>这个方法将非日历对象传递给java.util.Calendar.after或java.util.Calendar.before方法。
+            即使这些方法将Object作为参数类型，也仅支持Calendar类型的对象，否则返回false。</p>
             ]]>
         </Details>
     </BugPattern>
     
     <BugPattern type="SPP_USE_ZERO_WITH_COMPARATOR">
-        <ShortDescription>方法 compares the result of a compareTo method to a value other than zero</ShortDescription>
-        <LongDescription>方法 {1} compares the result of a compareTo method to a value other than zero</LongDescription>
+        <ShortDescription>方法将compareTo方法的结果与非零值进行比较</ShortDescription>
+        <LongDescription>方法 {1} 将compareTo方法的结果与非零值进行比较</LongDescription>
         <Details>
             <![CDATA[
-            This method calls the compareTo method on an object and then compares the resultant value to a value other than
-            zero. The compareTo method is really only specified to return 0, a positive number or a negative number, so you should 
-            compare as == 0, or > 0 or < 0, and not to a specific value like == 1.
+            <p>此方法在对象上调用compareTo方法，然后将结果值与非零值进行比较。
+			实际上，只能将compareTo方法指定为返回0，正数或负数，因此您应该比较== 0，> 0或<0，而不要与== 1这样的特定值进行比较。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MUI_USE_CONTAINSKEY">
-        <ShortDescription>方法 calls keySet() just to call contains, use containsKey instead</ShortDescription>
-        <LongDescription>方法 {1} calls keySet() just to call contains, use containsKey instead</LongDescription>
+        <ShortDescription>方法 仅通过keySet（）来调用contains，请改用containsKey</ShortDescription>
+        <LongDescription>方法 {1} 仅通过keySet（）来调用contains，请改用containsKey</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 calls mySet.keySet().contains("foo") when mySet.containsKey("foo") is simpler.</p>
+            <p>这个方法调用mySet.keySet().contains("foo")，而mySet.containsKey("foo")更简单。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_USE_ISEMPTY">
-        <ShortDescription>方法 checks the size of a collection against zero rather than using isEmpty()</ShortDescription>
-        <LongDescription>方法 {1} checks the size of a collection against zero rather than using isEmpty()</LongDescription>
+        <ShortDescription>方法通过检查集合的大小是否为零判断是否为空，而没有使用isEmpty（）</ShortDescription>
+        <LongDescription>方法 {1} 通过检查集合的大小是否为零判断是否为空，而没有使用isEmpty（）</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 calls the size() method on a collection and compares the result to zero to see if the collection
-            is empty. For better code clarity, it is better to just use col.isEmpty() or !col.isEmpty().</p>
+            <p>这个方法在集合上调用size（）方法，并将结果与​​零进行比较，以查看集合是否为空。
+			为了使代码更清晰，最好只使用col.isEmpty（）或！col.isEmpty（）。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_USE_GETPROPERTY">
-        <ShortDescription>方法 calls getProperties just to get one property, use getProperty instead</ShortDescription>
-        <LongDescription>方法 {1} calls getProperties just to get one property, use getProperty instead</LongDescription>
+        <ShortDescription>方法调用getProperties只是为了获得一个属性，应改用getProperty</ShortDescription>
+        <LongDescription>方法 {1} 调用getProperties只是为了获得一个属性，应改用getProperty</LongDescription>
         <Details>
             <![CDATA[
-            <table>
-                <tr><td>This method uses</td></tr>
-                <tr><td>String prop = System.getProperties().getProperty("foo");</td></tr>
-                <tr><td>instead of simply using</td></tr>
-                <tr><td>String prop = System.getProperty("foo");</td></tr>
-            </table>
+            <p>
+                该方法使用
+                <code>String prop = System.getProperties().getProperty("foo");</code>
+                而不是简单地使用
+                <code>String prop = System.getProperty("foo");</code>
+			</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_SERIALVER_SHOULD_BE_PRIVATE">
-        <ShortDescription>类 defines a serialVersionUID as non private</ShortDescription>
-        <LongDescription>类 {0} defines a serialVersionUID as non private</LongDescription>
+        <ShortDescription>类将serialVersionUID定义为非私有</ShortDescription>
+        <LongDescription>类 {0} 将serialVersionUID定义为非私有</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class defines a static field 'serialVersionUID' to define the serialization
-            version for this class. This field is marked as non private. As the serialVersionUID only
-            controls the current class, and doesn't affect any derived classes, defining it as non
-            private is confusing. It is suggested you change this variable to be private.</p>
+            <p>此类定义一个静态字段'serialVersionUID'来定义此类的序列化版本。
+			该字段被标记为非私有。由于serialVersionUID仅控制当前类，并且不影响任何派生类，因此将其定义为非私有会造成混淆。
+			建议您将此变量更改为私有。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_USELESS_CASING">
-        <ShortDescription>方法 compares string without case after enforcing a case</ShortDescription>
-        <LongDescription>方法 {1} compares string without case after enforcing a case</LongDescription>
+        <ShortDescription>方法强制执行大小写后比较没有大小写的字符串</ShortDescription>
+        <LongDescription>方法 {1} 强制执行大小写后比较没有大小写的字符串</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 compares two strings with compareToIgnoreCase or equalsIgnoreCase, after having
-            called toUpperCase or toLowerCase on the strings in question. As you are comparing without
-            concern for case, the toUpperCase or toLowerCase calls are pointless and can be removed.</p>
+            <p>这个方法在字符串上调用toUpperCase或toLowerCase之后用compareToIgnoreCase或equalsIgnoreCase比较两个字符串.
+			当您进行比较而不必担心大小写时，toUpperCase或toLowerCase调用是没有意义的，可以删除。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SPP_NON_ARRAY_PARM">
-        <ShortDescription>方法 passes a non array object to a parameter that expects an array</ShortDescription>
-        <LongDescription>方法 {1} passes a non array object to a parameter that expects an array</LongDescription>
+        <ShortDescription>方法将非数组对象传递给需要数组的参数</ShortDescription>
+        <LongDescription>方法 {1} 将非数组对象传递给需要数组的参数</LongDescription>
         <Details>
             <![CDATA[
-            <p>这个方法 expects an array to be passed as one of its parameters, but unfortunately defines
-            the parameter as Object. This invocation of this method does not pass an array and will throw
-            an exception when run.</p>
+            <p>这个方法期望将数组作为其参数之一传递，但不幸的是将参数定义为Object。
+			此方法的调用放如果不传递数组，在运行时将引发异常。</p>
             ]]>
         </Details>
     </BugPattern>
