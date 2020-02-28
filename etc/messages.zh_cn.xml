@@ -3255,7 +3255,7 @@ String str = sb.toString();
         <LongDescription>方法 {1} 在尚未重写toString()的类的实例上调用toString()</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法在尚未覆盖toString()方法的对象上调用<code> toString</code>，因此依赖于java.lang.Object中的实现。
+            <p>此方法在尚未覆盖toString()方法的对象上调用<code>toString</code>，因此依赖于java.lang.Object中的实现。
             该字符串只是该对象的类和位置的原始显示，不提供有关使用信息的信息。
             您应该在此类中实现toString。</p>
             ]]>
@@ -3881,7 +3881,7 @@ return new String[0];<br/>
         <Details>
             <![CDATA[
             <p>此方法尝试使用SLF4J或Log4j2记录器记录使用String.format表示法的参数化表达式。
-            但是，SLF4J和Log4j2使用简单的未编号锚点（例如{}），而不是使用代码时在其中带有百分号的锚点。
+            但是，SLF4J和Log4j2使用简单的未编号锚点(例如{})，而不是使用代码时在其中带有百分号的锚点。
             因此，不会发生参数替换。</p>
             <p>此模式无效：<code>LOGGER.error("%s is broken", theThing);</code>
             改用<code>LOGGER.error("{} is broken", theThing);</code>
@@ -3895,7 +3895,7 @@ return new String[0];<br/>
         <LongDescription>方法 {1} 将错误数量的参数传递给SLF4J或Log4j2记录语句</LongDescription>
         <Details>
             <![CDATA[
-            <p>根据格式字符串中锚点{}的数量推测，此方法将错误数量的参数传递给SLF4J或Log4j2日志记录方法（错误，警告，信息，调试）。
+            <p>根据格式字符串中锚点{}的数量推测，此方法将错误数量的参数传递给SLF4J或Log4j2日志记录方法(错误，警告，信息，调试)。
             如果找到，则允许使用其他异常参数。</p>
             ]]>
         </Details>
@@ -3906,7 +3906,7 @@ return new String[0];<br/>
         <LongDescription>方法 {1} 在消息中使用记录器参数标记创建异常</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法传递一个标准异常作为记录器参数，并希望将此异常替换为SLF4J或Log4j样式参数标记“ {}”。
+            <p>此方法传递一个标准异常作为记录器参数，并希望将此异常替换为SLF4J或Log4j样式参数标记" {}"。
             该标记不会被翻译，因为SLF4J和Log4j2不会处理标记的Exception类。
             </p>
             ]]>
@@ -3918,7 +3918,7 @@ return new String[0];<br/>
         <LongDescription>方法 {1} 将串联的字符串传递到SLF4J或Log4j2的格式字符串</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法使用SLF4J或Log4j2记录器记录一个字符串，其中第一个（格式）字符串是使用串联创建的。
+            <p>此方法使用SLF4J或Log4j2记录器记录一个字符串，其中第一个(格式)字符串是使用串联创建的。
             您应该使用{}标记将动态内容注入到字符串中，以便延迟String的构建，直到需要实际的日志字符串为止。
             如果日志级别足够高，以致不使用此日志语句，则将永远不会执行附加操作。</p>
             ]]>
@@ -3946,14 +3946,14 @@ return new String[0];<br/>
     </BugPattern>
 
     <BugPattern type="LO_TOSTRING_PARAMETER">
-        <ShortDescription>方法在记录器参数上显式调用toString（）</ShortDescription>
-        <LongDescription>方法 {1} 在记录器参数上显式调用toString（）</LongDescription>
+        <ShortDescription>方法在记录器参数上显式调用toString()</ShortDescription>
+        <LongDescription>方法 {1} 在记录器参数上显式调用toString()</LongDescription>
         <Details>
             <![CDATA[
             <p>此方法在日志级别未达到所需级别的情况下，使用参数化日志记录来避免字符串连接的开销。
-            但是，传递给日志记录方法的一个或多个参数使用.toString（）来表示该参数的String表示形式。
+            但是，传递给日志记录方法的一个或多个参数使用.toString()来表示该参数的String表示形式。
             这是不必要的，因为记录器将为您执行此操作，并且由于已明确完成，因此即使未实际写入log语句，也将始终调用该方法。
-            另外，通过删除'.toString（）'，可以避免不必要的NPE。
+            另外，通过删除'.toString()'，可以避免不必要的NPE。
             只需将变量作为参数传递即可。
             ]]>
         </Details>
@@ -4009,7 +4009,7 @@ return new String[0];<br/>
             <![CDATA[
             <p>此方法创建一个包含其他集合的Set, 或一个Map其keySet是另一个集合。
             由于集合倾向于通过迭代集合的内容来计算hashCode，equals和compareTo，因此执行效果可能会很差。</p>
-            <p>此外，使用集合时，通常会使用它来执行“包含”或“查找”类型的功能，当对集合进行处理时，这似乎是可疑的。</p>
+            <p>此外，使用集合时，通常会使用它来执行"包含"或"查找"类型的功能，当对集合进行处理时，这似乎是可疑的。</p>
             <p>最后，由于通常会修改集合，因此如果集合中包含该集合，则会出现问题，因为当集合在集合中时，hashCode，equals或compareTo值将​​发生变化。</p>
             <p>如果您希望维护一个集合的集合，最好使用List作为外部集合。</p>
             ]]>
@@ -4086,11 +4086,11 @@ return new String[0];<br/>
     </BugPattern>
 
     <BugPattern type="ITU_INAPPROPRIATE_TOSTRING_USE">
-        <ShortDescription>方法对toString（）调用的结果执行算法运算</ShortDescription>
-        <LongDescription>方法 {1} 对toString（）调用的结果执行算法运算</LongDescription>
+        <ShortDescription>方法对toString()调用的结果执行算法运算</ShortDescription>
+        <LongDescription>方法 {1} 对toString()调用的结果执行算法运算</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法对toString（）调用的结果执行算法运算。
+            <p>此方法对toString()调用的结果执行算法运算。
             由于这些方法仅用于调试/记录目的，因此不应作为代码中核心逻辑的基础。</p>
             ]]>
         </Details>
@@ -4201,7 +4201,7 @@ class B extends A {}
 
 B[] b = new B[2];
 A[] a = b;
-a[0] = new A(); // 导致ArrayStoreException（运行时）
+a[0] = new A(); // 导致ArrayStoreException(运行时)
 </code></pre>
             ]]>
         </Details>
@@ -4221,8 +4221,8 @@ a[0] = new A(); // 导致ArrayStoreException（运行时）
     </BugPattern>
 
     <BugPattern type="SNG_SUSPICIOUS_NULL_FIELD_GUARD">
-        <ShortDescription>方法测试字段是否为非null作为守卫并重新分配它</ShortDescription>
-        <LongDescription>方法 {1} 测试字段是否为非null作为守卫并重新分配它</LongDescription>
+        <ShortDescription>方法测试字段是否为非null作为条件并重新分配它</ShortDescription>
+        <LongDescription>方法 {1} 测试字段是否为非null作为条件并重新分配它</LongDescription>
         <Details>
             <![CDATA[
             <p>此方法在执行条件代码块之前，测试字段以确保其不为null。
@@ -4240,144 +4240,143 @@ if (name != null) {
     </BugPattern>
 
     <BugPattern type="SNG_SUSPICIOUS_NULL_LOCAL_GUARD">
-        <ShortDescription>方法 tests a local variable for not null as guard and reassigns it</ShortDescription>
-        <LongDescription>方法 {1} tests a local variable for not null as guard and reassigns it</LongDescription>
+        <ShortDescription>方法测试局部变量的值是否不为null作为条件并重新分配它</ShortDescription>
+        <LongDescription>方法 {1} 测试局部变量的值是否不为null作为条件并重新分配它</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 tests a local variable to make sure it's not null before executing a conditional block of code.
-            However, in the conditional block it reassigns the local variable.
-            It is likely that the guard should have been a check to see if the local variable is null, not that the local variable was not null.</p>
-            <p>example: <pre><code>
+            <p>此方法在执行条件代码块之前，测试局部变量以确保其不为null。
+            但是，在条件块中它会重新分配该局部变量。
+            很有可能应该检查一下条件代码，以查看局部变量是否为null，而不是局部变量不为null。</p>
+            <p>例：<pre><code>
 if (name != null) {
     name = person.getName();
 }
 </code></pre>
-            It is possible this is correct, but it seems likely the guard was meant to be <code>if (name == null)</code>
+            这可能是正确的，但条件似乎应该是<code>if (name == null)</code>
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_RUNTIME_EXIT_OR_HALT">
-        <ShortDescription>方法 calls Runtime.exit() or Runtime.halt()</ShortDescription>
-        <LongDescription>方法 {1} calls {2}</LongDescription>
+        <ShortDescription>方法调用Runtime.exit()或Runtime.halt()</ShortDescription>
+        <LongDescription>方法 {1} 调用 {2}</LongDescription>
         <Details>
             <![CDATA[
-            <p>Calling <code>Runtime.exit()</code> or <code>Runtime.halt()</code> shuts down the entire Java virtual machine.
-            This should only be done in very rare circumstances.
-            Such calls make it hard or impossible for your code to be invoked by other code.
-            Consider throwing a RuntimeException instead.</p>
+            <p>调用<code>Runtime.exit()</code>或<code>Runtime.halt()</code>将关闭整个Java虚拟机。
+            仅应在极少数情况下执行此操作。
+            这样的调用使您的代码很难或不可能被其他代码调用。
+            考虑改为抛出RuntimeException。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_RUNFINALIZATION">
-        <ShortDescription>方法 triggers finalization</ShortDescription>
-        <LongDescription>方法 {1} triggers finalization when calling {2}</LongDescription>
+        <ShortDescription>方法调用finalize</ShortDescription>
+        <LongDescription>方法 {1} 调用 {2} 中调用finalize</LongDescription>
         <Details>
             <![CDATA[
-            <p>Manually triggering finalization can result in serious performance problems and may be masking resource cleanup bugs.
-            Only the garbage collector, not application code, should be concerned with finalization.</p>
+            <p>手动调用finalize()可能会导致严重的性能问题，并且可能掩盖了资源清理错误。
+            只有垃圾收集器，而不是应用程序代码，才需要考虑finalize()。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_BIGDECIMAL_EQUALS">
-        <ShortDescription>方法 calls BigDecimal.equals()</ShortDescription>
-        <LongDescription>方法 {1} calls BigDecimal.equals(), which is normally a mistake</LongDescription>
+        <ShortDescription>方法调用BigDecimal.equals()</ShortDescription>
+        <LongDescription>方法 {1} 调用BigDecimal.equals()，这通常是一个错误<</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 calls <code>equals()</code> to compare two <code>java.math.BigDecimal</code> numbers.
-            This is normally a mistake, as two <code>BigDecimal</code> objects are only equal if they are equal in both value and scale, so that <i>2.0</i> is not equal to <i>2.00</i>.
-            To compare <code>BigDecimal</code> objects for mathematical equality, use <code>compareTo()</code> instead.</p>
+            <p>此方法调用<code>equals()</code>来比较两个<code>java.math.BigDecimal</code>数字。
+            这通常是一个错误，因为两个<code>BigDecimal</code>对象仅在值和小数位数相等时才相等，因此<i>2.0</i>不等于<i>2.00</i>。
+            要比较<code>BigDecimal</code>对象的数学相等性，请改用<code>compareTo()</code>。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_INETADDRESS_GETLOCALHOST">
-        <ShortDescription>方法 calls InetAddress.getLocalHost()</ShortDescription>
-        <LongDescription>方法 {1} calls InetAddress.getLocalHost(), which may be a security risk</LongDescription>
+        <ShortDescription>方法调用InetAddress.getLocalHost()</ShortDescription>
+        <LongDescription>方法 {1} 调用InetAddress.getLocalHost(), 这可能是安全隐患</LongDescription>
         <Details>
             <![CDATA[
-            <p>Do not call <code>InetAddress.getLocalHost()</code> on multihomed servers.
-            On a multihomed server, <code>InetAddress.getLocalHost()</code> simply returns the IP address associated with the server's internal hostname.
-            This could be any of the network interfaces, which could expose the machine to security risks.
-            Server applications that need to listen on sockets should add configurable properties to define which network interfaces the server should bind.</p>
+            <p>不要在多网卡服务器上调用<code>InetAddress.getLocalHost()</code>。
+            在多网卡服务器上，<code>InetAddress.getLocalHost()</code>仅返回与服务器内部主机名关联的IP地址。
+            这可能是任何网络接口，可能会使计算机面临安全风险。
+            需要侦听套接字的服务器应用程序应添加可配置的属性，以定义服务器应绑定的网络接口。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_PROMISCUOUS_SERVERSOCKET">
-        <ShortDescription>方法 creates promiscuous ServerSocket object</ShortDescription>
-        <LongDescription>方法 {1} creates a promiscuous ServerSocket, which may be a security risk</LongDescription>
+        <ShortDescription>方法创建混杂的ServerSocket对象</ShortDescription>
+        <LongDescription>方法 {1} 创建一个混杂的ServerSocket，这可能会带来安全风险</LongDescription>
         <Details>
             <![CDATA[
-            <p>Do not use the <code>ServerSocket</code> constructor or <code>ServerSocketFactory.createServerSocket()</code> factory methods that accept connections on any network interface.
-            By default, an application that listens on a socket will listen for connection attempts on any network interface, which can be a security risk.
-            Only the long form of the <code>ServerSocket</code> constructor or <code>ServerSocketFactory.createServerSocket()</code> factory methods take a specific local address to define which network interface the socket should bind.</p>
+            <p>不要使用接受任何网络接口上的连接的<code>ServerSocket</code>构造函数或<code>ServerSocketFactory.createServerSocket()</code>工厂方法。
+            默认情况下，侦听套接字的应用程序将侦听任何网络接口上的连接尝试，这可能会带来安全风险。
+            仅使用<code>ServerSocket</code>构造函数或<code>ServerSocketFactory.createServerSocket()</code>工厂方法的长格式指定特定的本地地址来定义套接字应绑定的网络接口。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_RANDOM_SEED">
-        <ShortDescription>方法 creates insecure Random object</ShortDescription>
-        <LongDescription>方法 {1} creates an insecure Random object, which may be a security risk</LongDescription>
+        <ShortDescription>方法创建不安全的随机对象</ShortDescription>
+        <LongDescription>方法 {1} 创建一个不安全的随机对象，这可能会带来安全风险</LongDescription>
         <Details>
             <![CDATA[
-            <p><code>Random()</code> constructor without a seed is insecure because it defaults to an easily guessable seed: <code>System.currentTimeMillis()</code>.
-            Initialize a seed like <code>new Random(SecureRandom.getInstance("SHA1PRNG").nextLong())</code>
-            or replace <code>Random()</code> with <code>SecureRandom.getInstance("SHA1PRNG")</code> instead.
-            "SHA1PRNG" is the random algorithm supported on all platforms.
-        </p>
+            <p><code>Random()</code>没有种子的构造函数是不安全的，因为它默认为易于猜测的种子：<code>System.currentTimeMillis()</code>.
+            初始化<code>new Random(SecureRandom.getInstance("SHA1PRNG").nextLong())</code>之类的种子，或将<code>Random()</code>替换为<code>SecureRandom.getInstance("SHA1PRNG")</code>。
+            "SHA1PRNG"是所有平台上支持的随机算法。
+            </p>
 
             <p>
-                As of Java 6, you may use <code>new Random(new SecureRandom().nextLong())</code> or <code>new SecureRandom()</code> instead.
+            从Java 6开始，您可以使用<code>new Random(new SecureRandom().nextLong())</code>或<code>new SecureRandom()</code>代替.
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_SECURERANDOM">
-        <ShortDescription>方法 calls deprecated SecureRandom method</ShortDescription>
-        <LongDescription>方法 {1} calls deprecated SecureRandom method {2}</LongDescription>
+        <ShortDescription>方法调用不推荐使用的SecureRandom方法</ShortDescription>
+        <LongDescription>方法 {1} 调用不推荐使用的SecureRandom方法 {2}</LongDescription>
         <Details>
             <![CDATA[
-            <p>In JDK 1.5 or less, the <code>SecureRandom()</code> constructors and <code>SecureRandom.getSeed()</code> method are recommended against using.
-            Call <code>SecureRandom.getInstance()</code> and <code>SecureRandom.getInstance().generateSeed()</code> instead.</p>
+            <p>在JDK 1.5或更低版本中，建议不要使用<code>SecureRandom（）</code>构造函数和<code>SecureRandom.getSeed（）</code>方法。
+            而是调用<code>SecureRandom.getInstance（）</code>和<code>SecureRandom.getInstance（）.generateSeed（）</code>。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_THREAD_PRIORITIES">
-        <ShortDescription>方法 uses suspicious thread priorities</ShortDescription>
-        <LongDescription>方法 {1} uses suspicious thread priorities by calling method {2}</LongDescription>
+        <ShortDescription>方法使用可疑的线程优先级</ShortDescription>
+        <LongDescription>方法 {1} 通过调用方法使用可疑的线程优先级 {2}</LongDescription>
         <Details>
             <![CDATA[
-            <p>Getting or setting thread priorities is not portable and could cause or mask race conditions.</p>
+            <p>获取或设置线程优先级不是可移植的，并且可能导致或掩盖竞争状况。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_THREAD_YIELD">
-        <ShortDescription>方法 attempts to manually schedule threads</ShortDescription>
-        <LongDescription>方法 {1} attempts to manually schedule threads by calling method {2}</LongDescription>
+        <ShortDescription>方法尝试手动调度线程</ShortDescription>
+        <LongDescription>方法 {1} 尝试通过调用方法手动调度线程 {2}</LongDescription>
         <Details>
             <![CDATA[
-            <p>Manual thread scheduling with <code>Thread.sleep()</code> or <code>Thread.yield()</code> has no guaranteed semantics and is often used to mask race conditions.
-            These methods exist for supporting early processors when java was first released, and are not advised for modern processors.
-            The operating system will take care of yielding threads for you.</p>
+            <p>使用<code>Thread.sleep（）</code>或<code>Thread.yield（）</code>进行的手动线程调度没有保证的语义，通常用于掩盖竞争条件。
+            存在这些方法以支持Java首次发布时的早期处理器，但不建议用于现代处理器。
+            操作系统将为您小心地调度线程。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_WAIT_WITHOUT_TIMEOUT">
-        <ShortDescription>方法 sleeps without timeout</ShortDescription>
-        <LongDescription>方法 {1} sleeps without timeout when calling {2}</LongDescription>
+        <ShortDescription>方法休眠没有设置超时限制</ShortDescription>
+        <LongDescription>当方法 {1} 调用 {2} 休眠时没有设置超时限制</LongDescription>
         <Details>
             <![CDATA[
-            <p>Calling one of the following methods without timeout could block forever.
-            Consider using a timeout to detect deadlocks or performance problems.
-            Methods: <ul>
+            <p>调用以下方法之一而没有超时可能会永远阻塞。
+            考虑使用超时来检测死锁或性能问题。
+            方法：<ul>
             <li>Thread.join()</li>
             <li>Object.wait()</li>
             <li>Condition.await()</li>
@@ -4392,109 +4391,111 @@ if (name != null) {
     </BugPattern>
 
     <BugPattern type="MDM_THREAD_FAIRNESS">
-        <ShortDescription>方法 ignores Lock's fairness settings by calling tryLock()</ShortDescription>
-        <LongDescription>方法 {1} ignores Lock's fairness settings by calling {2}</LongDescription>
+        <ShortDescription>方法通过调用tryLock（）忽略Lock的公平设置。</ShortDescription>
+        <LongDescription>方法 {1} 通过调用 {2} 忽略Lock的公平设置</LongDescription>
         <Details>
             <![CDATA[
-            <p>Calling <code>Lock.tryLock()</code> or <code>ReentrantLock.tryLock()</code> without a timeout does not honor the lock's fairness setting.
-            If you want to honor the fairness setting for this lock, then use <code>tryLock(0, TimeUnit.SECONDS)</code> which is almost equivalent (it also detects interruption).</p>
+            <p>在没有超时的情况下调用<code>Lock.tryLock（）</code>或<code>ReentrantLock.tryLock（）</code>并不遵守锁的公平性设置。
+            如果要遵守此锁的公平性设置，请使用几乎等效的<code>tryLock（0, TimeUnit.SECONDS）</code>（它还会检测到中断）。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_SIGNAL_NOT_SIGNALALL">
-        <ShortDescription>方法 calls Condition.signal() rather than Condition.signalAll()</ShortDescription>
-        <LongDescription>方法 {1} calls Condition.signal() rather than Condition.signalAll()</LongDescription>
+        <ShortDescription>方法调用Condition.signal（）而不是Condition.signalAll（）</ShortDescription>
+        <LongDescription>方法 {1} 调用Condition.signal（）而不是Condition.signalAll（）</LongDescription>
         <Details>
             <![CDATA[
-            <p><code>Condition.signalAll()</code> is preferred over <code>Condition.signal()</code>.
-            Calling <code>signal()</code> only wakes up one thread, meaning that the thread woken up might not be the one waiting for the condition that the caller just satisfied.</p>
+            <p><code>Condition.signalAll()</code>优先于<code>Condition.signal()</code>.
+            调用<code>signal（）</code>只会唤醒一个线程，这意味着唤醒的线程可能不是等待调用者刚刚满足的条件的那个线程。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_LOCK_ISLOCKED">
-        <ShortDescription>方法 tests if a lock is locked</ShortDescription>
-        <LongDescription>方法 {1} tests if a lock is locked by calling {2}</LongDescription>
+        <ShortDescription>方法测试锁是否被锁定</ShortDescription>
+        <LongDescription>方法 {1} 通过调用 {2} 测试锁是否被锁定</LongDescription>
         <Details>
             <![CDATA[
-            <p>Calling <code>ReentrantLock.isLocked()</code> or <code>ReentrantLock.isHeldByCurrentThread()</code> might indicate race conditions or incorrect locking.
-            These methods are designed for use in debug code or monitoring of the system state, not for synchronization control.</p>
+            <p>调用<code>ReentrantLock.isLocked（）</code>或<code>ReentrantLock.isHeldByCurrentThread（）</code>可能引起竞争情况或错误的锁定。
+            这些方法设计用于调试代码或监视系统状态，而不用于同步控制。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_STRING_BYTES_ENCODING">
-        <ShortDescription>方法 encodes String bytes without specifying the character encoding</ShortDescription>
-        <LongDescription>方法 {1} encodes String bytes without specifying the character encoding</LongDescription>
+        <ShortDescription>方法编码字符串字节而不指定字符编码</ShortDescription>
+        <LongDescription>方法 {1} 编码字符串字节而不指定字符编码</LongDescription>
         <Details>
             <![CDATA[
-            <p>The behavior of the <code>String(byte[] bytes)</code> and <code>String.getBytes()</code> is undefined if the string cannot be encoded in the platform's default charset.
-            Instead, use the <code>String(byte[] bytes, String encoding)</code> or <code>String.getBytes(String encoding)</code> constructor which accepts the string's encoding as an argument.
-            Be sure to specify the encoding used for the user's locale.</p>
+            <p>如果无法在平台的默认字符集中对字符串进行编码，则未定义<code>String（byte[] bytes）</code>和<code> String.getBytes（）</code>的行为。
+            而是使用<code>String（byte[] bytes，String encoding）</code>或<code>String.getBytes（String encoding）</code>构造函数，该构造函数接受字符串的编码作为参数。
+            确保指定用于用户语言环境的编码。</p>
 
-            <p>As per the Java specifications, "UTF-8", "US-ASCII", "UTF-16" and "ISO-8859-1" will all be valid <a href = "http://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html#standard">encoding charsets</a>.  If you aren't sure, try "UTF-8".</p>
+            <p>按照Java规范, "UTF-8", "US-ASCII", "UTF-16" 和 "ISO-8859-1" 将全部有效 <a href = "http://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html#standard">编码字符集</a>.  
+            如果不确定，请尝试 "UTF-8".</p>
 
-            <p><b>New in Java 1.7</b>, you can specify an encoding from <code>StandardCharsets</code>, like <code>StandardCharsets.UTF_8</code>.  These are generally preferrable because you don't have to deal with <code>UnsupportedEncodingException</code>.</p>
+            <p><b>Java 1.7的新功能</b>, 您可以从<code>StandardCharsets</code>指定编码, 比如<code>StandardCharsets.UTF_8</code>.
+            这些通常是可取的，因为您不必处理<code>UnsupportedEncodingException</code>.</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_SETDEFAULTLOCALE">
-        <ShortDescription>方法 calls Locale.setDefault()</ShortDescription>
-        <LongDescription>方法 {1} calls Locale.setDefault(), changing locale for all threads</LongDescription>
+        <ShortDescription>方法调用Locale.setDefault（）</ShortDescription>
+        <LongDescription>方法 {1} 调用Locale.setDefault（）, 更改所有线程的语言环境</LongDescription>
         <Details>
             <![CDATA[
-            <p>Do not use the <code>Locale.setDefault()</code> method to change the default locale.
-            It changes the JVM's default locale for all threads and makes your applications unsafe to threads.
-            It does not affect the host locale.
-            Since changing the JVM's default locale may affect many different areas of functionality, this method should only be used if the caller is prepared to reinitialize locale-sensitive code running within the same Java Virtual Machine, such as the user interface.</p>
+            <p>不要使用<code>Locale.setDefault（）</code>方法更改默认语言环境。
+            它将更改所有线程的JVM默认语言环境，并使您的应用程序对线程不安全。
+            它不影响主机的语言环境。
+            由于更改JVM的默认语言环境可能会影响许多不同的功能区域，因此仅当调用者准备重新初始化在同一Java虚拟机（例如用户界面）中运行的对语言环境敏感的代码时，才应使用此方法。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="ROOM_REFLECTION_ON_OBJECT_METHODS">
-        <ShortDescription>方法 uses reflection to call a method available on java.lang.Object</ShortDescription>
-        <LongDescription>方法 {1} uses reflection to call a method available on java.lang.Object</LongDescription>
+        <ShortDescription>方法使用反射来调用java.lang.Object上可用的方法</ShortDescription>
+        <LongDescription>方法 {1} 使用反射来调用java.lang.Object上可用的方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses reflection to call a method that is defined in java.lang.Object.
-            As these methods are always available, it is not necessary to call these methods with reflection.</p>
+            <p>此方法使用反射来调用java.lang.Object中定义的方法。
+            由于这些方法始终可用，因此无需通过反射调用这些方法。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IPU_IMPROPER_PROPERTIES_USE">
-        <ShortDescription>方法 puts non-String values into a Properties object</ShortDescription>
-        <LongDescription>方法 {1} puts non-String values into a Properties object</LongDescription>
+        <ShortDescription>方法将非String值放入Properties对象</ShortDescription>
+        <LongDescription>方法 {1} 将非String值放入Properties对象</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 places non-String objects into a Properties object.
-            As the Properties object is intended to be a String to String map, putting non String objects is wrong, and takes advantage of a design flaw in the Properties class by deriving from Hashtable instead of using aggregation.
-            If you want a collection that holds other types of objects, use a Hashtable, or better still newer collections like HashMap or TreeMap.</p>
+            <p>此方法将非String对象放入Properties对象。
+            由于“Properties”对象旨在成为“String到String”映射，因此放置非String对象是错误的，而且这里其实是利用了Properties没有使用聚合模式而使用了继承的设计缺陷。
+            如果您想要一个包含其他类型对象的集合，请使用Hashtable或更好的新集合类型，例如HashMap或TreeMap。</p>
             <p>
-            Don't use <code>properties.put("foo", bar);</code>
+            不要使用<code>properties.put("foo", bar);</code>
             </p>
             <p>
-            Do use <code>properties.setProperty("foo", "bar");</code>
+            使用<code>properties.setProperty("foo", "bar");</code>
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IPU_IMPROPER_PROPERTIES_USE_SETPROPERTY">
-        <ShortDescription>方法 uses Properties.put instead of Properties.setProperty</ShortDescription>
-        <LongDescription>方法 {1} uses Properties.put instead of Properties.setProperty</LongDescription>
+        <ShortDescription>方法使用Properties.put而不是Properties.setProperty</ShortDescription>
+        <LongDescription>方法 {1} 使用Properties.put而不是Properties.setProperty</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses the inherited method from Hashtable put(String key, Object value) in a Properties object.
-            Since the Properties object was intended to be only a String to String map, use of the derived put method is discouraged.
-            Use the Properties.setProperty method instead.</p>
+            <p>此方法在Properties对象中使用从Hashtable继承的put（String key，Object value）方法。
+            由于Properties对象只是一个String到String映射，因此不建议使用派生的put方法。
+            请改用Properties.setProperty方法。</p>
             <p>
-            Don't use <code>properties.put("foo", "bar");</code>
+            不要使用<code>properties.put("foo", "bar");</code>
             </p>
             <p>
-            Do use <code>properties.setProperty("foo", "bar");</code>
+            使用<code>properties.setProperty("foo", "bar");</code>
             </p>
             ]]>
         </Details>
