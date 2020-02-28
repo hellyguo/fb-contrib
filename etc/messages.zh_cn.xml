@@ -2000,7 +2000,7 @@ for (float f = 1.0f; f &lt;= 10.0f; f += 0.1f) {
         <Details>
             <![CDATA[
             <p>此类定义了两个方法，仅仅参数不同：字符(Character)或数值(int/long/float/double)。
-            因为自动装箱的存在，可能假定参数 'a' 将映射到“字符”版本，但并非如此。</p>
+            因为自动装箱的存在，可能假定参数 'a' 将映射到"字符"版本，但并非如此。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -2745,7 +2745,7 @@ static {
             <![CDATA[
             <p>此方法手动遍历集合，将每个元素取出并存储在数组中以从集合构建数组。
             使用内置的Collection方法toArray更加轻松明了。
-            给定类型T的集合“mycollection”，请使用<code>mycollection.toArray(new T[mycollection.size()]); </code></p>
+            给定类型T的集合"mycollection"，请使用<code>mycollection.toArray(new T[mycollection.size()]); </code></p>
             ]]>
         </Details>
     </BugPattern>
@@ -2882,7 +2882,7 @@ if (myString.indexOf('e') != -1) {
         <Details>
             <![CDATA[
             <p>此方法将恒定的负值作为参数传递给java.util.BitSet。
-            BitSet类不支持负值，因此此方法调用将无法按预期进行。</ p>
+            BitSet类不支持负值，因此此方法调用将无法按预期进行。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -2937,7 +2937,7 @@ if (myString.indexOf('e') != -1) {
             <![CDATA[
             <p>此方法将double或float与常数<code>Double.NaN</code>或<code>Float.NaN</code>进行比较。
             如果变量是基本类型，则应使用<code>Double.isNaN(d)</code>或<code>Float.isNaN(f)</code>。
-            如果使用包装类型，请使用<code>d.isNaN()</code>或<code>f.isNaN()</code>。</ p>
+            如果使用包装类型，请使用<code>d.isNaN()</code>或<code>f.isNaN()</code>。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -2959,7 +2959,7 @@ if (myString.indexOf('e') != -1) {
         <LongDescription>方法 {1} 将空字符串传递给StringBuilder构造函数</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法调用StringBuffer或StringBuilder构造函数，并传入一个恒定的空字符串(“”)。
+            <p>此方法调用StringBuffer或StringBuilder构造函数，并传入一个恒定的空字符串("")。
             这与调用默认构造函数相同，但是使代码更难工作。
             考虑改用默认大小。</p>
             ]]>
@@ -3160,7 +3160,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
         <LongDescription>方法 {1} 将空字符串传递给equalsIgnoreCase或compareToIgnoreCase</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法将空字符串“”传递给equalsIgnoreCase或compareToIgnoreCase。
+            <p>此方法将空字符串""传递给equalsIgnoreCase或compareToIgnoreCase。
             由于空字符串不区分大小写，因此使用equals更简单。
             进行length()== 0测试甚至更简单。</p>
             ]]>
@@ -3175,7 +3175,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
             <p>此方法在String上调用trim()，而不将新字符串分配给另一个变量。
             然后，它在此修剪后的字符串上调用length()或equals()。
             如果修整字符串对于确定其长度或相等性很重要，则在实际使用时可能应修整它。
-            首先修剪字符串，将修剪后的值存储在变量中，然后继续测试并使用修剪后的字符串，这样会更有意义。</ p>
+            首先修剪字符串，将修剪后的值存储在变量中，然后继续测试并使用修剪后的字符串，这样会更有意义。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -3233,7 +3233,7 @@ String str = sb.toString();
             </p>
 
             <p>
-            只需在常量上加上“+”符号，就不要在它们之间加上<code>StringBuilder.append()</code>。
+            只需在常量上加上"+"符号，就不要在它们之间加上<code>StringBuilder.append()</code>。
             </p>
             ]]>
         </Details>
@@ -3311,11 +3311,11 @@ return "thisisaconstantstring";
     </BugPattern>
 
     <BugPattern type="SPP_STATIC_FORMAT_STRING">
-        <ShortDescription>方法在静态（非参数化）格式字符串上调用String.format</ShortDescription>
-        <LongDescription>方法 {1} 在静态（非参数化）格式字符串上调用String.format</LongDescription>
+        <ShortDescription>方法在静态(非参数化)格式字符串上调用String.format</ShortDescription>
+        <LongDescription>方法 {1} 在静态(非参数化)格式字符串上调用String.format</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法调用String.format，并传递没有替换标记（以％开头）的静态字符串作为格式字符串。
+            <p>此方法调用String.format，并传递没有替换标记(以％开头)的静态字符串作为格式字符串。
             因此不会发生替换，并且format方法是多余的。
             如果需要参数，请根据需要添加适当的格式标记； 否则，只需删除对String.format的调用并按原样使用静态字符串即可。</p>
             ]]>
@@ -3337,11 +3337,11 @@ return "thisisaconstantstring";
     </BugPattern>
 
     <BugPattern type="MUI_NULL_CHECK_ON_MAP_SUBSET_ACCESSOR">
-        <ShortDescription>方法检查Map的keySet（），entrySet（）或values（）集合是否为null</ShortDescription>
-        <LongDescription>方法 {1} 检查Map的keySet（），entrySet（）或values（）集合是否为null</LongDescription>
+        <ShortDescription>方法检查Map的keySet()，entrySet()或values()集合是否为null</ShortDescription>
+        <LongDescription>方法 {1} 检查Map的keySet()，entrySet()或values()集合是否为null</LongDescription>
         <Details>
             <![CDATA[
-            此方法检查Map上的keySet（），entrySet（）或values（）方法调用的返回值是否为null。
+            此方法检查Map上的keySet()，entrySet()或values()方法调用的返回值是否为null。
 			对于任何有效的运行Map，这些集合将始终为非null，因此该调用是多余的。
 			也许您打算检查这些集合是否为空。
             ]]>
@@ -3355,7 +3355,7 @@ return "thisisaconstantstring";
             <![CDATA[
             <p><em>该探测器具有很高的实验性，很可能会引起很多恐慌、不确定性和怀疑</em></p>
             <p>此方法在外部作用域中为变量分配一个值，而不是实际使用变量的位置。
-            假设经检查没有边际效应等副作用，则可以将分配移入内部范围（如果是块），以便在<code>if</code>判断为false时不执行。
+            假设经检查没有边际效应等副作用，则可以将分配移入内部范围(如果是块)，以便在<code>if</code>判断为false时不执行。
             但是，应注意，赋值的右侧不包含必须发生的副作用，并且不要进行更深的更改，以免稍后执行时会影响赋值的执行。</p>
             ]]>
         </Details>
@@ -3443,7 +3443,7 @@ return new String[0];<br/>
             <![CDATA[
             <p>此私有或静态方法仅返回一个常数。
             由于此方法是私有的或静态的，因此无法覆盖其行为，因此返回常量值似乎是可疑的。
-            要么应将方法更改为不返回任何值，否则可能希望此方法的另一个代码路径中返回另一个返回值。</ p>
+            要么应将方法更改为不返回任何值，否则可能希望此方法的另一个代码路径中返回另一个返回值。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -3460,11 +3460,11 @@ return new String[0];<br/>
     </BugPattern>
 
     <BugPattern type="MOM_MISLEADING_OVERLOAD_MODEL">
-        <ShortDescription>类同时实现了实例方法和静态方法来“重载”</ShortDescription>
-        <LongDescription>类 {0} 同时实现了实例方法和静态方法来“重载”</LongDescription>
+        <ShortDescription>类同时实现了实例方法和静态方法来"重载"</ShortDescription>
+        <LongDescription>类 {0} 同时实现了实例方法和静态方法来"重载"</LongDescription>
         <Details>
             <![CDATA[
-            <p>此类使用实例版本和静态版本“重载”相同的方法。
+            <p>此类使用实例版本和静态版本"重载"相同的方法。
             由于这两种模型的用法不同，这会使这些方法的用户感到困惑。</p>
             ]]>
         </Details>
@@ -3507,12 +3507,12 @@ return new String[0];<br/>
     </BugPattern>
 
     <BugPattern type="EXS_EXCEPTION_SOFTENING_RETURN_FALSE">
-        <ShortDescription>方法将异常转换为布尔“错误代码”值</ShortDescription>
-        <LongDescription>方法 {1} 将异常转换为布尔“错误代码”值</LongDescription>
+        <ShortDescription>方法将异常转换为布尔"错误代码"值</ShortDescription>
+        <LongDescription>方法 {1} 将异常转换为布尔"错误代码"值</LongDescription>
         <Details>
             <![CDATA[
             <p>此方法捕获异常并返回一个布尔值，该布尔值表示是否发生异常。
-            这将丢弃异常处理的值，并使代码忽略生成的“错误代码”返回值。
+            这将丢弃异常处理的值，并使代码忽略生成的"错误代码"返回值。
             您应该只将异常抛出给调用方。</p>
             ]]>
         </Details>
@@ -3524,7 +3524,7 @@ return new String[0];<br/>
         <Details>
             <![CDATA[
             <p>此方法似乎是在修改参数，然后将此参数作为方法的返回值返回。
-            这将使此方法的调用者感到困惑，因为显然不会更改“原始”传入的参数。
+            这将使此方法的调用者感到困惑，因为显然不会更改"原始"传入的参数。
             如果此方法的目的是更改参数，则将方法更改为具有无效返回值将更加清楚。
 			如果由于接口或超类协定而需要返回类型，则应该克隆该参数。</p>
             ]]>
@@ -3532,8 +3532,8 @@ return new String[0];<br/>
     </BugPattern>
 
     <BugPattern type="UTAO_JUNIT_ASSERTION_ODDITIES_ACTUAL_CONSTANT">
-        <ShortDescription>JUnit测试方法将常量传递给第二个（实际）断言参数</ShortDescription>
-        <LongDescription>JUnit测试方法 {1} 将常量传递给第二个（实际）断言参数</LongDescription>
+        <ShortDescription>JUnit测试方法将常量传递给第二个(实际)断言参数</ShortDescription>
+        <LongDescription>JUnit测试方法 {1} 将常量传递给第二个(实际)断言参数</LongDescription>
         <Details>
             <![CDATA[
             <p>此方法调用<code>assertXXX</code>传递一个常量值作为两个值中的第二个。
@@ -3655,8 +3655,8 @@ return new String[0];<br/>
     </BugPattern>
 
     <BugPattern type="UTAO_TESTNG_ASSERTION_ODDITIES_ACTUAL_CONSTANT">
-        <ShortDescription>TestNG测试方法将常量传递给第一个（实际）断言参数</ShortDescription>
-        <LongDescription>TestNG测试方法 {1} 将常量传递给第一个（实际）断言参数</LongDescription>
+        <ShortDescription>TestNG测试方法将常量传递给第一个(实际)断言参数</ShortDescription>
+        <LongDescription>TestNG测试方法 {1} 将常量传递给第一个(实际)断言参数</LongDescription>
         <Details>
             <![CDATA[
             <p>此方法调用<code>assertXXX</code>传递一个常量值作为两个值中的第一个。
@@ -3666,8 +3666,8 @@ return new String[0];<br/>
     </BugPattern>
 
     <BugPattern type="UTAO_TESTNG_ASSERTION_ODDITIES_INEXACT_DOUBLE">
-        <ShortDescription>TestNG test method asserts that two doubles are exactly equal</ShortDescription>
-        <LongDescription>TestNG test method {1} asserts that two doubles are exactly equal</LongDescription>
+        <ShortDescription>TestNG测试方法断言两个double完全相等</ShortDescription>
+        <LongDescription>TestNG测试方法 {1} 断言两个double完全相等</LongDescription>
         <Details>
             <![CDATA[
             <p>此方法 calls <code>assertXXX</code> with two doubles or Doubles.
@@ -3677,266 +3677,266 @@ return new String[0];<br/>
     </BugPattern>
 
     <BugPattern type="UTAO_TESTNG_ASSERTION_ODDITIES_BOOLEAN_ASSERT">
-        <ShortDescription>TestNG test method asserts that a value is true or false</ShortDescription>
-        <LongDescription>TestNG test method {1} asserts that a value is true or false</LongDescription>
+        <ShortDescription>TestNG测试方法断言一个值等于true或false</ShortDescription>
+        <LongDescription>TestNG测试方法 {1} 断言一个值等于true或false</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 asserts that a value is equal to true or false.
-            It is simpler to just use assertTrue, or assertFalse, instead.</p>
+            <p>此方法断言一个值等于true或false。
+            仅使用assertTrue或assertFalse代替会更简单。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_TESTNG_ASSERTION_ODDITIES_IMPOSSIBLE_NULL">
-        <ShortDescription>TestNG test method asserts that an autoboxed value is not null</ShortDescription>
-        <LongDescription>TestNG test method {1} asserts that an autoboxed value is not null</LongDescription>
+        <ShortDescription>TestNG测试方法自动装箱的值不为null</ShortDescription>
+        <LongDescription>TestNG测试方法 {1} 自动装箱的值不为null</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 asserts that a primitive value that was autoboxed into a boxed primitive was not null.
-            This will never happen, as primitives are never null, and thus the autoboxed value isn't either.</p>
+            <p>此方法断言一个原始类型自动装箱后的类型不为null。
+            这将永远不会发生，因为基本类型绝不会为null，因此自动装箱的值也不是。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_TESTNG_ASSERTION_ODDITIES_ASSERT_USED">
-            <ShortDescription>TestNG test method uses Java asserts rather than a TestNG assertion</ShortDescription>
-            <LongDescription>TestNG test method {1} uses Java asserts rather than a TestNG assertion</LongDescription>
+            <ShortDescription>TestNG测试方法使用Java断言而不是TestNG断言</ShortDescription>
+            <LongDescription>TestNG测试方法 {1} 使用Java断言而不是TestNG断言</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses a Java assert to assure that a certain state is in effect.
-            As this is a TestNG test it makes more sense to either check this condition with a TestNG assert, or allow a following exception to occur.</p>
+            <p>此方法使用Java断言来确保某个状态有效。
+            由于这是TestNG测试，因此更有意义的是使用TestNG断言检查此条件，其允许抛出可被TestNG跟进的异常。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_TESTNG_ASSERTION_ODDITIES_USE_ASSERT_NULL">
-        <ShortDescription>TestNG test method passes null Assert.assertEquals</ShortDescription>
-        <LongDescription>TestNG test method {1} passes null to Assert.assertEquals</LongDescription>
+        <ShortDescription>TestNG测试方法传递null给Assert.assertEquals</ShortDescription>
+        <LongDescription>TestNG测试方法 {1} 传递null给Assert.assertEquals</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 compares an object's equality to null.
-            It is better to use the Assert.assertNull method so that the TestNG failure method is more descriptive of the intended test.</p>
+            <p>此方法比较一个对象是否与null相等。
+            最好使用Assert.assertNull方法，以便TestNG故障处理方法可以更好地描述预期的测试。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_TESTNG_ASSERTION_ODDITIES_USE_ASSERT_NOT_NULL">
-        <ShortDescription>TestNG test method passes null Assert.assertNotEquals</ShortDescription>
-        <LongDescription>TestNG test method {1} passes null to Assert.assertNotEquals</LongDescription>
+        <ShortDescription>TestNG测试方法传递null给Assert.assertNotEquals</ShortDescription>
+        <LongDescription>TestNG测试方法 {1} 传递null给Assert.assertNotEquals</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 compares an object's inequality to null.
-            It is better to use the Assert.assertNotNull method so that the TestNG failure method is more descriptive of the intended test.</p>
+            <p>此方法比较一个对象是否与null相等。
+            最好使用Assert.assertNotNull方法，以便TestNG故障处理方法可以更好地描述预期的测试。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_TESTNG_ASSERTION_ODDITIES_USE_ASSERT_EQUALS">
-        <ShortDescription>TestNG test method passes boolean expression to Assert.assertFalse / Assert.assertTrue</ShortDescription>
-        <LongDescription>TestNG test method {1} passes boolean expression to Assert.assertFalse / Assert.assertTrue</LongDescription>
+        <ShortDescription>TestNG测试方法将布尔表达式传递给Assert.assertFalse / Assert.assertTrue</ShortDescription>
+        <LongDescription>TestNG测试方法 {1} 将布尔表达式传递给Assert.assertFalse / Assert.assertTrue</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
-            It is better to pass the two values that are being equated to the Assert.assertEquals method so that the TestNG failure method is more meaningful of the intended test.</p>
+            <p>此方法计算一个布尔表达式并将其传递给Assert.assertFalse / Assert.assertTrue。
+            最好传递两个值以调用Assert.assertEquals，以便TestNG故障处理方法可以更好地描述预期的测试。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_TESTNG_ASSERTION_ODDITIES_USE_ASSERT_NOT_EQUALS">
-        <ShortDescription>TestNG test method passes boolean expression to Assert.assertFalse / Assert.assertTrue</ShortDescription>
-        <LongDescription>TestNG test method {1} passes boolean expression to Assert.assertFalse / Assert.assertTrue</LongDescription>
+        <ShortDescription>TestNG测试方法将布尔表达式传递给Assert.assertFalse / Assert.assertTrue</ShortDescription>
+        <LongDescription>TestNG测试方法 {1} 将布尔表达式传递给Assert.assertFalse / Assert.assertTrue</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 evaluates a boolean expression and passes that to Assert.assertFalse / Assert.assertTrue.
-            It is better to pass the two values that are being equated to the Assert.assertNotEquals method so that the TestNG failure method is more meaningful of the intended test.</p>
+            <p>此方法计算一个布尔表达式并将其传递给Assert.assertFalse / Assert.assertTrue。
+            最好传递两个值以调用Assert.assertNotEquals，以便TestNG故障处理方法可以更好地描述预期的测试。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTAO_TESTNG_ASSERTION_ODDITIES_NO_ASSERT">
-        <ShortDescription>TestNG test method appears to have no assertions</ShortDescription>
-        <LongDescription>TestNG test method {1} appears to have no assertions</LongDescription>
+        <ShortDescription>TestNG测试方法似乎没有断言</ShortDescription>
+        <LongDescription>TestNG测试方法 {1} 似乎没有断言</LongDescription>
         <Details>
             <![CDATA[
-            <p>This TestNG test method has no assertions.
-            While a unit test could still be valid if it relies on whether or not an exception is thrown, it is usually a sign of a weak test if there are no assertions.
-            Consider calling <code>fail</code> after an exception was expected.
-            It is also possible that assertions occur in a called method that is not seen by this detector, but this makes the logic of this test more difficult to reason about.</p>
+            <p>此TestNG测试方法没有断言.
+            虽然单元测试依赖于是否引发异常，但仍然有效，但如果没有断言，通常表明测试很弱。
+            考虑在出现异常后调用<code>fail</code>。
+            断言也有可能在此检测器无法看到的调用方法中发生，但这使该测试的逻辑更加难以推理。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SCA_SUSPICIOUS_CLONE_ALGORITHM">
-        <ShortDescription>克隆方法 stores a new value to member field of source object</ShortDescription>
-        <LongDescription>克隆方法 {1} stores a new value to member field of source object</LongDescription>
+        <ShortDescription>克隆方法将新值存储到源对象的成员字段</ShortDescription>
+        <LongDescription>克隆方法 {1} 将新值存储到源对象的成员字段</LongDescription>
         <Details>
             <![CDATA[
-            <p>The clone method stores a value to a member field of the source object.
-            Normally, all changes are made to the cloned object, and given that cloning is almost always considered a read-only operation, this seems incorrect.</p>
+            <p>clone方法将值存储到源对象的成员字段。
+            通常，对克隆对象进行所有更改，并且鉴于几乎总是将克隆视为只读操作，因此这似乎是不正确的。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="WEM_WEAK_EXCEPTION_MESSAGING">
-        <ShortDescription>方法 throws exception with static message string</ShortDescription>
-        <LongDescription>方法 {1} throws exception with static message string</LongDescription>
+        <ShortDescription>方法引发带有静态消息字符串的异常</ShortDescription>
+        <LongDescription>方法 {1} 引发带有静态消息字符串的异常</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 creates and throws an exception using a static string as the exceptions message.
-            Without any specific context of this particular exception invocation, such as the values of parameters, key member variables, or local variables, it may be difficult to infer how this exception occurred.
-            Consider adding context to the exception message.</p>
+            <p>此方法使用静态字符串作为异常消息创建并抛出异常。
+            如果没有此特定异常调用的任何特定上下文(例如参数，键成员变量或局部变量的值)，则可能很难推断出此异常是如何发生的。
+            考虑将上下文添加到异常消息中。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="WEM_OBSCURING_EXCEPTION">
-        <ShortDescription>方法 throws a java.lang.Exception that wraps a more useful exception</ShortDescription>
-        <LongDescription>方法 {1} throws a java.lang.Exception that wraps a more useful exception</LongDescription>
+        <ShortDescription>方法抛出一个将特定异常重新包装的java.lang.Exception</ShortDescription>
+        <LongDescription>方法 {1} 抛出一个将特定异常重新包装的java.lang.Exception</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 catches an exception and generates a new exception of type java.lang.Exception, passing the original exception as the new Exception's cause.
-            If the original Exception was actually a java.lang.Error, this is dubious as you should not be handling errors.
-            If the original exception is a more specific exception, there is no reason to wrap it in a java.lang.Exception; this just obfuscates the type of error that is occurring.
+            <p>此方法捕获异常并生成类型为java.lang.Exception的新异常，并将原始异常作为新Exception的原因进行传递。
+            如果原始Exception实际上是一个java.lang.Error，这是可疑的，因为您不应该处理错误。
+            如果原始异常是更特定的异常，则没有理由将其包装在java.lang.Exception中；这只会掩盖正在发生的错误的类型。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SCSS_SUSPICIOUS_CLUSTERED_SESSION_SUPPORT">
-        <ShortDescription>方法 modifies an http session attribute without calling setAttribute</ShortDescription>
-        <LongDescription>方法 {1} modifies an http session attribute without calling setAttribute</LongDescription>
+        <ShortDescription>方法修改http会话属性而不调用setAttribute</ShortDescription>
+        <LongDescription>方法 {1} 修改http会话属性而不调用setAttribute</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 fetches a complex object from an HttpSession object, modifies this object, but does not call setAttribute, to inform the application server that this attribute has been changed.
-            This will cause this attribute not to be updated in other servers in a clustered environment, as only changes marked by a call to setAttribute are replicated.</p>
+            <p>此方法从HttpSession对象获取复杂的对象，修改此对象，但不调用setAttribute来通知应用程序服务器此属性已更改。
+            这将导致此属性不会在集群环境中的其他服务器中更新，因为仅复制对setAttribute的调用标记的更改。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="LO_LOGGER_LOST_EXCEPTION_STACK_TRACE">
-        <ShortDescription>方法 incorrectly passes exception as first argument to logger method</ShortDescription>
-        <LongDescription>方法 {1} incorrectly passes exception as first argument to logger method</LongDescription>
+        <ShortDescription>方法错误地将异常作为第一个参数传递给logger方法</ShortDescription>
+        <LongDescription>方法 {1} 错误地将异常作为第一个参数传递给logger方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 passes an exception as the first argument to a logger method.
-            The stack trace is potentially lost due to the logger emitting the exception using toString().
-            It is better to construct a log message with sufficient context and pass the exception as the second argument to capture the stack trace.</p>
+            <p>此方法将异常作为第一个参数传递给logger方法。
+            由于记录器使用toString()发出异常，因此可能会丢失堆栈跟踪。
+            最好构造一个具有足够上下文的日志消息，并将异常作为第二个参数传递以捕获堆栈跟踪。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="LO_SUSPECT_LOG_CLASS">
-        <ShortDescription>方法 specifies an unrelated class when allocating a Logger</ShortDescription>
-        <LongDescription>方法 {1} specifies an unrelated class when allocating a Logger.
-            Saw "{3}", expected "{4}".</LongDescription>
+        <ShortDescription>方法在分配Logger时指定一个不相关的类</ShortDescription>
+        <LongDescription>方法 {1} 在分配Logger时指定一个不相关的类。 见到的是 "{3}", 实际期望的是 "{4}".</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 creates a Logger by passing in a specification for a class that is unrelated to the class in which the logger is going to be used.
-            This is likely caused by copy/paste code.</p>
+            <p>此方法通过传入与将要使用记录器的类无关的类的规范来创建记录器。
+            这可能是由于复制/粘贴代码引起的。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="LO_SUSPECT_LOG_PARAMETER">
-        <ShortDescription>构造方法 declares a Logger parameter</ShortDescription>
-        <LongDescription>构造方法 {1} declares a Logger parameter</LongDescription>
+        <ShortDescription>构造方法声明一个Logger参数</ShortDescription>
+        <LongDescription>构造方法 {1} 声明一个Logger参数</LongDescription>
         <Details>
             <![CDATA[
-            <p>This constructor declares a parameter that is a Logger.
-            As loggers are meant to be created statically per class, it doesn't make sense that you would pass a Logger from one class to another.
-            Declare the Logger static in each class instead.</p>
+            <p>该构造函数声明一个参数，即Logger。
+            由于记录器是按类静态创建的，因此将Logger从一个类传递到另一类是没有意义的。
+            在每个类中声明静态Logger。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="LO_STUTTERED_MESSAGE">
-        <ShortDescription>方法 stutters exception message in logger</ShortDescription>
-        <LongDescription>方法 {1} stutters exception message in logger</LongDescription>
+        <ShortDescription>方法记录器中出现口吃异常消息</ShortDescription>
+        <LongDescription>方法 {1} 记录器中出现口吃异常消息</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses a logger method that takes an exception, and passes the result of the exception's getMessage() method as the log message.
-            Since you are already passing in the exception, that message is already present in the logs, and by passing it in as the message, you are just stuttering information.
-            It would be more helpful to provide a handwritten message that describes the error in this method, possibly including the values of key variables.</p>
+            <p>此方法使用采用异常的logger方法，并将异常的getMessage()方法的结果作为日志消息传递。
+            由于您已经传递了异常，因此该消息已经存在于日志中，并且通过将其作为消息传递而已，这只是在阻塞信息。
+            提供描述此方法中的错误的手写消息(可能包括关键变量的值)会更有帮助。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="LO_INVALID_FORMATTING_ANCHOR">
-        <ShortDescription>方法 attempts to log using numbered formatting anchors</ShortDescription>
-        <LongDescription>方法 {1} attempts to log using numbered formatting anchors</LongDescription>
+        <ShortDescription>方法尝试使用编号格​​式的锚点记录</ShortDescription>
+        <LongDescription>方法 {1} 尝试使用编号格​​式的锚点记录</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 attempts to use an SLF4J or Log4j2 logger to log a parameterized expression using formatting anchors.
-            However, SLF4J and Log4j2 use simple non numbered anchors such as {}, rather than anchors with digits in them as the code uses.
-            Thus no parameter replacement will occur.</p>
-            <p>This pattern is invalid: <code>LOGGER.error("{0} is broken", theThing);</code>
-            Use instead <code>LOGGER.error("{} is broken", theThing);</code>
+            <p>此方法尝试使用SLF4J或Log4j2记录器来记录格式化格式锚点的参数化表达式。
+            但是，SLF4J和Log4j2使用简单的未编号锚点(例如{})，而不是代码所使用的其中带有数字的锚点。
+            因此，不会发生参数替换。</p>
+            <p>此模式无效：<code>LOGGER.error("{0}已损坏", theThing);</code>
+            改用<code>LOGGER.error("{}已损坏", theThing);</code>
             </p>
             ]]>
         </Details>
     </BugPattern>
 
         <BugPattern type="LO_INVALID_STRING_FORMAT_NOTATION">
-        <ShortDescription>方法 attempts to log using String.format notation</ShortDescription>
-        <LongDescription>方法 {1} attempts to log using String.format notation</LongDescription>
+        <ShortDescription>方法尝试使用String.format表示法进行记录</ShortDescription>
+        <LongDescription>方法 {1} 尝试使用String.format表示法进行记录</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 attempts to use an SLF4J or Log4j2 logger to log a parameterized expression using String.format notation.
-            However, SLF4J and Log4j2 uses simple non numbered anchors such as {}, rather than anchors with percent signs in them as the code uses.
-            Thus no parameter replacement will occur.</p>
-            <p>This pattern is invalid: <code>LOGGER.error("%s is broken", theThing);</code>
-            Use instead <code>LOGGER.error("{} is broken", theThing);</code>
+            <p>此方法尝试使用SLF4J或Log4j2记录器记录使用String.format表示法的参数化表达式。
+            但是，SLF4J和Log4j2使用简单的未编号锚点（例如{}），而不是使用代码时在其中带有百分号的锚点。
+            因此，不会发生参数替换。</p>
+            <p>此模式无效：<code>LOGGER.error("%s is broken", theThing);</code>
+            改用<code>LOGGER.error("{} is broken", theThing);</code>
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="LO_INCORRECT_NUMBER_OF_ANCHOR_PARAMETERS">
-        <ShortDescription>方法 passes an incorrect number of parameters to an SLF4J or Log4j2 logging statement</ShortDescription>
-        <LongDescription>方法 {1} passes an incorrect number of parameters to an SLF4J or Log4j2 logging statement</LongDescription>
+        <ShortDescription>方法将错误数量的参数传递给SLF4J或Log4j2记录语句</ShortDescription>
+        <LongDescription>方法 {1} 将错误数量的参数传递给SLF4J或Log4j2记录语句</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 passes the wrong number of parameters to an SLF4J or Log4j2 logging method (error, warn, info, debug) based on the number of anchors {} in the format string.
-            An additional exception argument is allowed if found.</p>
+            <p>根据格式字符串中锚点{}的数量推测，此方法将错误数量的参数传递给SLF4J或Log4j2日志记录方法（错误，警告，信息，调试）。
+            如果找到，则允许使用其他异常参数。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="LO_EXCEPTION_WITH_LOGGER_PARMS">
-        <ShortDescription>方法 creates exception with logger parameter markers in message</ShortDescription>
-        <LongDescription>方法 {1} creates exception with logger parameter markers in message</LongDescription>
+        <ShortDescription>方法在消息中使用记录器参数标记创建异常</ShortDescription>
+        <LongDescription>方法 {1} 在消息中使用记录器参数标记创建异常</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 passes a standard exception as a logger parameter, and expects this exception to be substituted in an SLF4J or Log4j style parameter marker '{}'.
-            This marker will not be translated as SLF4J and Log4j2 don't process the Exception class for markers.
+            <p>此方法传递一个标准异常作为记录器参数，并希望将此异常替换为SLF4J或Log4j样式参数标记“ {}”。
+            该标记不会被翻译，因为SLF4J和Log4j2不会处理标记的Exception类。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="LO_APPENDED_STRING_IN_FORMAT_STRING">
-        <ShortDescription>方法 passes a concatenated string to SLF4J's or Log4j2's format string</ShortDescription>
-        <LongDescription>方法 {1} passes a concatenated string to SLF4J's or Log4j2's format string</LongDescription>
+        <ShortDescription>方法将串联的字符串传递到SLF4J或Log4j2的格式字符串</ShortDescription>
+        <LongDescription>方法 {1} 将串联的字符串传递到SLF4J或Log4j2的格式字符串</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses an SLF4J or Log4j2 logger to log a string, where the first (format) string is created using concatenation.
-            You should use {} markers to inject dynamic content into the string, so that String building is delayed until the actual log string is needed.
-            If the log level is high enough that this log statement isn't used, then the appends will never be executed.</p>
+            <p>此方法使用SLF4J或Log4j2记录器记录一个字符串，其中第一个（格式）字符串是使用串联创建的。
+            您应该使用{}标记将动态内容注入到字符串中，以便延迟String的构建，直到需要实际的日志字符串为止。
+            如果日志级别足够高，以致不使用此日志语句，则将永远不会执行附加操作。</p>
             ]]>
         </Details>
     </BugPattern>
 
 
     <BugPattern type="LO_EMBEDDED_SIMPLE_STRING_FORMAT_IN_FORMAT_STRING">
-        <ShortDescription>方法 passes a simple String.format result to an SLF4J's or Log4j2's format string</ShortDescription>
-        <LongDescription>方法 {1} passes a simple String.format result to an SLF4J's or Log4j2's format string</LongDescription>
+        <ShortDescription>方法将简单的String.format结果传递给SLF4J或Log4j2的格式字符串</ShortDescription>
+        <LongDescription>方法 {1} 将简单的String.format结果传递给SLF4J或Log4j2的格式字符串</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses an SLF4J or Log4J2 logger to log a string which was produced through a call to String.format, where the format string passed was a constant string containing only simple format markers that could be directly handled by SLF4J or Log4J.
-            Rather than doing <pre>
+            <p>此方法使用SLF4J或Log4J2记录器记录通过调用String.format生成的字符串，其中传递的格式字符串是一个常量字符串，仅包含可以由SLF4J或Log4J直接处理的简单格式标记。
+            与其这么
+            <pre>
                 logger.error(String.format("This %s is an error", s));
             <pre>
-            do
+            不如
             <pre>
                 logger.error("This {} is an error", s);
             </pre>
@@ -3946,52 +3946,54 @@ return new String[0];<br/>
     </BugPattern>
 
     <BugPattern type="LO_TOSTRING_PARAMETER">
-        <ShortDescription>方法 explicitly calls toString() on a logger parameter</ShortDescription>
-        <LongDescription>方法 {1} explicitly calls toString() on a logger parameter</LongDescription>
+        <ShortDescription>方法在记录器参数上显式调用toString（）</ShortDescription>
+        <LongDescription>方法 {1} 在记录器参数上显式调用toString（）</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses parameterized logging to avoid the cost of string concatenation in the case that the log level does not meet the needed level.
-            However, one or more of the parameters passed to the logging method uses .toString() to present a String representation for the parameter.
-            This is unneeded as the logger will do this for you, and because it is explicitly done, will always be called even if the log statement is not actually written.
-            Also, by dropping the '.toString()' you may avoid unnecessary NPEs.
-            Just pass the variable as a parameter instead.
+            <p>此方法在日志级别未达到所需级别的情况下，使用参数化日志记录来避免字符串连接的开销。
+            但是，传递给日志记录方法的一个或多个参数使用.toString（）来表示该参数的String表示形式。
+            这是不必要的，因为记录器将为您执行此操作，并且由于已明确完成，因此即使未实际写入log语句，也将始终调用该方法。
+            另外，通过删除'.toString（）'，可以避免不必要的NPE。
+            只需将变量作为参数传递即可。
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="LO_NON_PRIVATE_STATIC_LOGGER">
-        <ShortDescription>类 defines non private logger using a static class context</ShortDescription>
-        <LongDescription>类 {0} defines a non private logger using a static class context</LongDescription>
+        <ShortDescription>类使用静态类上下文定义非私有记录器</ShortDescription>
+        <LongDescription>类 {0} 使用静态类上下文定义非私有记录器</LongDescription>
         <Details>
             <![CDATA[
-                <p>This class defines a static logger as non private.
-            It does so by passing the name of a class such as <code><pre>public static final Logger LOG = LoggerFactory.getLogger(Foo.class);</pre></code>
-                Since this class is public it may be used in other classes, but doing so will provide the incorrect
-                class reference as the class is hard coded.
+                <p>此类将静态记录器定义为非私有。
+                它通过传递诸如以下类的名称来实现
+                <code><pre>
+                    public static final Logger LOG = LoggerFactory.getLogger(Foo.class);
+                </pre></code>
+                由于该类是公共的，因此可以在其他类中使用，但是这样做会提供错误的类引用，因为该类是硬编码的。
                 </p>
                 <p>
-                It is recommend to define static loggers as private, and just redefine a new logger in any class
-                that you need to have logging done.
+                建议将静态记录器定义为私有记录器，并仅在需要完成记录的任何类中重新定义新记录器。
                 <p>
-                <p>If you wish to have a base class define the logger, and have derived classes use that logger, you can
-                potentially use instance based logging, such as
-                <code><pre>protected final Logger LOG = LoggerFactory.getLogger(getClass());</pre></code>
-                However this has the downside of being an instance based logger, and creating a logger object in each instance
-                of the class where it is used.
+                <p>如果希望让基类定义记录器，并且派生类使用该记录器，则可以潜在地使用基于实例的记录，例如
+                <code><pre>
+                    protected final Logger LOG = LoggerFactory.getLogger(getClass());
+                </pre></code>
+                但是，这样做有一个缺点，即成为基于实例的记录器，并在使用它的类的每个实例中创建一个记录器对象。
                 </p>
                 ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IICU_INCORRECT_INTERNAL_CLASS_USE">
-        <ShortDescription>类 relies on internal API classes</ShortDescription>
-        <LongDescription>类 {0} relies on internal API classes</LongDescription>
+        <ShortDescription>类依靠内部API类</ShortDescription>
+        <LongDescription>类 {0} 依靠内部API类</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class makes use of internal API classes.
-            As these classes are not documented, nor externally released as part of the API, they are subject to change or removal.
-            You should not be using these classes.</p>
-            Packages that shouldn't be used are: <ul>
+            <p>此类使用内部API类。
+            由于这些类没有记录在案，也没有作为API的一部分对外发布，因此它们可能会更改或删除。
+            您不应该使用这些类。</p>
+            不应使用的软件包是：
+            <ul>
                 <li>sun.xxx</li>
                 <li>org.apache.xerces.xxx</li>
                 <li>org.apache.xalan.xxx</li>
@@ -4001,154 +4003,155 @@ return new String[0];<br/>
     </BugPattern>
 
     <BugPattern type="DSOC_DUBIOUS_SET_OF_COLLECTIONS">
-        <ShortDescription>方法 uses a set of collections</ShortDescription>
-        <LongDescription>方法 {1} uses a set of collections</LongDescription>
+        <ShortDescription>方法使用一组数据集合的Set</ShortDescription>
+        <LongDescription>方法 {1} 使用一组数据集合的Set</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 creates a set that contains other collections, or a Map whose keySet is another collection.
-            As collections tend to calculate hashCode, equals, and compareTo by iterating the contents of the collection, this can perform poorly.</p>
-            <p>In addition, when a set is used, you typically are using it to do 'contains', or 'find' type functionality, which seems dubious when done on a collection.</p>
-            <p>Finally, as a collection is often modified, problems will occur if the collection is contained in a set, because the hashCode, equals or compareTo values will change while the collection is in the set.</p>
-            <p>If you wish to maintain a collection of collections, it is probably better to use a List as the outer collection.</p>
+            <p>此方法创建一个包含其他集合的Set, 或一个Map其keySet是另一个集合。
+            由于集合倾向于通过迭代集合的内容来计算hashCode，equals和compareTo，因此执行效果可能会很差。</p>
+            <p>此外，使用集合时，通常会使用它来执行“包含”或“查找”类型的功能，当对集合进行处理时，这似乎是可疑的。</p>
+            <p>最后，由于通常会修改集合，因此如果集合中包含该集合，则会出现问题，因为当集合在集合中时，hashCode，equals或compareTo值将​​发生变化。</p>
+            <p>如果您希望维护一个集合的集合，最好使用List作为外部集合。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="BED_BOGUS_EXCEPTION_DECLARATION">
-        <ShortDescription>非派生方法 declares throwing an exception that isn't thrown</ShortDescription>
-        <LongDescription>非派生方法 {1} declares throwing an exception that isn't thrown</LongDescription>
+        <ShortDescription>非派生方法声明抛出其不会抛出的异常</ShortDescription>
+        <LongDescription>非派生方法 {1} 声明抛出其不会抛出的异常</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 declares that it throws a checked exception that it does not throw.
-            As this method is either a constructor, static method or private method, there is no reason for this method to declare the exception in its throws clause, and just causes calling methods to unnecessarily handle an exception that will never be thrown.
-            The exception in question should be removed from the throws clause.</p>
+            <p>此方法声明它抛出一个其不会抛出的检查异常。
+            由于此方法是构造函数，静态方法或私有方法，因此没有必要为此方法在其throws子句中声明异常，而只会导致调用方法不必要地处理永远不会引发的异常。
+            有问题的异常应该从throws子句中删除。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="BED_HIERARCHICAL_EXCEPTION_DECLARATION">
-        <ShortDescription>方法 declares throwing two or more exceptions related by inheritance</ShortDescription>
-        <LongDescription>方法 {1} declares throwing two or more exceptions related by inheritance</LongDescription>
+        <ShortDescription>方法声明抛出两个或多个有继承关系的异常</ShortDescription>
+        <LongDescription>方法 {1} 声明抛出两个或多个有继承关系的异常</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 declares that it throws an exception that is the child of another exception that is also declared to be thrown.
-            Given that the parent exception is declared, there is no need for the child exception to also be declared; it just adds confusion.</p>
+            <p>此方法声明它抛出一个异常，该异常是另一个也声明要抛出的异常的子代。
+            假设已声明父异常，则无需也声明子异常；它只会增加混乱。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UNNC_UNNECESSARY_NEW_NULL_CHECK">
-        <ShortDescription>方法 checks the result of a new allocation</ShortDescription>
-        <LongDescription>方法 {1} checks the result of a new allocation</LongDescription>
+        <ShortDescription>方法检查新分配的结果</ShortDescription>
+        <LongDescription>方法 {1} 检查新分配的结果</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 allocates an object with <code>new</code>, and then checks that the object is null or non null.
-            As the new operator is guaranteed to either succeed or throw an exception, this null check is unnecessary and can be removed.</p>
+            <p>此方法使用<code>new</code>分配一个对象，然后检查该对象为null还是非null。
+            由于可以保证新运算符将成功执行或引发异常，因此不需要此null检查，可以将其删除。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="DTEP_DEPRECATED_TYPESAFE_ENUM_PATTERN">
-        <ShortDescription>类 appears to implement the old style type safe enum pattern</ShortDescription>
-        <LongDescription>类 {0} appears to implement the old style type safe enum pattern</LongDescription>
+        <ShortDescription>类似乎实现了旧样式类型的安全枚举模式</ShortDescription>
+        <LongDescription>类 {0} 似乎实现了旧样式类型的安全枚举模式</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class appears to implement the old-style typesafe enum pattern that was used in place of real enums.
-            Since this class is compiled with Java 1.5 or better, it would be simpler and more easy to understand if it was just switched over to an <code>enum</code>.</p>
+            <p>此类似乎实现了代替实际枚举使用的旧式类型安全枚举模式。
+            由于此类是使用Java 1.5或更高版本编译的，因此，如果将其切换到<code>enum</code>，它将更加简单易懂。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="TBP_TRISTATE_BOOLEAN_PATTERN">
-        <ShortDescription>方法 returns null for Boolean type</ShortDescription>
-        <LongDescription>方法 {1} returns null for Boolean type</LongDescription>
+        <ShortDescription>方法对于布尔包装类型返回null</ShortDescription>
+        <LongDescription>方法 {1} 对于布尔包装类型返回null</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 declares that it returns a Boolean value.
-            However, the code can return a null value.
-            As this is now three values that can be returned - Boolean.TRUE, Boolean.FALSE, null - you have changed what a Boolean means.
-            It would be clearer to just create a new Enum that has the three values you want, and define that the method returns that type.</p>
+            <p>此方法声明它返回一个布尔包装值。
+            但是，代码可以返回空值。
+            由于现在可以返回三个值-Boolean.TRUE，Boolean.FALSE，null-您已更改了Boolean的含义。
+            仅创建具有所需三个值的新Enum并定义该方法返回该类型将更加清楚。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SUA_SUSPICIOUS_UNINITIALIZED_ARRAY">
-        <ShortDescription>方法 returns an array that appears not to be initialized</ShortDescription>
-        <LongDescription>方法 {1} returns an array that appears not to be initialized</LongDescription>
+        <ShortDescription>方法返回一个似乎未初始化的数组</ShortDescription>
+        <LongDescription>方法 {1} 返回一个似乎未初始化的数组</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 returns an array that was allocated but apparently not initialized.
-            It is possible that the caller of this method will do the work of initializing this array, but that is not a common pattern, and it is assumed that this array has just been forgotten to be initialized.</p>
+            <p>此方法返回已分配但显然未初始化的数组。
+            此方法的调用者可能会完成初始化此数组的工作，但这不是常见的模式，并且假定刚忘记此数组进行了初始化。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="ITU_INAPPROPRIATE_TOSTRING_USE">
-        <ShortDescription>方法 performs algorithmic operations on the result of a toString() call</ShortDescription>
-        <LongDescription>方法 {1} performs algorithmic operations on the result of a toString() call</LongDescription>
+        <ShortDescription>方法对toString（）调用的结果执行算法运算</ShortDescription>
+        <LongDescription>方法 {1} 对toString（）调用的结果执行算法运算</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 calls algorithmic operations on a String that was returned from a toString() method.
-            As these methods are for debugging/logging purposes, it shouldn't be the basis of core logic in your code.</p>
+            <p>此方法对toString（）调用的结果执行算法运算。
+            由于这些方法仅用于调试/记录目的，因此不应作为代码中核心逻辑的基础。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IKNC_INCONSISTENT_HTTP_ATTRIBUTE_CASING">
-        <ShortDescription>方法 uses the same HttpSession attribute name but with different casing</ShortDescription>
-        <LongDescription>方法 {1} uses the same HttpSession attribute name but with different casing</LongDescription>
+        <ShortDescription>方法使用相同的HttpSession属性名称，但大小写不同</ShortDescription>
+        <LongDescription>方法 {1} 使用相同的HttpSession属性名称，但大小写不同</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 sets or gets an HttpSession attribute with a parameter name that was used in other locations but with a different casing.
-            As HttpSession attribute are case-sensitive, this will be very confusing.</p>
+            <p>此方法设置或获取一个HttpSession属性，其在其他位置使用过但大小写不同。
+            由于HttpSession属性区分大小写，因此这将非常令人困惑。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IKNC_INCONSISTENT_HTTP_PARAM_CASING">
-        <ShortDescription>方法 uses the same HttpRequest parameter name but with different casing</ShortDescription>
-        <LongDescription>方法 {1} uses the same HttpRequest parameter name but with different casing</LongDescription>
+        <ShortDescription>方法使用相同的HttpRequest参数名称，但大小写不同</ShortDescription>
+        <LongDescription>方法 {1} 使用相同的HttpRequest参数名称，但大小写不同</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 fetches an HttpServletRequest parameter with a parameter name that was used in other locations but with a different casing.
-            As HttpServletRequest parameters are case-sensitive, this will be very confusing.</p>
+            <p>此方法获取一个HttpServletRequest参数，其在其他位置使用过但大小写不同。
+            由于HttpServletRequest参数区分大小写，因此这将非常令人困惑。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="OC_OVERZEALOUS_CASTING">
-        <ShortDescription>方法 manually casts the right hand side of an assignment more specifically than needed</ShortDescription>
-        <LongDescription>方法 {1} manually casts the right hand side of an assignment more specifically than needed</LongDescription>
+        <ShortDescription>方法通过强制类型转换将右侧表达式转换到比预期更具体的类型</ShortDescription>
+        <LongDescription>方法 {1} 通过强制类型转换将右侧表达式转换到比预期更具体的类型</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 casts the right hand side of an expression to a class that is more specific than the variable on the left hand side of the assignment.
-            The cast only has to be as specific as the variable that is on the left.
-            Using a more specific type on the right hand side just increases cohesion.</p>
+            <p>此方法将表达式的右侧强制转换为比赋值左侧的变量更具体的类。
+            强制转换仅必须与左侧的变量一样具体。
+            在右侧使用更具体的类型只会增加耦合度。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="PDP_POORLY_DEFINED_PARAMETER">
-        <ShortDescription>方法 defines parameters more abstractly than needed to function properly</ShortDescription>
-        <LongDescription>方法 {1} defines parameters more abstractly than needed to function properly</LongDescription>
+        <ShortDescription>方法定义参数比正常运行所需的抽象级别高</ShortDescription>
+        <LongDescription>方法 {1} 定义参数比正常运行所需的抽象级别高</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 defines parameters at a more abstract level than is actually needed to function correctly, as the code casts these parameters to more concrete types.
-            Since this method is not derivable, you should just define the parameters with the type that is needed.</p>
+            <p>此方法在代码将这些参数转换为更具体的类型时，它定义得比正常运行所需的抽象级别更抽象。
+            由于此方法不可派生，因此您只需定义所需类型的参数即可。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="NSE_NON_SYMMETRIC_EQUALS">
-        <ShortDescription>Equals 方法 compares this object against other types in a non symmetric way</ShortDescription>
-        <LongDescription>Equals 方法 {1} compares this object against other types in a non symmetric way</LongDescription>
+        <ShortDescription>Equals 方法 以非对称方式将此对象与其他类型进行比较</ShortDescription>
+        <LongDescription>Equals 方法 {1} 以非对称方式将此对象与其他类型进行比较</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class implements an equals method that compares this object against another type of object.
-            This is almost always a bad thing to do, but if it is to be done, you must make sure that the basic symmetry rule of equivalence is maintained, that being if a equals b, then b equals a.
-            It does not appear that the class that is being compared to this class knows about this class, and doesn't compare itself to this.</p>
+            <p>此类实现了equals方法，该方法将该对象与另一类型的对象进行比较。
+            这几乎总是一件坏事，但是如果要这样做，则必须确保保持等价的基本对称规则，即如果a等于b，则b等于a。
+            似乎与该类进行比较的类并不了解该类，也没有将自身与该类进行比较。</p>
             <p>
-            Here's an example of a BAD equals method, do NOT do this: <pre><code>
+            这是一个不好的equals方法示例，请不要这样做： 
+<pre><code>
 class Person {
     public boolean equals(Object o) {
         if (o instanceof Person) {
@@ -4166,12 +4169,12 @@ class Person {
     </BugPattern>
 
     <BugPattern type="CVAA_CONTRAVARIANT_ARRAY_ASSIGNMENT">
-        <ShortDescription>方法 performs a contravariant array assignment</ShortDescription>
-        <LongDescription>方法 {1} performs a contravariant array assignment</LongDescription>
+        <ShortDescription>方法执行逆向数组分配</ShortDescription>
+        <LongDescription>方法 {1} 执行逆向数组分配</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 contains a contravariant array assignment.
-            Since arrays are mutable data structures, their use must be restricted to covariant or invariant usage.</p>
+            <p>此方法包含一个逆向数组分配。
+            由于数组是可变数据结构，因此必须将它们的使用限制为协变或不变。</p>
 
 <pre><code>
 class A {}
@@ -4185,12 +4188,12 @@ A[] a = b;
     </BugPattern>
 
     <BugPattern type="CVAA_CONTRAVARIANT_ELEMENT_ASSIGNMENT">
-        <ShortDescription>方法 performs a contravariant array element assignment</ShortDescription>
-        <LongDescription>方法 {1} performs a contravariant array element assignment</LongDescription>
+        <ShortDescription>方法执行逆向数组元素分配</ShortDescription>
+        <LongDescription>方法 {1} 执行逆向数组元素分配</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 contains a contravariant array element assignment.
-            Since arrays are mutable data structures, their use must be restricted to covariant or invariant usage.</p>
+            <p>此方法包含一个逆向数组元素分配。
+                由于数组是可变数据结构，因此必须将它们的使用限制为协变或不变。</p>
 
 <pre><code>
 class A {}
@@ -4198,39 +4201,39 @@ class B extends A {}
 
 B[] b = new B[2];
 A[] a = b;
-a[0] = new A(); // results in ArrayStoreException (Runtime)
+a[0] = new A(); // 导致ArrayStoreException（运行时）
 </code></pre>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="NFF_NON_FUNCTIONAL_FIELD">
-        <ShortDescription>可序列化类 defines a final transient field</ShortDescription>
-        <LongDescription>可序列化类 {0} defines a final transient field</LongDescription>
+        <ShortDescription>可序列化类定义了一个不可变瞬态字段</ShortDescription>
+        <LongDescription>可序列化类 {0} 定义了一个不可变瞬态字段</LongDescription>
         <Details>
             <![CDATA[
-            <p>This serializable class defines a field as both transient and final.
-            As transient fields are not serialized across the stream, it is required that some piece of code reinitialize that field when it is deserialized.
-            But since constructors aren't called when deserializing, the field is not initialized.
-            And since the field is final, no other method can initialize it either.</p>
+            <p>此可序列化的类将字段定义为瞬态字段和最终字段。
+            由于瞬态字段未在流中序列化，因此在反序列化该字段时，需要一些代码重新初始化该字段。
+            但是，由于反序列化时不会调用构造函数，因此不会初始化该字段。
+            并且由于该字段是最终字段，因此其他方法也无法对其进行初始化。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SNG_SUSPICIOUS_NULL_FIELD_GUARD">
-        <ShortDescription>方法 tests a field for not null as guard and reassigns it</ShortDescription>
-        <LongDescription>方法 {1} tests a field for not null as guard and reassigns it</LongDescription>
+        <ShortDescription>方法测试字段是否为非null作为守卫并重新分配它</ShortDescription>
+        <LongDescription>方法 {1} 测试字段是否为非null作为守卫并重新分配它</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 tests a field to make sure it's not null before executing a conditional block of code.
-            However, in the conditional block it reassigns the field.
-            It is likely that the guard should have been a check to see if the field is null, not that the field was not null.</p>
-            <p>example: <pre><code>
+            <p>此方法在执行条件代码块之前，测试字段以确保其不为null。
+            但是，在条件块中会重新分配该字段。
+            很有可能应该检查一下条件代码，以查看该字段是否为空，而不是该字段不为空。</p>
+            <p>例：<pre><code>
 if (name != null) {
     name = person.getName();
 }
 </code></pre>
-            It is possible this is correct, but it seems likely the guard was meant to be <code>if (name == null)</code>
+            这可能是正确的，但条件似乎应该是<code>if (name == null)</code>
             </p>
             ]]>
         </Details>
