@@ -4284,7 +4284,7 @@ if (name != null) {
 
     <BugPattern type="MDM_BIGDECIMAL_EQUALS">
         <ShortDescription>方法调用BigDecimal.equals()</ShortDescription>
-        <LongDescription>方法 {1} 调用BigDecimal.equals()，这通常是一个错误<</LongDescription>
+        <LongDescription>方法 {1} 调用BigDecimal.equals()，这通常是一个错误</LongDescription>
         <Details>
             <![CDATA[
             <p>此方法调用<code>equals()</code>来比较两个<code>java.math.BigDecimal</code>数字。
@@ -4502,148 +4502,147 @@ if (name != null) {
     </BugPattern>
 
     <BugPattern type="PCAIL_POSSIBLE_CONSTANT_ALLOCATION_IN_LOOP">
-        <ShortDescription>方法 allocates an object that is used in a constant way in a loop</ShortDescription>
-        <LongDescription>方法 {1} allocates an object that is used in a constant way in a loop</LongDescription>
+        <ShortDescription>方法分配循环中以恒定方式使用的对象</ShortDescription>
+        <LongDescription>方法 {1} 分配循环中以恒定方式使用的对象</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 allocates an object using the default constructor in a loop, and then only uses it in a quasi-static way.
-            It is never assigned to anything that lives outside the loop, and could potentially be allocated once outside the loop.
-            Often this can be achieved by calling a clear() like method in the loop, to reset the state of the object in the loop.</p>
+            <p>此方法在循环中使用默认构造函数分配对象，然后仅以准静态方式使用它。
+            它永远不会分配给循环外的任何东西，有可能可以只在循环外分配一次。
+            通常，这可以通过在循环中调用类似clear（）的方法来重置循环中对象的状态来实现。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="WOC_WRITE_ONLY_COLLECTION_LOCAL">
-        <ShortDescription>方法 creates and initializes a collection but never reads or gains information from it</ShortDescription>
-        <LongDescription>方法 {1} creates and initializes a collection but never reads or gains information from it</LongDescription>
+        <ShortDescription>方法创建并初始化一个集合，但是从不读取或获取它的信息</ShortDescription>
+        <LongDescription>方法 {1} 创建并初始化一个集合，但是从不读取或获取它的信息</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 creates and initializes a collection but then never accesses this collection to gain information or fetch items from the collection.
-            It is likely that this collection is left over from a past effort, and can be removed.</p>
+            <p>此方法创建并初始化一个集合，但是从不访问该集合以获取集合信息或从该集合中获取元素。
+            该集合很可能是过去的工作遗留下来的，可以删除。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="WOC_WRITE_ONLY_COLLECTION_FIELD">
-        <ShortDescription>类 creates and initializes a collection but never reads or gains information from it</ShortDescription>
-        <LongDescription>类 {0} creates and initializes a collection but never reads or gains information from it</LongDescription>
+        <ShortDescription>类创建并初始化一个集合，但是从不读取或获取它的信息</ShortDescription>
+        <LongDescription>类 {0} 创建并初始化一个集合，但是从不读取或获取它的信息</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class creates and initializes a collection as a field but then never accesses this collection to gain information or fetch items from the collection.
-            It is likely that this collection is left over from a past effort, and can be removed.</p>
+            <p>此类创建并初始化一个集合作为字段，但是从不访问该集合以获取集合信息或从该集合中获取元素。
+            该集合很可能是过去的工作遗留下来的，可以删除。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UVA_USE_VAR_ARGS">
-        <ShortDescription>方法 defines parameter list with array as last argument, rather than vararg</ShortDescription>
-        <LongDescription>方法 {1} defines parameter list with array as last argument, rather than vararg</LongDescription>
+        <ShortDescription>方法使用数组作为最后一个参数而不是vararg定义参数列表</ShortDescription>
+        <LongDescription>方法 {1} 使用数组作为最后一个参数而不是vararg定义参数列表</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 defines a parameter list that ends with an array.
-            As this class is compiled with Java 1.5 or better, this parameter could be defined as a vararg parameter instead, which can be more convenient for client developers to use.
-            This is not a bug, per se, just an improvement.</p>
+            <p>此方法定义一个以数组结尾的参数列表。
+            由于此类是使用Java 1.5或更高版本进行编译的，因此可以将该参数定义为vararg参数，这对于客户端开发人员来说更方便使用。
+            从本质上讲，这不是一个错误，只是一种改进。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="PUS_POSSIBLE_UNSUSPECTED_SERIALIZATION">
-        <ShortDescription>方法 serializes an instance of a non-static inner class</ShortDescription>
-        <LongDescription>方法 {1} serializes an instance of a non-static inner class</LongDescription>
+        <ShortDescription>方法序列化一个非静态内部类的实例</ShortDescription>
+        <LongDescription>方法 {1} 序列化一个非静态内部类的实例</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 serializes an instance of a non-static inner class.
-            Since this class has a reference to the containing class, this outer class will be serialized as well.
-            This is often not intentional, and will make the amount of data that is serialized much more than is needed.
-            If the outer class is not desired to be serialized, either make the inner class static, or pull it out into a separate "first class" class.</p>
+            <p>此方法序列化一个非静态内部类的实例。
+            由于此类引用了包含类，因此该外部类也将被序列化。
+            这通常不是故意的，它将使序列化的数据量远远超过所需的数量。
+            如果不希望将外部类序列化，则可以将内部类设为静态，或者将其拉到单独的“一等”类中。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SEC_SIDE_EFFECT_CONSTRUCTOR">
-        <ShortDescription>方法 uses a Side Effect Constructor</ShortDescription>
-        <LongDescription>方法 {1} uses a Side Effect Constructor</LongDescription>
+        <ShortDescription>方法使用有副作用的构造器</ShortDescription>
+        <LongDescription>方法 {1} 使用有副作用的构造器</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 creates an object but does not assign this object to any variable or field.
-            This implies that the class operates through side effects in the constructor, which is a bad pattern to use, as it adds unnecessary coupling.
-            Consider pulling the side effect out of the constructor, into a separate method, or into the calling method.</p>
+            <p>此方法创建一个对象，但不将此对象分配给任何变量或字段。
+            这意味着该类借助构造函数中的副作用进行操作，这是一个不好的模式，因为它增加了不必要的耦合。
+            考虑将副作用从构造函数中拉出，移至单独的方法或调用方法中。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SGSU_SUSPICIOUS_GETTER_SETTER_USE">
-        <ShortDescription>方法 uses same bean's getter value for setter</ShortDescription>
-        <LongDescription>方法 {1} uses same bean's getter value for setter</LongDescription>
+        <ShortDescription>方法 对setter使用相同bean的getter值</ShortDescription>
+        <LongDescription>方法 {1} 对setter使用相同bean的getter值</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 retrieves the property of a Java bean, only to use it in the setter for the same property of the same bean.
-            This is usually a copy/paste typo.</p>
+            <p>此方法检索Java Bean的属性，仅在setter中将其用于同一Bean的相同属性。
+            这通常是复制/粘贴错字。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="LGO_LINGERING_GRAPHICS_OBJECT">
-        <ShortDescription>方法 allocations a java.awt.Graphics object without disposing it</ShortDescription>
-        <LongDescription>方法 {1} allocations a java.awt.Graphics object without disposing it</LongDescription>
+        <ShortDescription>方法分配一个java.awt.Graphics对象而不处置它</ShortDescription>
+        <LongDescription>方法 {1} 分配一个java.awt.Graphics对象而不处置它</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 allocates a java.awt.Graphics object but doesn't dispose of it when done.
-            While the garbage collector will clean this up, given that a large number of Graphics objects can be created in a short period of time, it is recommended that you explicitly dispose() of them.</p>
+            <p>此方法分配一个java.awt.Graphics对象，但分配并使用完成后没有处置它。
+            尽管垃圾收集器会清理掉它，但鉴于可以在短时间内创建大量Graphics对象，建议您显式地丢弃它们。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="STB_STACKED_TRY_BLOCKS">
-        <ShortDescription>方法 stacks similar try/catch blocks</ShortDescription>
-        <LongDescription>方法 {1} stacks similar try/catch blocks</LongDescription>
+        <ShortDescription>方法堆叠相似的try / catch块</ShortDescription>
+        <LongDescription>方法 {1} 堆叠相似的try / catch块</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 declares two try-catch blocks one after another, where each catch block catches the same type of exception.
-            They also throw uniformly the same type of exception.
-            These two catch blocks can be combined into one to simplify the method.</p>
+            <p>此方法依次声明两个try-catch块，其中每个catch块捕获相同类型的异常。
+            他们还统一抛出相同类型的异常。
+            这两个捕获块可以组合为一个以简化方法。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CEBE_COMMONS_EQUALS_BUILDER_ISEQUALS">
-        <ShortDescription>方法 returns the result of invoking equals() on EqualsBuilder</ShortDescription>
-        <LongDescription>方法 {1} returns the result of invoking equals() in EqualsBuilder</LongDescription>
+        <ShortDescription>方法返回在EqualsBuilder上调用equals（）的结果</ShortDescription>
+        <LongDescription>方法 {1} 返回在EqualsBuilder中调用equals（）的结果</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 returns the result of <code>equals</code> on the EqualsBuilder type instead of calling the method isEqual().</p>
+            <p>此方法返回EqualsBuilder类型上的<code>equals()</code>的结果，而不是调用isEqual（）方法。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CHTH_COMMONS_HASHCODE_BUILDER_TOHASHCODE">
-        <ShortDescription>方法 returns the result of invoking hashCode() on HashCodeBuilder</ShortDescription>
-        <LongDescription>方法 {1} returns the result of invoking hashCode() in HashCodeBuilder</LongDescription>
+        <ShortDescription>方法返回在HashCodeBuilder上调用hashCode（）的结果</ShortDescription>
+        <LongDescription>方法 {1} 返回在HashCodeBuilder上调用hashCode（）的结果</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 returns the result of <code>hashCode</code> on the HashCodeBuilder type instead of calling the method toHashCode().</p>
+            <p>此方法在HashCodeBuilder类型上返回<code>hashCode()</code>的结果，而不是调用方法toHashCode（）。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CSBTS_COMMONS_STRING_BUILDER_TOSTRING">
-        <ShortDescription>方法 returns the result of invoking toString() without intermediate invocation of append() in ToStringBuilder</ShortDescription>
-        <LongDescription>方法 {1} returns the result of invoking toString() without intermediate invocation of append() in ToStringBuilder</LongDescription>
+        <ShortDescription>方法返回调用toString（）的结果，而无需在ToStringBuilder中对append（）进行中间调用 </ShortDescription>
+        <LongDescription>方法 {1} 返回调用toString（）的结果，而无需在ToStringBuilder中对append（）进行中间调用 </LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 returns the result of <code>toString</code> on a ToStringBuilder without an intermediate invocation of append().</p>
+            <p>此方法在ToStringBuilder上返回<code>toString()</code>的结果，而无需中间调用append（）。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CCNE_COMPARE_CLASS_EQUALS_NAME">
-        <ShortDescription>方法 compares class name instead of comparing class</ShortDescription>
-        <LongDescription>方法 {1} compares class name instead of comparing the class</LongDescription>
+        <ShortDescription>方法比较类名而不是比较类</ShortDescription>
+        <LongDescription>方法 {1} 比较类名而不是比较类</LongDescription>
         <Details>
             <![CDATA[
-            <p>In a JVM, two classes are the same class (and consequently the same type) if they are loaded by the same class loader, and they have the same fully qualified name [JVMSpec 1999].
-
-            Comparing class name ignores the class loader.</p>
+            <p>在JVM中，如果两个类由相同的类加载器加载，则它们是相同的类（因此是相同的类型），并且它们具有相同的完全限定名称[JVMSpec 1999]。
+            比较类名将忽略类加载器。</p>
             ]]>
         </Details>
     </BugPattern>
