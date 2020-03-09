@@ -4648,76 +4648,76 @@ if (name != null) {
     </BugPattern>
 
     <BugPattern type="BRPI_BACKPORT_REUSE_PUBLIC_IDENTIFIERS">
-        <ShortDescription>方法 uses backported libraries that are now built in</ShortDescription>
-        <LongDescription>方法 {1} uses backported libraries that are now built in</LongDescription>
+        <ShortDescription>方法使用现在内置的向后移植库</ShortDescription>
+        <LongDescription>方法 {1} 使用现在内置的向后移植库</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class uses either Backport Utils concurrent classes from Emory, or Time classes from ThreeTen Backport.
-            Updated/efficient versions of these classes are available in the version of the JDK that this code is compiled against - JDK 1.5 for the concurrent classes, and JDK 1.8 for the time classes - and these classes should only be used if you are targeting a JDK lower than this.</p>
+            <p>此类使用Emory中的Backport Utils并发类或ThreeTen Backport中的Time类。
+            这些类的更新/有效版本可在针对该代码进行编译的JDK版本中找到-并发类为JDK 1.5，时间类为JDK 1.8-这些类仅应在针对JDK的情况下使用低于这个。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CU_CLONE_USABILITY_OBJECT_RETURN">
-        <ShortDescription>克隆方法 declares it returns an Object</ShortDescription>
-        <LongDescription>克隆方法 {1} declares it returns an Object</LongDescription>
+        <ShortDescription>克隆方法声明它返回一个对象</ShortDescription>
+        <LongDescription>克隆方法 {1} 声明它返回一个对象</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class implements the Cloneable interface but defines its clone method to return an Object.
-            Since most likely users of this method will need to cast it to the real type, this will be more painful than necessary.
-            Just declare the return value to be the type of this class.</p>
+            <p>此类实现Cloneable接口，但定义其克隆方法以返回Object。
+            由于此方法的最有可能的用户将需要将其转换为实型，因此这将比需要的更加痛苦。
+            只需将返回值声明为此类的类型即可。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CU_CLONE_USABILITY_MISMATCHED_RETURN">
-        <ShortDescription>克隆方法 declares it returns a type different than the owning class</ShortDescription>
-        <LongDescription>克隆方法 {1} declares it returns a type different than the owning class</LongDescription>
+        <ShortDescription>克隆方法声明其返回的类型与所属类不同</ShortDescription>
+        <LongDescription>克隆方法 {1} 声明其返回的类型与所属类不同</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class implements the Cloneable interface but defines its clone method to return a type that is different than the class itself, or any interfaces that the class implements.</p>
+            <p>此类实现Cloneable接口，但定义其clone方法以返回与类本身或该类实现的任何接口不同的类型。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CU_CLONE_USABILITY_THROWS">
-        <ShortDescription>克隆方法 declares it throws CloneNotSupportedException</ShortDescription>
-        <LongDescription>克隆方法 {1} declares it throws CloneNotSupportedException</LongDescription>
+        <ShortDescription>克隆方法声明它抛出CloneNotSupportedException</ShortDescription>
+        <LongDescription>克隆方法 {1} 声明它抛出CloneNotSupportedException</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class implements the Cloneable interface but defines its clone method to still throw a CloneNotSupportedException.
-            Since you are implementing clone() it would make sense that the method in question will <em>not</em> throw that exception, so annotating your method with it just makes clients' use of your class more painful as they have to handle an exception that will never happen.
-            Just remove the throws clause from your method.</p>
+            <p>此类实现Cloneable接口，但定义其克隆方法仍然抛出CloneNotSupportedException。
+            既然您正在实现clone（），那么有问题的方法将不会抛出该异常就很有意义，因此用它对方法进行注释只会使客户端对类的使用更加痛苦，因为它们必须处理永远不会发生的异常。
+            只需从您的方法中删除throws子句即可。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CAAL_CONFUSING_ARRAY_AS_LIST">
-        <ShortDescription>方法 calls Array.asList on an array of primitive values</ShortDescription>
-        <LongDescription>方法 {1} calls Array.asList on an array of primitive values</LongDescription>
+        <ShortDescription>方法在原始值数组上调用Array.asList</ShortDescription>
+        <LongDescription>方法 {1} 在原始值数组上调用Array.asList</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 passes an array of primitive values to the Arrays.asList call.
-            As primitive values in arrays aren't automatically promoted to boxed primitives in arrays, the asList call cannot convert this array to a list of boxed primitives.
-            It therefore just creates an array with one item in it, the array itself.
-            This is rarely what is desired.</p>
+            <p>此方法将原始值数组传递给Arrays.asList调用。
+            由于数组中的基元值不会自动提升为数组中的盒装图元，因此asList调用无法将此数组转换为盒装图元的列表。
+            因此，它只创建一个数组，其中包含一项，即数组本身。
+            这很少是所需要的。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="PSC_PRESIZE_COLLECTIONS">
-        <ShortDescription>方法 does not presize the allocation of a collection</ShortDescription>
-        <LongDescription>方法 {1} does not presize the allocation of a collection</LongDescription>
+        <ShortDescription>方法不会预分配集合的大小</ShortDescription>
+        <LongDescription>方法 {1} 不会预分配集合的大小</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 allocates a collection using the default constructor even though it is known a priori (or at least can be reasonably guessed) how many items are going to be placed in the collection, and thus needlessly causes intermediate reallocations of the collection.</p>
-            <p>You can use the constructor that takes an initial size and that will be much better, but due to the loadFactor of Maps and Sets, even this will not be a correct estimate.</p>
-            <p>If you are using Guava, use its methods that allocate maps and sets with a predetermined size, to get the best chance for no reallocations, such as: 
+            <p>此方法即使使用先验方法（或至少可以合理地猜测）将在集合中放置多少个项目，也使用默认构造函数分配一个集合，从而不必要地导致该集合的中间重新分配。</p>
+            <p>您可以使用具有初始大小的构造函数，该构造函数会更好一些，但是由于Maps和Sets的loadFactor，即使这也不是正确的估计。</p>
+            <p>如果使用的是Guava，请使用其方法以预定大小分配地图和集合，以最大程度地获得无重新分配的机会，例如： 
             <ul>
                 <li>Sets.newHashSetWithExpectedSize(int)</li>
                 <li>Maps.newHashMapWithExpectedSize(int)</li>
             </ul>
-            If not, a good estimate would be the expectedSize / {LOADING_FACTOR} which by default is 0.75 </p>
+            如果不是，那么一个很好的估计将是 ExpectedSize / {LOADING_FACTOR}，默认为0.75</p>
             ]]>
         </Details>
     </BugPattern>
