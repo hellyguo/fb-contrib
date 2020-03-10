@@ -1657,8 +1657,8 @@ a[0] = new A(); // results in ArrayStoreException (Runtime)
         <LongDescription>方法 {1} 在 StringBuffer 或 StringBuilder 的 append() 中使用加号拼接</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法使用 <code>StringBuffer</code> 或 <code>StringBuilder</code> 的 append() 拼接字符串。
-            然而，它将加号简易拼接的结果作为入参来调用 append()， 因此无法享受使用 <code>StringBuffer</code> 或 <code>StringBuilder</code> 带来的性能提升。</p>
+            <p>此方法使用<code>StringBuffer</code>或<code>StringBuilder</code>的 append() 拼接字符串。
+            然而，它将加号简易拼接的结果作为入参来调用 append()， 因此无法享受使用<code>StringBuffer</code>或<code>StringBuilder</code>带来的性能提升。</p>
 
             <p>
             Java 会隐式使用 StringBuilders，这令此很难被侦测修复。
@@ -1681,7 +1681,7 @@ for (Map.Entry<Integer, String> e : map.entrySet()) {
 }
 </code></pre><br/>
 
-            这里多用了一个临时的 <code>StringBuilder</code>，完全是没必要的。
+            这里多用了一个临时的<code>StringBuilder</code>，完全是没必要的。
             为防止这种情况发生，只需要：<br/>
 
 <pre><code>
@@ -1712,13 +1712,13 @@ for (Map.Entry<Integer, String> e : map.entrySet()) {
         <LongDescription>方法 {1} 拼接字符串时主动调用对象的 toString()</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法将 <code>toString()</code> 的结果放入一个 <code>StringBuffer</code> 或 <code>StringBuilder</code>.
+            <p>此方法将<code>toString()</code>的结果放入一个<code>StringBuffer</code>或<code>StringBuilder</code>.
             更简单的做法是仅仅将你需要的对象作为 append() 的参数，
-            这种形式不会导致潜在的 <code>NullPointerException</code>，而且更易于阅读。</p>
+            这种形式不会导致潜在的<code>NullPointerException</code>，而且更易于阅读。</p>
 
             <p>
-            顺带一提，Java 处理简易字符串拼接也会用到 <code>StringBuilder</code>，
-            所以就算你没有显式用到 <code>StringBuilder</code>，你也有可能看到这个 Bug。
+            顺带一提，Java 处理简易字符串拼接也会用到<code>StringBuilder</code>，
+            所以就算你没有显式用到<code>StringBuilder</code>，你也有可能看到这个 Bug。
             </p>
 
             <p>
@@ -1738,7 +1738,7 @@ builder.append(someObj);
 ...
 System.out.println("Problem with the object :" + someObj);
 </code></pre>
-            来避免当一个对象确实 是空(<code>null</code>) 时报出 <code>NullPointerException</code> 的可能性<code>null</code>.
+            来避免当一个对象确实 是空(<code>null</code>) 时报出<code>NullPointerException</code>的可能性<code>null</code>.
             </p>
             ]]>
         </Details>
@@ -1786,7 +1786,7 @@ private void appendToList(ArrayList&lt;String&gt; list) {
 </code></pre>
 
                 参数 list 被定义为<code>ArrayList</code>，一个<code>List</code>接口的具体实现。
-                这里没必要特别指定 <code>ArrayList</code>，因为我们没有用到任何<code>ArrayList</code>特定的方法(像<code>ensureCapacity()</code> 或 <code>trimToSize()</code>)。
+                这里没必要特别指定<code>ArrayList</code>，因为我们没有用到任何<code>ArrayList</code>特定的方法(像<code>ensureCapacity()</code>或<code>trimToSize()</code>)。
                 相比于使用具体类型，像这样做更好：<br/>
 <pre><code>
 private void appendToList(List&lt;String&gt; list) {
@@ -1807,7 +1807,7 @@ private void appendToList(List&lt;String&gt; list) {
         <LongDescription>方法 {1} 基于数值下标遍历 List</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法通过 <code>for</code> 循环调用 <code>List.get(i)</code> 遍历 <code>java.util.List</code>。
+            <p>此方法通过<code>for</code>循环调用<code>List.get(i)</code>遍历<code>java.util.List</code>。
             这个下标除了作为循环下标没有其他作用。
             考虑到不同的 List 实现，更好的做法是使用迭代器代替，它的性能更好，而且这样做也允许后面不经修改切换到不同的实现。</p>
             ]]>
@@ -1860,14 +1860,14 @@ str.equals("someOtherString");
 //或
 str.compareTo("someOtherString");</code></pre>
             </p>
-            <p>如果 <code>str</code> 是 <code>null</code>，就会抛出 <code>NullPointerException</code>  . 如果将代码重构为<br/>
+            <p>如果<code>str</code>是<code>null</code>，就会抛出<code>NullPointerException</code> . 如果将代码重构为<br/>
 <pre><code>String str = ...
 "someOtherString".equals(str);
 //或
 "someOtherString".compareTo(str);</code></pre><br/>
-            那么，在固定字符串上调用 <code>equals()</code> 或 <code>compareTo()</code>，将变量作为参数，不会有异常发生。
-            因为两个方法 <code>equals()</code> 和
-            <code>compareTo()</code> 都会检查 <code>null</code>。</p>
+            那么，在固定字符串上调用<code>equals()</code>或<code>compareTo()</code>，将变量作为参数，不会有异常发生。
+            因为两个方法<code>equals()</code>和
+            <code>compareTo()</code>都会检查<code>null</code>。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -2033,7 +2033,7 @@ for (float f = 1.0f; f &lt;= 10.0f; f += 0.1f) {
         <LongDescription>方法 {1} 在线程实例上调用wait, notify 或 notifyAll</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法在线程实例上调用 <code>wait</code>, <code>notify</code> 或 <code>notifyAll</code>。
+            <p>此方法在线程实例上调用<code>wait</code>,<code>notify</code>或<code>notifyAll</code>。
             这么做会混淆内部线程状态行为，导致虚假的唤醒/休眠，因为内部机制也是使用线程实例发出这类通知。</p>
             ]]>
         </Details>
@@ -2056,8 +2056,8 @@ for (float f = 1.0f; f &lt;= 10.0f; f += 0.1f) {
         <LongDescription>方法 {1} 将需解析的字符串传给原生包装类构造方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法将从 <code>BoxedPrimitive.parseBoxedPrimitive("1")</code> 得到的值作为参数传给同一个类的构造方法。
-            这个可以简化为直接传字符串给原生包装类构造方法，或者，更好地，使用静态的 <code>valueOf</code>。</p>
+            <p>此方法将从<code>BoxedPrimitive.parseBoxedPrimitive("1")</code>得到的值作为参数传给同一个类的构造方法。
+            这个可以简化为直接传字符串给原生包装类构造方法，或者，更好地，使用静态的<code>valueOf</code>。</p>
             <p>为替换这种代码：<br/>
 <pre><code>
 Boolean bo = new Boolean(Boolean.parseBoolean("true"));
@@ -2083,7 +2083,7 @@ Float f = Float.valueOf("1.234");
         <LongDescription>方法 {1} 将原生包装类对象传递给同一个类的 valueOf 方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法将原生数据包装类对象作为参数传给同一个类的 <code>valueOf</code> 方法。
+            <p>此方法将原生数据包装类对象作为参数传给同一个类的<code>valueOf</code>方法。
             因为包装类是不可变的，可以直接使用原始对象，比创建一个好多了。
             这个代码能运行是因为对自动拆装箱的滥用。</p>
             ]]>
@@ -2096,7 +2096,7 @@ Float f = Float.valueOf("1.234");
         <Details>
             <![CDATA[
             <p>此方法将字符串传给原生包装类对象的 valueOf 方法，再调 boxedValue() 方法来转化为原生数据。
-            如果想要的是原生数据，可以简单地使用 <code>BoxedPrimitive.parseBoxedPrimitive(String)</code> 方法。</p>
+            如果想要的是原生数据，可以简单地使用<code>BoxedPrimitive.parseBoxedPrimitive(String)</code>方法。</p>
 
             <p>为替换这种代码：<br/>
 <pre><code>
@@ -2126,7 +2126,7 @@ public int someMethod(String data) {
         <Details>
             <![CDATA[
             <p>此方法将字符串传给原生包装类对象的 valueOf 方法，再调 boxedValue() 方法来转化为原生数据。
-            如果想要的是原生包装类对象，可以简单地使用 <code>BoxedPrimitive.valueOf(String)</code> 方法。</p>
+            如果想要的是原生包装类对象，可以简单地使用<code>BoxedPrimitive.valueOf(String)</code>方法。</p>
 
             <p>为替换这种代码：<br/>
 <pre><code>
@@ -2148,7 +2148,7 @@ Float f = Float.valueOf("1.234");
         <LongDescription>方法 {1} 从原生数据创建原生包装类对象只为获得原生数据</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法从原生数据创建了一个原生包装类对象，只为了调用 <code>primitiveValue()</code> 方法来得到原生数据。
+            <p>此方法从原生数据创建了一个原生包装类对象，只为了调用<code>primitiveValue()</code>方法来得到原生数据。
             直接用原生数据代替就行了。</p>
             <p>为替换这种代码：<br/>
 <pre><code>
@@ -2171,7 +2171,7 @@ float f = 1.234f;
         <LongDescription>方法 {1} 从原生数据创建原生包装类对象只为强转到另一种原生数据</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法从原生数据创建了一个原生包装类对象，只为了调用 <code>primitiveValue()</code> 方法来强转到另一种原生数据。
+            <p>此方法从原生数据创建了一个原生包装类对象，只为了调用<code>primitiveValue()</code>方法来强转到另一种原生数据。
             更简单的写法是直接强转。</p>
             <p>为替换这种代码：<br/>
 <pre><code>
@@ -2925,7 +2925,7 @@ if (myString.indexOf('e') != -1) {
         <LongDescription>方法 {1} 连续两次向本地分配值</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法以连续赋值方式连续两次分配一个值，例如<code>a = a = 5;</code> 这很可能是剪切和粘贴错误，可以删除重复的作业。</p>
+            <p>此方法以连续赋值方式连续两次分配一个值，例如<code>a = a = 5;</code>这很可能是剪切和粘贴错误，可以删除重复的作业。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -3080,7 +3080,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
         <Details>
             <![CDATA[
             <p>此方法在对象上调用compareTo方法，然后将结果值与非零值进行比较。
-            实际上，只能将compareTo方法指定为返回0，正数或负数，因此您应该比较== 0，> 0或<0，而不要与== 1这样的特定值进行比较。</p>
+            实际上，只能将compareTo方法指定为返回0，正数或负数，因此您应该比较== 0，>0或<0，而不要与== 1这样的特定值进行比较。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -4341,8 +4341,8 @@ if (name != null) {
         <LongDescription>方法 {1} 调用不推荐使用的SecureRandom方法 {2}</LongDescription>
         <Details>
             <![CDATA[
-            <p>在JDK 1.5或更低版本中，建议不要使用<code>SecureRandom（）</code>构造函数和<code>SecureRandom.getSeed（）</code>方法。
-            而是调用<code>SecureRandom.getInstance（）</code>和<code>SecureRandom.getInstance（）.generateSeed（）</code>。</p>
+            <p>在JDK 1.5或更低版本中，建议不要使用<code>SecureRandom()</code>构造函数和<code>SecureRandom.getSeed()</code>方法。
+            而是调用<code>SecureRandom.getInstance()</code>和<code>SecureRandom.getInstance().generateSeed()</code>。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -4362,7 +4362,7 @@ if (name != null) {
         <LongDescription>方法 {1} 尝试通过调用方法手动调度线程 {2}</LongDescription>
         <Details>
             <![CDATA[
-            <p>使用<code>Thread.sleep（）</code>或<code>Thread.yield（）</code>进行的手动线程调度没有保证的语义，通常用于掩盖竞争条件。
+            <p>使用<code>Thread.sleep()</code>或<code>Thread.yield()</code>进行的手动线程调度没有保证的语义，通常用于掩盖竞争条件。
             存在这些方法以支持Java首次发布时的早期处理器，但不建议用于现代处理器。
             操作系统将为您小心地调度线程。</p>
             ]]>
@@ -4391,23 +4391,23 @@ if (name != null) {
     </BugPattern>
 
     <BugPattern type="MDM_THREAD_FAIRNESS">
-        <ShortDescription>方法通过调用tryLock（）忽略Lock的公平设置。</ShortDescription>
+        <ShortDescription>方法通过调用tryLock()忽略Lock的公平设置。</ShortDescription>
         <LongDescription>方法 {1} 通过调用 {2} 忽略Lock的公平设置</LongDescription>
         <Details>
             <![CDATA[
-            <p>在没有超时的情况下调用<code>Lock.tryLock（）</code>或<code>ReentrantLock.tryLock（）</code>并不遵守锁的公平性设置。
-            如果要遵守此锁的公平性设置，请使用几乎等效的<code>tryLock（0, TimeUnit.SECONDS）</code>（它还会检测到中断）。</ p>
+            <p>在没有超时的情况下调用<code>Lock.tryLock()</code>或<code>ReentrantLock.tryLock()</code>并不遵守锁的公平性设置。
+            如果要遵守此锁的公平性设置，请使用几乎等效的<code>tryLock(0, TimeUnit.SECONDS)</code>(它还会检测到中断)。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MDM_SIGNAL_NOT_SIGNALALL">
-        <ShortDescription>方法调用Condition.signal（）而不是Condition.signalAll（）</ShortDescription>
-        <LongDescription>方法 {1} 调用Condition.signal（）而不是Condition.signalAll（）</LongDescription>
+        <ShortDescription>方法调用Condition.signal()而不是Condition.signalAll()</ShortDescription>
+        <LongDescription>方法 {1} 调用Condition.signal()而不是Condition.signalAll()</LongDescription>
         <Details>
             <![CDATA[
             <p><code>Condition.signalAll()</code>优先于<code>Condition.signal()</code>.
-            调用<code>signal（）</code>只会唤醒一个线程，这意味着唤醒的线程可能不是等待调用者刚刚满足的条件的那个线程。</p>
+            调用<code>signal()</code>只会唤醒一个线程，这意味着唤醒的线程可能不是等待调用者刚刚满足的条件的那个线程。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -4417,7 +4417,7 @@ if (name != null) {
         <LongDescription>方法 {1} 通过调用 {2} 测试锁是否被锁定</LongDescription>
         <Details>
             <![CDATA[
-            <p>调用<code>ReentrantLock.isLocked（）</code>或<code>ReentrantLock.isHeldByCurrentThread（）</code>可能引起竞争情况或错误的锁定。
+            <p>调用<code>ReentrantLock.isLocked()</code>或<code>ReentrantLock.isHeldByCurrentThread()</code>可能引起竞争情况或错误的锁定。
             这些方法设计用于调试代码或监视系统状态，而不用于同步控制。</p>
             ]]>
         </Details>
@@ -4428,8 +4428,8 @@ if (name != null) {
         <LongDescription>方法 {1} 编码字符串字节而不指定字符编码</LongDescription>
         <Details>
             <![CDATA[
-            <p>如果无法在平台的默认字符集中对字符串进行编码，则未定义<code>String（byte[] bytes）</code>和<code> String.getBytes（）</code>的行为。
-            而是使用<code>String（byte[] bytes，String encoding）</code>或<code>String.getBytes（String encoding）</code>构造函数，该构造函数接受字符串的编码作为参数。
+            <p>如果无法在平台的默认字符集中对字符串进行编码，则未定义<code>String(byte[] bytes)</code>和<code>String.getBytes()</code>的行为。
+            而是使用<code>String(byte[] bytes，String encoding)</code>或<code>String.getBytes(String encoding)</code>构造函数，该构造函数接受字符串的编码作为参数。
             确保指定用于用户语言环境的编码。</p>
 
             <p>按照Java规范, "UTF-8", "US-ASCII", "UTF-16" 和 "ISO-8859-1" 将全部有效 <a href = "http://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html#standard">编码字符集</a>.  
@@ -4442,14 +4442,14 @@ if (name != null) {
     </BugPattern>
 
     <BugPattern type="MDM_SETDEFAULTLOCALE">
-        <ShortDescription>方法调用Locale.setDefault（）</ShortDescription>
-        <LongDescription>方法 {1} 调用Locale.setDefault（）, 更改所有线程的语言环境</LongDescription>
+        <ShortDescription>方法调用Locale.setDefault()</ShortDescription>
+        <LongDescription>方法 {1} 调用Locale.setDefault(), 更改所有线程的语言环境</LongDescription>
         <Details>
             <![CDATA[
-            <p>不要使用<code>Locale.setDefault（）</code>方法更改默认语言环境。
+            <p>不要使用<code>Locale.setDefault()</code>方法更改默认语言环境。
             它将更改所有线程的JVM默认语言环境，并使您的应用程序对线程不安全。
             它不影响主机的语言环境。
-            由于更改JVM的默认语言环境可能会影响许多不同的功能区域，因此仅当调用者准备重新初始化在同一Java虚拟机（例如用户界面）中运行的对语言环境敏感的代码时，才应使用此方法。</p>
+            由于更改JVM的默认语言环境可能会影响许多不同的功能区域，因此仅当调用者准备重新初始化在同一Java虚拟机(例如用户界面)中运行的对语言环境敏感的代码时，才应使用此方法。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -4488,7 +4488,7 @@ if (name != null) {
         <LongDescription>方法 {1} 使用Properties.put而不是Properties.setProperty</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法在Properties对象中使用从Hashtable继承的put（String key，Object value）方法。
+            <p>此方法在Properties对象中使用从Hashtable继承的put(String key，Object value)方法。
             由于Properties对象只是一个String到String映射，因此不建议使用派生的put方法。
             请改用Properties.setProperty方法。</p>
             <p>
@@ -4508,7 +4508,7 @@ if (name != null) {
             <![CDATA[
             <p>此方法在循环中使用默认构造函数分配对象，然后仅以准静态方式使用它。
             它永远不会分配给循环外的任何东西，有可能可以只在循环外分配一次。
-            通常，这可以通过在循环中调用类似clear（）的方法来重置循环中对象的状态来实现。</p>
+            通常，这可以通过在循环中调用类似clear()的方法来重置循环中对象的状态来实现。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -4607,31 +4607,31 @@ if (name != null) {
     </BugPattern>
 
     <BugPattern type="CEBE_COMMONS_EQUALS_BUILDER_ISEQUALS">
-        <ShortDescription>方法返回在EqualsBuilder上调用equals（）的结果</ShortDescription>
-        <LongDescription>方法 {1} 返回在EqualsBuilder中调用equals（）的结果</LongDescription>
+        <ShortDescription>方法返回在EqualsBuilder上调用equals()的结果</ShortDescription>
+        <LongDescription>方法 {1} 返回在EqualsBuilder中调用equals()的结果</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法返回EqualsBuilder类型上的<code>equals()</code>的结果，而不是调用isEqual（）方法。</p>
+            <p>此方法返回EqualsBuilder类型上的<code>equals()</code>的结果，而不是调用isEqual()方法。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CHTH_COMMONS_HASHCODE_BUILDER_TOHASHCODE">
-        <ShortDescription>方法返回在HashCodeBuilder上调用hashCode（）的结果</ShortDescription>
-        <LongDescription>方法 {1} 返回在HashCodeBuilder上调用hashCode（）的结果</LongDescription>
+        <ShortDescription>方法返回在HashCodeBuilder上调用hashCode()的结果</ShortDescription>
+        <LongDescription>方法 {1} 返回在HashCodeBuilder上调用hashCode()的结果</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法在HashCodeBuilder类型上返回<code>hashCode()</code>的结果，而不是调用方法toHashCode（）。</p>
+            <p>此方法在HashCodeBuilder类型上返回<code>hashCode()</code>的结果，而不是调用方法toHashCode()。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CSBTS_COMMONS_STRING_BUILDER_TOSTRING">
-        <ShortDescription>方法返回调用toString（）的结果，而无需在ToStringBuilder中对append（）进行中间调用 </ShortDescription>
-        <LongDescription>方法 {1} 返回调用toString（）的结果，而无需在ToStringBuilder中对append（）进行中间调用 </LongDescription>
+        <ShortDescription>方法返回调用toString()的结果，而无需在ToStringBuilder中对append()进行中间调用 </ShortDescription>
+        <LongDescription>方法 {1} 返回调用toString()的结果，而无需在ToStringBuilder中对append()进行中间调用 </LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法在ToStringBuilder上返回<code>toString()</code>的结果，而无需中间调用append（）。</p>
+            <p>此方法在ToStringBuilder上返回<code>toString()</code>的结果，而无需中间调用append()。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -4641,19 +4641,19 @@ if (name != null) {
         <LongDescription>方法 {1} 比较类名而不是比较类</LongDescription>
         <Details>
             <![CDATA[
-            <p>在JVM中，如果两个类由相同的类加载器加载，则它们是相同的类（因此是相同的类型），并且它们具有相同的完全限定名称[JVMSpec 1999]。
+            <p>在JVM中，如果两个类由相同的类加载器加载，则它们是相同的类(因此是相同的类型)，并且它们具有相同的完全限定名称[JVMSpec 1999]。
             比较类名将忽略类加载器。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="BRPI_BACKPORT_REUSE_PUBLIC_IDENTIFIERS">
-        <ShortDescription>方法使用现在内置的向后移植库</ShortDescription>
-        <LongDescription>方法 {1} 使用现在内置的向后移植库</LongDescription>
+        <ShortDescription>方法使用现在已内置的向后移植库</ShortDescription>
+        <LongDescription>方法 {1} 使用现在已内置的向后移植库</LongDescription>
         <Details>
             <![CDATA[
             <p>此类使用Emory中的Backport Utils并发类或ThreeTen Backport中的Time类。
-            这些类的更新/有效版本可在针对该代码进行编译的JDK版本中找到-并发类为JDK 1.5，时间类为JDK 1.8-这些类仅应在针对JDK的情况下使用低于这个。</p>
+            这些类的更新/有效版本可在针对该代码进行编译的JDK版本中找到-并发类已在JDK 1.5内置，时间类已在JDK 1.8内置-这些类仅应在针对JDK低于此版本的情况下使用。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -4686,7 +4686,7 @@ if (name != null) {
         <Details>
             <![CDATA[
             <p>此类实现Cloneable接口，但定义其克隆方法仍然抛出CloneNotSupportedException。
-            既然您正在实现clone（），那么有问题的方法将不会抛出该异常就很有意义，因此用它对方法进行注释只会使客户端对类的使用更加痛苦，因为它们必须处理永远不会发生的异常。
+            既然您正在实现clone()，那么有问题的方法将不会抛出该异常就很有意义，因此用它对方法进行注释只会使客户端对类的使用更加痛苦，因为它们必须处理永远不会发生的异常。
             只需从您的方法中删除throws子句即可。</p>
             ]]>
         </Details>
@@ -4710,7 +4710,7 @@ if (name != null) {
         <LongDescription>方法 {1} 不会预分配集合的大小</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法即使使用先验方法（或至少可以合理地猜测）将在集合中放置多少个项目，也使用默认构造函数分配一个集合，从而不必要地导致该集合的中间重新分配。</p>
+            <p>此方法即使使用先验方法(或至少可以合理地猜测)将在集合中放置多少个项目，也使用默认构造函数分配一个集合，从而不必要地导致该集合的中间重新分配。</p>
             <p>您可以使用具有初始大小的构造函数，该构造函数会更好一些，但是由于Maps和Sets的loadFactor，即使这也不是正确的估计。</p>
             <p>如果使用的是Guava，请使用其方法以预定大小分配地图和集合，以最大程度地获得无重新分配的机会，例如： 
             <ul>
@@ -4723,196 +4723,196 @@ if (name != null) {
     </BugPattern>
 
         <BugPattern type="PSC_SUBOPTIMAL_COLLECTION_SIZING">
-        <ShortDescription>方法 uses suboptimal sizing to allocate a collection</ShortDescription>
-        <LongDescription>方法 {1} uses suboptimal sizing to allocate a collection</LongDescription>
+        <ShortDescription>方法使用次优大小来分配集合</ShortDescription>
+        <LongDescription>方法 {1} 使用次优大小来分配集合</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 allocates a collection using the a constructor that takes a size parameter.
-            However, because Maps and Sets have a loading factor, passing in the exact size you want is an incorrect way to presize the collection, and may still cause reallocations.
-            Since you are using Guava, it is better to use 
+            <p>此方法使用带有size参数的构造函数分配集合。
+            但是，由于“地图和集”有一个加载因子，因此传递所需的确切大小是对集合进行预大小的一种错误方法，并且可能仍会导致重新分配。
+            由于您使用的是Guava，因此最好使用
             <code><pre>
                 Maps.newHashMapWithExpectedSize(c.size());
             </pre></code>
-            or
+            或
             <code><pre>
                 Sets.newHashSetWithExpectedsize(c.size());
             </pre></code>
-            as this method calculates the correct size taking into account the loading factor.
+            因为此方法会在考虑到加载因子的情况下计算出正确的尺寸。
 
-            Alternatively, if you know that the collection will not grow beyond the initial size, you can specify a load factor of 1.0F in the constructor.
+            或者，如果您知道集合不会增长到超出初始大小，则可以在构造函数中指定1.0F的加载因子。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UMTP_UNBOUND_METHOD_TEMPLATE_PARAMETER">
-        <ShortDescription>方法 declares unbound method template parameter(s)</ShortDescription>
-        <LongDescription>方法 {1} declares unbound method template parameter(s)</LongDescription>
+        <ShortDescription>方法声明未绑定的方法模板参数</ShortDescription>
+        <LongDescription>方法 {1} 声明未绑定的方法模板参数</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 declares a method level template parameter that is not bound by any parameter of this method.
-            Therefore the template parameter adds no validation or type safety and can be removed, as it's just confusing to the reader.</p>
+            <p>此方法声明一个不受此方法任何参数约束的方法级别模板参数。
+            因此，模板参数不会增加验证或类型安全性，并且可以删除，因为这只会使读者感到困惑。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="NPMC_NON_PRODUCTIVE_METHOD_CALL">
-        <ShortDescription>方法 ignores return value of a non mutating method</ShortDescription>
-        <LongDescription>方法 {1} ignores return value of a non mutating method</LongDescription>
+        <ShortDescription>方法忽略非变异方法的返回值</ShortDescription>
+        <LongDescription>方法 {1} 忽略非变异方法的返回值</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 ignores the return value of a common method that is assumed to be non-mutating.
-            If this method does in fact not modify the object it is called on, there is no reason to call this method, and it can be removed.</p>
+            <p>此方法忽略假定为不变的通用方法的返回值。
+            如果此方法实际上并未修改调用它的对象，则没有理由调用此方法，并且可以将其删除。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="AIOB_ARRAY_INDEX_OUT_OF_BOUNDS">
-        <ShortDescription>方法 attempts to access an array element outside the array's size</ShortDescription>
-        <LongDescription>方法 {1} attempts to access an array element outside the array's size</LongDescription>
+        <ShortDescription>方法尝试访问超出数组大小的数组元素</ShortDescription>
+        <LongDescription>方法 {1} 尝试访问超出数组大小的数组元素</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 accesses an array element using a literal index that is known to be outside the size of the specified array.
-            This will cause an ArrayIndexOutOfBoundsException at runtime.</p>
+            <p>此方法使用已知超出指定数组大小的文字索引访问数组元素。
+            这将在运行时导致ArrayIndexOutOfBoundsException。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="AIOB_ARRAY_STORE_TO_NULL_REFERENCE">
-        <ShortDescription>方法 attempts to store an array element to an array that does not appear to be allocated</ShortDescription>
-        <LongDescription>方法 {1} attempts to store an array element to an array that does not appear to be allocated</LongDescription>
+        <ShortDescription>方法尝试将数组元素存储到未分配的数组中</ShortDescription>
+        <LongDescription>方法 {1} 尝试将数组元素存储到未分配的数组中</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 attempts to store an array element into an array that appears not to have been allocated.</p>
+            <p>此方法尝试将数组元素存储到似乎尚未分配的数组中。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="ICA_INVALID_CONSTANT_ARGUMENT">
-        <ShortDescription>方法 passes an invalid value as a method argument</ShortDescription>
-        <LongDescription>方法 {1} passes an invalid value as a method argument</LongDescription>
+        <ShortDescription>方法传递无效值作为方法参数</ShortDescription>
+        <LongDescription>方法 {1} 传递无效值作为方法参数</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 passes an invalid constant value to a method parameter that expects only a select number of possible values.
-            This is likely going to cause this method to fail to operate correctly.</p>
+            <p>此方法将无效的常量值传递给仅需要选择数量可能值的方法参数。
+            这可能会导致此方法无法正确运行。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CNC_COLLECTION_NAMING_CONFUSION">
-        <ShortDescription>集合变量 is named with a different type of collection in the name</ShortDescription>
-        <LongDescription>集合变量 {1} is named with a different type of collection in the name</LongDescription>
+        <ShortDescription>集合变量在名称中以不同的集合类型命名</ShortDescription>
+        <LongDescription>集合变量 {1} 在名称中以不同的集合类型命名</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class defines a field or local collection variable with a name that contains a different type of collection in its name.
-            An example would be a Set<User> called userList.
-            This is confusing to the reader, and likely caused by a previous refactor of type, without changing the name.
-            This detector is obviously only checking for English names.</p>
+            <p>此类定义一个字段或本地集合变量，其名称中包含不同类型的集合。
+            一个示例是名为userList的Set&lt;User&gt;。
+            这会使读者感到困惑，并且很可能是由先前的类型重构(未更改名称)引起的。
+            该检测器显然仅在检查英文名称。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="PME_POOR_MANS_ENUM">
-        <ShortDescription>简单字段 is used like an enum</ShortDescription>
-        <LongDescription>简单字段 {1} is used like an enum</LongDescription>
+        <ShortDescription>像枚举一样使用简单字段</ShortDescription>
+        <LongDescription>像枚举一样使用简单字段 {1}</LongDescription>
         <Details>
             <![CDATA[
-            <p>This field, although defined as a simple variable (int, String, etc), only has a set of constant values assigned to it.
-            Thus it appears to be used like an enum value, and should probably be defined as such.
+            <p>尽管此字段定义为简单变量(int，String等)，但仅为其分配了一组常量值。
+            因此，它似乎像枚举值一样使用，可能应该这样定义。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UP_UNUSED_PARAMETER">
-        <ShortDescription>私有方法或静态方法 has unused parameters</ShortDescription>
-        <LongDescription>私有方法或静态方法 {1} has unused parameters</LongDescription>
+        <ShortDescription>私有方法或静态方法有未使用的参数</ShortDescription>
+        <LongDescription>私有方法或静态方法 {1} 有未使用的参数</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 defines parameters that are never used.
-            As this method is either static or private, and can't be derived from, it is safe to remove these parameters and simplify your method.
-            You should consider, while unlikely, that this method may be used reflectively, and thus you will want to change that call as well.
-            In this case, it is likely that once you remove the parameter, there will be a chain of method calls that have spent time creating this parameter and passing it down the line.
-            All of this may be able to be removed.</p>
+            <p>此方法定义从未使用过的参数。
+            由于此方法是静态的或私有的，并且不能从其派生，因此可以安全地删除这些参数并简化您的方法。
+            您应该考虑(虽然不太可能)可以反射地使用此方法，因此您也将希望更改该调用。
+            在这种情况下，很可能一旦删除该参数，就会有一系列方法调用，这些调用花费了一些时间来创建此参数并将其传递给下一行。
+            所有这些都可以删除。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="FCCD_FIND_CLASS_CIRCULAR_DEPENDENCY">
-        <ShortDescription>类 has a circular dependency with other classes</ShortDescription>
-        <LongDescription>类 {0} has a circular dependency with other classes</LongDescription>
+        <ShortDescription>类与其他类有循环依赖</ShortDescription>
+        <LongDescription>类 {0} 与其他类有循环依赖</LongDescription>
         <Details>
             <![CDATA[
             <p>
-            This class has a circular dependency with other classes.
-            This makes building these classes difficult, as each is dependent on the other to build correctly.
-            Consider using interfaces to break the hard dependency.
-            The dependency chain can be seen in the GUI version of FindBugs.
+            该类与其他类具有循环依赖关系。
+            这使得构建这些类很困难，因为每个类都依赖于另一个来正确构建。
+            考虑使用接口来打破硬依赖性。
+            依赖关系链可以在FindBugs的GUI版本中看到。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MUC_MODIFYING_UNMODIFIABLE_COLLECTION">
-        <ShortDescription>方法 attempts to modify collection that appears to possibly be immutable</ShortDescription>
-        <LongDescription>方法 {1} attempts to modify collection that appears to possibly be immutable</LongDescription>
+        <ShortDescription>方法尝试修改似乎是不可变的集合</ShortDescription>
+        <LongDescription>方法 {1} 尝试修改似乎是不可变的集合</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 attempts to modify a collection that it got from a source that could potentially have created an immutable collection, through Arrays.asList, Collections.unmodifiableXXX, or one of Guava's methods.
-            Doing so will cause an exception, as these collections are not mutable.</p>
+            <p>此方法尝试通过Arrays.asList，Collections.unmodifiableXXX或Guava的一种方法来修改从可能已创建不可变集合的来源获取的集合。
+            这样做将导致异常，因为这些集合是不可变的。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="HES_EXECUTOR_NEVER_SHUTDOWN">
-        <ShortDescription>ExecutorService field doesn't ever get shutdown</ShortDescription>
-        <LongDescription>ExecutorService {2} is instantiated, but never shutdown, potentially preventing the entire JVM from shutting down</LongDescription>
+        <ShortDescription>ExecutorService实例永远不会关闭</ShortDescription>
+        <LongDescription>ExecutorService {2} 被实例化，但从不关闭，可能会阻止整个JVM关闭</LongDescription>
         <Details>
             <![CDATA[
-            <p>Most <code>ExecutorService</code> objects must be explicitly shut down, otherwise their internal threads can prolong the running of the JVM, even when everything else has stopped.</p>
+            <p>大多数<code>ExecutorService</code>对象必须显式关闭，否则即使其他所有内容都已停止，它们的内部线程也可以延长JVM的运行时间。</p>
 
-            <p>FindBugs has detected that there are no calls to either the <code>shutdown()</code> or <code>shutdownNow()</code> method, and thus, the <code>ExecutorService</code> is not guaranteed to ever terminate.
-            This is especially problematic for <code>Executors.newFixedThreadPool()</code> and most of the other convenience methods in the <code>Executors</code> class.</p>
+            <p>FindBugs已检测到没有对<code>shutdown()</code>或<code>shutdownNow()</code>方法的调用，因此，不能保证<code>ExecutorService</code>可以执行以下操作：永远终止。
+            对于<code>Executors.newFixedThreadPool()</code>和<code>Executors</code>类中的大多数其他便捷方法而言，这尤其成问题。</p>
 
-            <p>Even though there are some exceptions to this, particularly when a custom <code>ThreadFactory</code> is provided, or for <code>ThreadPoolExecutor</code>s with <code>allowsCoreThreadTimeOut()</code> set to true, it is good practice to explicitly shutdown the <code>ExecutorService</code> when its utility is done.</p>
+            <p>即使有一些例外情况，特别是在提供自定义<code>ThreadFactory</code>或将<code>allowsCoreThreadTimeOut()</code>设置为true的<code>ThreadPoolExecutor</code>的情况下，在实用程序完成后，最好显式关闭<code>ExecutorService</code>。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="HES_LOCAL_EXECUTOR_SERVICE">
-        <ShortDescription>Suspicious Local Executor Service</ShortDescription>
-        <LongDescription>ExecutorService is created as a local variable, which is unusual</LongDescription>
+        <ShortDescription>可疑的本地执行器服务</ShortDescription>
+        <LongDescription>ExecutorService被创建为局部变量，这是不常见的</LongDescription>
         <Details>
             <![CDATA[
-            <p><code>ExecutorService</code>s are typically instantiated as fields so that many tasks can be executed on a controlled number of <code>Thread</code>s across many method calls.
-            Therefore, it is unusual for <code>ExecutorService</code>s to be a local variable, where tasks will be added only one time, in the enclosing method. </p>
+            <p>通常将<code>ExecutorService</code>实例化为字段，以便可以在许多方法调用中在受控数量的<code>Thread</code>上执行许多任务。
+            因此，<code>ExecutorService</code>是一个局部变量是不寻常的，在该方法中，只能将任务一次添加一次。</p>
 
-            <p>Furthermore, when a local <code>ExecutorService</code> reaches the end of scope and goes up for garbage collection, the internal <code>Thread</code>s are not necessarily terminated and can prevent the JVM from ever shutting down.</p>
+            <p>此外，当本地<code>ExecutorService</code>到达作用域的末端并进行垃圾收集时，内部的<code>Thread</code>不一定会终止，并且可以防止JVM关闭。</p>
 
-            <p>Consider making this local variable a field and creating a method that will explicitly shut down the <code>ExecutorService</code></p>
+            <p>考虑使此局部变量成为一个字段，并创建一个方法来显式关闭<code>ExecutorService</code></p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="HES_EXECUTOR_OVERWRITTEN_WITHOUT_SHUTDOWN">
-        <ShortDescription>An ExecutorService isn't shutdown before the reference to it is lost</ShortDescription>
-        <LongDescription>ExecutorService {2} is replaced with another ExecutorService without being shutdown, potentially preventing the entire JVM from shutting down</LongDescription>
+        <ShortDescription>ExecutorService在引用丢失之前不会关闭</ShortDescription>
+        <LongDescription>ExecutorService {1} 被另一个ExecutorService替换而没有关闭，可能会阻止整个JVM关闭</LongDescription>
         <Details>
             <![CDATA[
-            <p>Most <code>ExecutorService</code> objects must be explicitly shut down, otherwise their internal threads can prevent the JVM from ever shutting down, even when everything else has stopped.</p>
+            <p>大多数<code>ExecutorService</code>对象必须显式关闭，否则，即使其他所有内容都已停止，它们的内部线程也可以阻止JVM关闭。</p>
 
-            <p>FindBugs has detected that something like the following is happening:<br/>
+            <p>FindBugs检测到正在发生以下情况：<br/>
 <pre><code>
 ExecutorService executor = ... //e.g.
             Executors.newCachedThreadPool(); ...
 public void reset() {
     this.executor = Executors.newCachedThreadPool();
     this.executor.execute(new SampleExecutable());
-}<br/>
-</code></pre>
-            For normal objects, losing the last reference to them like this would trigger the object to be cleaned up in garbage collection.
-            For <code>ExecutorService</code>s, this isn't enough to terminate the internal threads in the thread pool, and the <code>ExecutorService</code> isn't guaranteed to shut down, causing the JVM to never stop. <br/>
-            To fix this, simply add a call to <code>shutdown()</code> like this:<br/>
+}
+</code></pre><br/>
+            对于普通对象，像这样丢失对它们的最后一个引用将触发该对象在垃圾回收中被清除。
+            对于<code>ExecutorService</code>，这不足以终止线程池中的内部线程，并且不能保证<code>ExecutorService</code>关闭，从而导致JVM从不停止。<br/>
+            要解决此问题，只需添加对<code></code>shutdown()</code>的调用，如下所示：<br/>
 <pre><code>
 ExecutorService executor = ... //e.g.
             Executors.newCachedThreadPool(); ...
@@ -4924,10 +4924,10 @@ public void reset() {
 </code></pre>
             </p>
 
-            <p>Even though there are some exceptions to this, particularly when a custom <code>ThreadFactory</code> is provided, or for <code>ThreadPoolExecutor</code>s with <code>allowsCoreThreadTimeOut()</code> set to true, it is good practice to explicitly shut down the <code>ExecutorService</code> at the end of execution, or when it is being replaced.</p>
+            <p>即使有一些例外情况，特别是在提供自定义<code>ThreadFactory</code>或将<code>allowsCoreThreadTimeOut()</code>设置为true的<code>ThreadPoolExecutor</code>的情况下，优良作法是在执行结束时或替换它时显式关闭<code>ExecutorService</code>。</p>
 
-            <p><b>Note:</b> <code>ExecutorService</code>s are generally created once in a program's life cycle.
-            If you find yourself replacing the <code>ExecutorService</code>, perhaps you may consider restructuring your code to use calls like <code>awaitTermination()</code> or <code>Future</code>s/<code>Callable</code>s to avoid recreating the <code>ExecutorService</code>.</p>
+            <p><b>注意：</b><code>ExecutorService</code>通常在程序的生命周期中创建一次。
+            如果您发现自己替换了<code>ExecutorService</code>，也许您可​​以考虑重组代码以使用诸如<code>awaitTermination()</code>或<code>Future</code>s /<code>之类的调用可调用的</code>，以避免重新创建<code>ExecutorService</code>。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -4937,7 +4937,7 @@ public void reset() {
         <LongDescription>The HttpRequest field {1} does not release its network resources, which could freeze the running code</LongDescription>
         <Details>
             <![CDATA[
-            <p>FindBugs has detected an <code>org.apache.http.HttpRequest</code> (e.g. <code>HttpGet</code>, <code>HttpPost</code>, etc) that didn't release its associated resources.
+            <p>FindBugs has detected an <code>org.apache.http.HttpRequest</code>(e.g. <code>HttpGet</code>, <code>HttpPost</code>, etc) that didn't release its associated resources.
             Code like the following: <br/>
 <pre>code>
 private HttpGet httpGet;
@@ -5336,7 +5336,7 @@ for (Person p : people) {
             Either create a custom value like 1, 2, 3, 4.. etc, or recompute the serialVersionUID using your IDE.</p>
             ]]>
         </Details>
-    </BugPattern> 
+    </BugPattern>
     
     <BugPattern type="IMC_IMMATURE_CLASS_VAR_NAME">
         <ShortDescription>类 defines a field or local variable named 'var'</ShortDescription>
@@ -5346,7 +5346,7 @@ for (Person p : people) {
             <p>A field or variable is named 'var' which will conflict with the built in Java 10 feature using 'var' as a keyword.</p>
             ]]>
         </Details>
-    </BugPattern>       
+    </BugPattern>      
 
     <BugPattern type="JXI_GET_ENDPOINT_CONSUMES_CONTENT">
         <ShortDescription>JAX-RS Method implements a GET request but consumes input</ShortDescription>
@@ -5633,7 +5633,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
 
     <BugPattern type="CCI_CONCURRENT_COLLECTION_ISSUES_USE_PUT_IS_RACY">
         <ShortDescription>方法 gets and sets a value of a ConcurrentHashMap in a racy manner</ShortDescription>
-        <LongDescription>方法 {1} gets and sets a value of a ConcurrentHashMap in a racy manner </LongDescription>
+        <LongDescription>方法 {1} gets and sets a value of a ConcurrentHashMap in a racy manner</LongDescription>
         <Details>
             <![CDATA[
             <p>此方法 retrieves the value of a key from a ConcurrentHashMap, where the value is itself a collection.
@@ -6041,47 +6041,47 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
     
     <BugPattern type="FII_COMBINE_FILTERS">
-        <ShortDescription>方法 implements a stream using back to back filters</ShortDescription>
-        <LongDescription>方法 {1} implements a stream using back to back filters</LongDescription>
+        <ShortDescription>方法 使用背对背过滤器实现流</ShortDescription>
+        <LongDescription>方法 {1} 使用背对背过滤器实现流</LongDescription>
         <Details>
         <![CDATA[
-        <p>此方法 streams data using more than one filter back to back.
-            These can just be combined into one filter</p>
+        <p>此方法使用多个过滤器背对背流数据。
+        这些可以组合成一个过滤器</p>
         ]]>
         </Details>
     </BugPattern>
     
     <BugPattern type="FII_USE_FUNCTION_IDENTITY">
-        <ShortDescription>方法 declares an identity lambda function rather than using Function.identity()</ShortDescription>
-        <LongDescription>方法 {1} declares an identity lambda function rather than using Function.identity()</LongDescription>
+        <ShortDescription>方法声明一个身份lambda函数，而不是使用Function.identity()</ShortDescription>
+        <LongDescription>方法 {1} 声明一个身份lambda函数，而不是使用Function.identity()</LongDescription>
         <Details>
         <![CDATA[
-            <p>此方法 declares a no-op (identity) lambda method rather than just specifying Function.identity()</p>
+            <p>此方法声明一个无操作(标识)lambda方法，而不仅仅是指定Function.identity()</p>
         ]]>
         </Details>
     </BugPattern>
     
     <BugPattern type="FII_AVOID_SIZE_ON_COLLECTED_STREAM">
-        <ShortDescription>方法 calls size() on a collected lambda expression</ShortDescription>
-        <LongDescription>方法 {1} calls size() on a collected lambda expresssion</LongDescription>
+        <ShortDescription>方法在lambda表达式的集合结果上调用size()</ShortDescription>
+        <LongDescription>方法 {1} 在lambda表达式的集合结果上调用size()</LongDescription>
         <Details>
         <![CDATA[
-        <p>此方法 builds a collection using lambda expressions with a collect terminal operation.
-            It then immediately calls the size() method on it, to get a count of items.
-            This is sub optimal as the lambda still needs to build the entire collection, iterating the entire source list.
-            It is better to use count() predicate to short circuit the building of the collection.
-            If you were using a Set, then also add the distinct() predicate.
+        <p>此方法使用lambda表达式和collect终端操作来构建集合。
+            然后，它立即对其调用size()方法，以获取项目计数。
+            这是次优的选择，因为lambda仍需要构建整个集合，从而迭代整个源列表。
+            最好使用count()谓词来缩短集合的构建。
+            如果使用的是Set，则还要添加distinct()谓词。
         </p>
         <p>
-        Instead of
+        代替
         <code><pre>
         baubles.stream().filter(b -> b.getName("orb")).collect(Collectors.toList()).size())
         </pre></code>
-        do
+        只需要
         <code></pre>
         baubles.stream().filter(b -> b.getName("orb")).count()
         </pre></code>
-        or for sets you can use
+        或在Set上可以用
         <code></pre>
         baubles.stream().filter(b -> b.getName("orb")).distinct().count()
         </pre></code>
@@ -6091,25 +6091,25 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
     
     <BugPattern type="SUI_CONTAINS_BEFORE_ADD">
-        <ShortDescription>方法 checks for an item in a set with contains, before using add()</ShortDescription>
-        <LongDescription>方法 {1} checks for an item in a set with contains, before using add()</LongDescription>
+        <ShortDescription>方法在使用add()之前检查包含contains的集合中的项目</ShortDescription>
+        <LongDescription>方法 {1} 在使用add()之前检查包含contains的集合中的项目</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 checks to see if an element is not in a set before adding it.
-            This is unnecessary as you can just add the item, and if the item exists, it won't add it, otherwise it will.</p>
-            <p>As an example, instead of using
+            <p>此方法在添加元素之前检查它是否在集合中。
+            这是不必要的，因为您可以仅添加项目，并且如果该项目存在，则不会添加它，否则它将添加。</p>
+            <p>例如，以下代码
             <code>
             <pre>
-                Set<String> mySet = getSomeSet();
+                Set<String>mySet = getSomeSet();
                 if (!mySet.contains("foo")) {
                     mySet.add("foo");
                 }
             </pre>
             </code>
-            convert this to
+            转换成
             <code>
             <pre>
-                Set<String> mySet = getSomeSet();
+                Set<String>mySet = getSomeSet();
                 if (mySet.add("foo")) {
                 }
             </pre>
@@ -6120,25 +6120,25 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
     
     <BugPattern type="SUI_CONTAINS_BEFORE_REMOVE">
-        <ShortDescription>方法 checks for an item in a set with contains, before using remove()</ShortDescription>
-        <LongDescription>方法 {1} checks for an item in a set with contains, before using remove()</LongDescription>
+        <ShortDescription>方法在使用remove()之前，检查包含集中的项目</ShortDescription>
+        <LongDescription>方法 {1} 在使用remove()之前，检查包含集中的项目</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 checks to see if an element is in a set before removing it.
-            This is unnecessary as you can just remove the item, and if the item exists, it will return true.</p>
-            <p>As an example, instead of using
+            <p>此方法在删除元素之前检查它是否在集合中。
+            这是不必要的，因为您只需删除该项目，并且如果该项目存在，它将返回true。</p>
+            <p>例如，以下代码
             <code>
             <pre>
-                Set<String> mySet = getSomeSet();
+                Set<String>mySet = getSomeSet();
                 if (mySet.contains("foo")) {
                     mySet.remove("foo");
                 }
             </pre>
             </code>
-            convert this to
+            转换成
             <code>
             <pre>
-                Set<String> mySet = getSomeSet();
+                Set<String>mySet = getSomeSet();
                 if (mySet.remove("foo")) {
                 }
             </pre>
@@ -6149,17 +6149,17 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
 
     <BugPattern type="SAT_SUSPICIOUS_ARGUMENT_TYPES">
-        <ShortDescription>方法 invokes a method with parameters that seem incorrect for their intended use</ShortDescription>
-        <LongDescription>方法 {1} invokes a method with parameters that seem incorrect for their intended use</LongDescription>
+        <ShortDescription>方法用看起来不正确的参数调用方法</ShortDescription>
+        <LongDescription>方法 {1} 用看起来不正确的参数调用方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 calls a method passing arguments that seem incorrect for the intended purpose of the method.
-            Make sure that the argument types are valid</p>
+            <p>此方法调用一个方法，该方法传递对于该方法的预期目的而言似乎不正确的参数。
+            确保参数类型有效</p>
             <ul>
-            <li><p>For Match.hasEntry it seems unlikely you want to pass a Matcher and non-Matcher at the same time</p></li>
+            <li><p>对于Match.hasEntry，您似乎不太可能希望同时传递Matcher和Non-Matcher</p></li>
             </ul>
             ]]>
-        </Details> 
+        </Details>
     </BugPattern>
 
     <!-- BugCode -->
