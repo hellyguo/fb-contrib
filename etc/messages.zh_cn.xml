@@ -4471,7 +4471,7 @@ if (name != null) {
         <Details>
             <![CDATA[
             <p>此方法将非String对象放入Properties对象。
-            由于“Properties”对象旨在成为“String到String”映射，因此放置非String对象是错误的，而且这里其实是利用了Properties没有使用聚合模式而使用了继承的设计缺陷。
+            由于“Properties"对象旨在成为“String到String"映射，因此放置非String对象是错误的，而且这里其实是利用了Properties没有使用聚合模式而使用了继承的设计缺陷。
             如果您想要一个包含其他类型对象的集合，请使用Hashtable或更好的新集合类型，例如HashMap或TreeMap。</p>
             <p>
             不要使用<code>properties.put("foo", bar);</code>
@@ -4555,7 +4555,7 @@ if (name != null) {
             <p>此方法序列化一个非静态内部类的实例。
             由于此类引用了包含类，因此该外部类也将被序列化。
             这通常不是故意的，它将使序列化的数据量远远超过所需的数量。
-            如果不希望将外部类序列化，则可以将内部类设为静态，或者将其拉到单独的“一等”类中。</p>
+            如果不希望将外部类序列化，则可以将内部类设为静态，或者将其拉到单独的“一等"类中。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -4728,7 +4728,7 @@ if (name != null) {
         <Details>
             <![CDATA[
             <p>此方法使用带有size参数的构造函数分配集合。
-            但是，由于“地图和集”有一个加载因子，因此传递所需的确切大小是对集合进行预大小的一种错误方法，并且可能仍会导致重新分配。
+            但是，由于“地图和集"有一个加载因子，因此传递所需的确切大小是对集合进行预大小的一种错误方法，并且可能仍会导致重新分配。
             由于您使用的是Guava，因此最好使用
             <code><pre>
                 Maps.newHashMapWithExpectedSize(c.size());
@@ -4903,7 +4903,7 @@ if (name != null) {
 
             <p>FindBugs检测到正在发生以下情况：<br/>
 <pre><code>
-ExecutorService executor = ... //e.g.
+ExecutorService executor = ... //例如
             Executors.newCachedThreadPool(); ...
 public void reset() {
     this.executor = Executors.newCachedThreadPool();
@@ -4914,10 +4914,10 @@ public void reset() {
             对于<code>ExecutorService</code>，这不足以终止线程池中的内部线程，并且不能保证<code>ExecutorService</code>关闭，从而导致JVM从不停止。<br/>
             要解决此问题，只需添加对<code></code>shutdown()</code>的调用，如下所示：<br/>
 <pre><code>
-ExecutorService executor = ... //e.g.
+ExecutorService executor = ... //例如
             Executors.newCachedThreadPool(); ...
 public void reset() {
-    this.executor.shutDown(); //Fix
+    this.executor.shutDown(); //改为
     this.executor = Executors.newCachedThreadPool();
     this.executor.execute(new SampleExecutable());
 }
@@ -4927,18 +4927,18 @@ public void reset() {
             <p>即使有一些例外情况，特别是在提供自定义<code>ThreadFactory</code>或将<code>allowsCoreThreadTimeOut()</code>设置为true的<code>ThreadPoolExecutor</code>的情况下，优良作法是在执行结束时或替换它时显式关闭<code>ExecutorService</code>。</p>
 
             <p><b>注意：</b><code>ExecutorService</code>通常在程序的生命周期中创建一次。
-            如果您发现自己替换了<code>ExecutorService</code>，也许您可​​以考虑重组代码以使用诸如<code>awaitTermination()</code>或<code>Future</code>s /<code>之类的调用可调用的</code>，以避免重新创建<code>ExecutorService</code>。</p>
+            如果您发现自己替换了<code>ExecutorService</code>，也许您可​​以考虑重组代码以使用诸如<code>awaitTermination()</code>或<code>Future</code>/<code>Callable</code>以避免重新创建<code>ExecutorService</code>。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="HCP_HTTP_REQUEST_RESOURCES_NOT_FREED_FIELD">
-        <ShortDescription>Unreleased HttpRequest network resources (field)</ShortDescription>
-        <LongDescription>The HttpRequest field {1} does not release its network resources, which could freeze the running code</LongDescription>
+        <ShortDescription>未释放的HttpRequest网络资源(字段)</ShortDescription>
+        <LongDescription>HttpRequest字段 {1} 没有释放其网络资源，这可能会阻塞正在运行的代码</LongDescription>
         <Details>
             <![CDATA[
-            <p>FindBugs has detected an <code>org.apache.http.HttpRequest</code>(e.g. <code>HttpGet</code>, <code>HttpPost</code>, etc) that didn't release its associated resources.
-            Code like the following: <br/>
+            <p>FindBugs已检测到未释放关联的<code>org.apache.http.HttpRequest</code>(例如<code>HttpGet</code>，<code>HttpPost</code>等)资源。
+            代码如下：<br/>
 <pre>code>
 private HttpGet httpGet;
 
@@ -4953,11 +4953,11 @@ public String requestInfo(URI u) {
     return null;
 }
 </code></pre>
-                will freeze after a few requests, usually with no indication as to why.  </p>
+                会在几次请求后阻塞，通常不会说明原因。</p>
 
             <p>
-                The reason this code freezes is because <code>org.apache.http.HttpRequest</code>s need to explicitly release their connection
-                with a call to either <code>reset()</code> or <code>releaseConnection()</code>.  The above example can be easily fixed:<br/>
+                此代码冻结的原因是因为<code> org.apache.http.HttpRequest</code>需要通过调用<code> reset()</code>或<code> releaseConnection()显式释放其连接。</code>。
+                上面的示例很容易解决：<br/>
 <pre><code>
 private HttpGet httpGet;
 ...
@@ -4981,12 +4981,12 @@ public String requestInfo(URI u) {
     </BugPattern>
 
     <BugPattern type="HCP_HTTP_REQUEST_RESOURCES_NOT_FREED_LOCAL">
-        <ShortDescription>Unreleased HttpRequest network resources (local)</ShortDescription>
-        <LongDescription>The local HttpRequest {1} does not release its network resources before being garbage collected, which could freeze the running code</LongDescription>
+        <ShortDescription>未释放的HttpRequest网络资源(局部变量)</ShortDescription>
+        <LongDescription>本地HttpRequest {1}不会在被垃圾回收之前释放其网络资源，这可能会冻结正在运行的代码</LongDescription>
         <Details>
             <![CDATA[
-            <p>FindBugs has detected an <code>org.apache.http.HttpRequest</code> (e.g. <code>HttpGet</code>, <code>HttpPost</code>, etc) that didn't release its associated resources.
-            Code like the following: <br/>
+            <p>FindBugs已检测到未释放其关联资源的<code> org.apache.http.HttpRequest</code>(例如<code> HttpGet</code>，<code> HttpPost</code>等)。
+            代码如下：<br/>
 <pre><code>
 public String requestInfo(URI u) {
     HttpGet httpGet = new HttpGet(u);
@@ -4999,14 +4999,13 @@ public String requestInfo(URI u) {
     return null;
 }
 </code></pre>
-                will freeze after a few requests, usually with no indication as to why. </p>
+                会在几次请求后冻结，通常不会说明原因。 </p>
 
             <p>
-                The reason this code freezes is because <code>org.apache.http.HttpRequest</code>s need to explicitly release their connection
-                with a call to either <code>reset()</code> or <code>releaseConnection()</code>, <b>even if the request is a local</b>.
-                The garbage collector will not release these resources, leading to the frustrating freezing scenario described above.<br/>
+                此代码冻结的原因是因为<code> org.apache.http.HttpRequest</code>需要通过调用<code> reset()</code>或<code> releaseConnection()显式释放其连接。</code>，<b>即使请求是本地的</ b>。
+                垃圾收集器不会释放这些资源，从而导致上述令人沮丧的冻结方案。<br/>
                 
-                The above example can be easily fixed:<br/>
+                上面的示例很容易解决：<br/>
 <pre><code>
 public String requestInfo(URI u) {
     HttpGet httpGet = new HttpGet(u);
@@ -5028,96 +5027,95 @@ public String requestInfo(URI u) {
     </BugPattern>
 
     <BugPattern type="UJM_UNJITABLE_METHOD">
-        <ShortDescription>方法 is too long to be compiled by the JIT</ShortDescription>
-        <LongDescription>方法 {1} is too long to be compiled by the JIT</LongDescription>
+        <ShortDescription>方法太长了以至于JIT无法动态编译</ShortDescription>
+        <LongDescription>方法 {1} 太长了以至于JIT无法动态编译</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 is longer than 8000 bytes.
-            By default the JIT will not attempt to compile this method no matter how hot it is, and so this method will always be interpreted.
-            If performance is important, you should consider breaking this method up into smaller chunks. (And it's probably a good idea for readability too!)</p>
+            <p>此方法长度超过8000个字节。
+            默认情况下，无论JIT多么热，JIT都不会尝试对其进行编译，因此将始终对该方法进行解释。
+            如果性能很重要，则应考虑将此方法分解为较小的块。 (这对于可读性也是个好主意！)</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CTU_CONFLICTING_TIME_UNITS">
-        <ShortDescription>方法 performs arithmetic operations on time values with different units</ShortDescription>
-        <LongDescription>方法 {1} performs arithmetic operations on time values with different units</LongDescription>
+        <ShortDescription>方法对具有不同单位的时间值执行算术运算</ShortDescription>
+        <LongDescription>方法 {1} 对具有不同单位的时间值执行算术运算</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 takes two values that appear to be representing time, and performs arithmetic operations on these two values directly, even though it appears that the two values are representing different time units, such as adding a millisecond value to a nanosecond value.
-            You should convert the two values to the same time unit before performing this calculation in order for it to be meaningful.</p>
+            <p>此方法接受看起来似乎代表时间的两个值，并直接对这两个值执行算术运算，即使这两个值似乎代表不同的时间单位，例如将毫秒值添加到纳秒值也是如此。
+            为了使它有意义，您应该在执行此计算之前将两个值转换为相同的时间单位。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CSI_CHAR_SET_ISSUES_USE_STANDARD_CHARSET">
-        <ShortDescription>方法 needlessly uses a String literal as a Charset encoding</ShortDescription>
-        <LongDescription>方法 "{3}" needlessly uses a String literal to define an encoding.
-            A built-in Charset could be used instead like: {4}</LongDescription>
+        <ShortDescription>方法不必要地使用字符串作为Charset编码</ShortDescription>
+        <LongDescription>方法"{3}"不必要地使用字符串来定义编码。可以使用内置字符集代替，例如：{4}</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses a string literal to specify a <code>Charset</code> encoding.
-            However, the method invoked has an alternative signature that takes a <code>Charset</code> object.
-            You should use this signature, as this class is compiled with JDK 7 (or better), and the <code>Charset</code> in question is available as a constant from the <code>java.nio.charset.StandardCharsets</code> class.</p>
-            <p>Instead of specifying "UTF-8", use <code>StandardCharsets.UTF_8</code>, for instance.
-            An added benefit of this is that you will not need to catch <code>UnsupportedEncodingException</code>.</p>
+            <p>此方法使用字符串来指定<code> Charset</code>编码。
+            但是，所调用的方法具有使用<code> Charset</code>对象的替代签名。
+            您应该使用此签名，因为此类是使用JDK 7(或更高版本)编译的，并且有问题的<code> Charset</code>可从<code> java.nio.charset.StandardCharsets </ const>获取作为常量。代码>类。</p>
+            <p>例如，使用<code> StandardCharsets.UTF_8</code>而不是指定"UTF-8"。
+            这样做的另一个好处是您无需捕获<code> UnsupportedEncodingException</code>。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CSI_CHAR_SET_ISSUES_USE_STANDARD_CHARSET_NAME">
-        <ShortDescription>方法 should use a StandardCharsets.XXX.name() to specify an encoding</ShortDescription>
-        <LongDescription>方法 {3} should use a StandardCharsets.XXX.name() to specify an encoding</LongDescription>
+        <ShortDescription>方法应该使用StandardCharsets.XXX.name()来指定编码</ShortDescription>
+        <LongDescription>方法 {3} 应该使用StandardCharsets.XXX.name()来指定编码</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses a hand-typed <code>String</code> literal to specify a <code>Charset</code> encoding.
-            As this class is compiled with JDK 7 (or better), and the charset in question is available as a constant from the <code>java.nio.charset.StandardCharsets</code> class, it is better to use the .name() method of the appropriate <code>StandardCharsets</code> constant.</p>
+            <p>此方法使用手工输入的<code> String</code>文字来指定<code> Charset</code>编码。
+            由于此类是使用JDK 7(或更高版本)编译的，并且有问题的字符集可从<code> java.nio.charset.StandardCharsets</code>类中作为常量使用，因此最好使用.name( )的相应<code> StandardCharsets</code>常量的方法。</ p>
 
-            <p>The method in question doesn't directly support a <code>Charset</code> as a parameter, only a <code>String</code>.
-            Still, instead of specifying something like "UTF-8" (and potentially mistyping it), use <code>StandardCharsets.UTF_8.name()</code>.
+            <p>有问题的方法不直接将<code> Charset</code>作为参数，仅支持<code> String</code>。
+            不过，请使用<code> StandardCharsets.UTF_8.name()</code>，而不是指定"UTF-8"之类的内容(并可能会混淆)。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CSI_CHAR_SET_ISSUES_UNKNOWN_ENCODING">
-        <ShortDescription>方法 uses an unknown character encoding literal</ShortDescription>
-        <LongDescription>方法 {3} uses an unknown character encoding literal "{4}"</LongDescription>
+        <ShortDescription>方法使用未知的编码字符串</ShortDescription>
+        <LongDescription>方法 {3} 使用未知的编码字符串 "{4}"</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 specifies a <code>Charset</code> encoding with a String literal that is not recognized by the current JDK.
-            It's possible that this application will only be deployed on a JVM that does recognize this encoding, but it seems dubious that this is the case.</p>
+            <p>此方法使用当前JDK无法识别的String文字指定<code> Charset</code>编码。
+            该应用程序可能仅会部署在能够识别这种编码的JVM上，但是这种情况似乎令人怀疑。</ p>
             <p>
-            The standard JDK encodings (for Java 8) are "UTF-8", "US-ASCII", "ISO-8859-1", "UTF-16BE", "UTF-16LE", "UTF-16".  These are all case-sensitive.
+            标准的JDK编码(对于Java 8)是"UTF-8"，"US-ASCII"，"ISO-8859-1"，"UTF-16BE"，"UTF-16LE"，"UTF-16"。这些都是区分大小写的。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CBC_CONTAINS_BASED_CONDITIONAL">
-        <ShortDescription>方法 uses an excessively complex conditional that can be replaced with Set.contains</ShortDescription>
-        <LongDescription>方法 {1} uses an excessively complex conditional that can be replaced with Set.contains</LongDescription>
+        <ShortDescription>方法使用可以用Set.contains替换的过于复杂的条件</ShortDescription>
+        <LongDescription>方法 {1} 使用可以用Set.contains替换的过于复杂的条件</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses an overly complex <code>if</code> expression made up of multiple conditions joined by OR, where the same local variable is compared to a static value.
-            When the number of conditions grows, it is much cleaner to build a static set of the possible values, and use the contains method on that set.
-            This will shorten the code, and make it more self documenting.</p>
+            <p>此方法使用一个过于复杂的<code> if</code>表达式，该表达式由多个条件组成，这些条件由OR连接在一起，其中将相同的局部变量与静态值进行比较。
+            当条件数量增加时，构建可能值的静态集合并在该集合上使用contains方法要干净得多。
+            这将缩短代码，并使其更具自记录性。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="OPM_OVERLY_PERMISSIVE_METHOD">
-        <ShortDescription>方法 is declared more permissively than is used in the code base</ShortDescription>
-        <LongDescription>方法 {1} is declared more permissively than is used in the code base</LongDescription>
+        <ShortDescription>方法被声明为比代码库中使用的宽松</ShortDescription>
+        <LongDescription>方法 {1} 被声明为比代码库中使用的宽松</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 is declared more permissively than the code is using.
-            Having this method be more permissive than is needed limits your ability to make observations about this method, like parameter usage, refactorability, and derivability.
-            It is possible that this detector will report erroneously if:
+            <p>此方法声明比代码使用的宽松。
+            使此方法比需要的更宽松，限制了您对此方法进行观察的能力，例如参数用法，可重构性和可派生性。
+            在以下情况下，此检测器可能会错误报告：
             <ul>
-                <li>The method is called from code not being scanned, such as unit tests</li>
-                <li>The method is an API method, expected to be used by unknown client code</li>
-                <li>The method is called through reflection
+                <li>从未扫描的代码(例如单元测试)中调用该方法</li>
+                <li>该方法是一种API方法，预计将由未知的客户端代码使用</li>
+                <li>通过反射调用该方法</li>
             </ul>
             </p>
             ]]>
@@ -5125,26 +5123,26 @@ public String requestInfo(URI u) {
     </BugPattern>
 
     <BugPattern type="STT_TOSTRING_STORED_IN_FIELD">
-        <ShortDescription>方法 stores the value of a toString() call into a field</ShortDescription>
-        <LongDescription>方法 {0} stores the value of a toString() call into a field</LongDescription>
+        <ShortDescription>方法将toString()调用的值存储到字段中</ShortDescription>
+        <LongDescription>方法{0}将toString()调用的值存储到字段中</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 calls the toString() method on an object and stores the value in a field.
-            Doing this throws away the type safety of having the object defined by a Class.
-            Using String makes it very easy to use the wrong type of value, and the compiler will not catch these mistakes.
-            You should delay converting values to Strings for as long as possible, and thus not store them as fields.
+            <p>此方法在对象上调用toString()方法，并将值存储在字段中。
+            这样做会浪费由Class定义对象的类型安全性。
+            使用String可以很容易地使用错误的值类型，并且编译器不会捕获这些错误。
+            您应尽可能延迟将值转换为字符串的时间，因此不要将其存储为字段。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="STT_STRING_PARSING_A_FIELD">
-        <ShortDescription>方法 parses a String that is a field</ShortDescription>
-        <LongDescription>方法 {1} parses a String that is a field</LongDescription>
+        <ShortDescription>方法解析一个字符串，它是一个字段</ShortDescription>
+        <LongDescription>方法 {1} 解析一个字符串，它是一个字段</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 calls a parsing method (indexOf, lastIndexOf, startsWith, endsWith, substring, indexOf) on a String that is a field, or comes from a collection that is a field.
-            This implies that the String in question is holding multiple parts of information inside the string, which would be more maintainable and type safe if that value was a true collection or a first class object with fields, rather than a String.
+            <p>此方法在作为字段或来自字段的集合的String上调用解析方法(indexOf，lastIndexOf，startsWith，endsWith，substring，indexOf)。
+            这意味着所讨论的字符串在字符串内部包含信息的多个部分，如果该值是一个真正的集合或带有字段的第一类对象而不是一个字符串，则该字符串将更易于维护且类型安全。
             </p>
             ]]>
         </Details>
