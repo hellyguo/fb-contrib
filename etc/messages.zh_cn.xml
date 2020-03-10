@@ -4471,7 +4471,7 @@ if (name != null) {
         <Details>
             <![CDATA[
             <p>此方法将非String对象放入Properties对象。
-            由于“Properties"对象旨在成为“String到String"映射，因此放置非String对象是错误的，而且这里其实是利用了Properties没有使用聚合模式而使用了继承的设计缺陷。
+            由于"Properties"对象旨在成为"String到String"映射，因此放置非String对象是错误的，而且这里其实是利用了Properties没有使用聚合模式而使用了继承的设计缺陷。
             如果您想要一个包含其他类型对象的集合，请使用Hashtable或更好的新集合类型，例如HashMap或TreeMap。</p>
             <p>
             不要使用<code>properties.put("foo", bar);</code>
@@ -4555,7 +4555,7 @@ if (name != null) {
             <p>此方法序列化一个非静态内部类的实例。
             由于此类引用了包含类，因此该外部类也将被序列化。
             这通常不是故意的，它将使序列化的数据量远远超过所需的数量。
-            如果不希望将外部类序列化，则可以将内部类设为静态，或者将其拉到单独的“一等"类中。</p>
+            如果不希望将外部类序列化，则可以将内部类设为静态，或者将其拉到单独的"一等"类中。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -4728,7 +4728,7 @@ if (name != null) {
         <Details>
             <![CDATA[
             <p>此方法使用带有size参数的构造函数分配集合。
-            但是，由于“地图和集"有一个加载因子，因此传递所需的确切大小是对集合进行预大小的一种错误方法，并且可能仍会导致重新分配。
+            但是，由于"地图和集"有一个加载因子，因此传递所需的确切大小是对集合进行预大小的一种错误方法，并且可能仍会导致重新分配。
             由于您使用的是Guava，因此最好使用
             <code><pre>
                 Maps.newHashMapWithExpectedSize(c.size());
@@ -5149,30 +5149,30 @@ public String requestInfo(URI u) {
     </BugPattern>
 
     <BugPattern type="STT_TOSTRING_MAP_KEYING">
-        <ShortDescription>方法 uses a concatenated String as a map key</ShortDescription>
-        <LongDescription>方法 {1} uses a concatenated String as a map key</LongDescription>
+        <ShortDescription>方法使用串联的String作为映射键</ShortDescription>
+        <LongDescription>方法 {1} 使用串联的String作为映射键</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 builds a key for a map, using a StringBuilder, either implicitly or explicitly.
-            This means the type of the key is something more than a String constant, it is a properly formatted String.
-            However, there is no type based verification that all uses of this key will follow this formatting.
-            It is much better to use a proper, simple, bean class that holds two (or more) fields so that it is clear what is expected for key use.
+            <p>此方法使用StringBuilder隐式或显式构建地图的键。
+            这意味着键的类型不仅仅是字符串常量，它是格式正确的字符串。
+            但是，没有基于类型的验证，表明此密钥的所有使用都将遵循此格式。
+            最好使用一个适当的，简单的，包含两个（或更多）字段的Bean类，以便清楚地知道对键使用的期望。
             </p>
             <p>
-            Example<br/>
-            instead of
+            例<br/>
+            为代替
             <pre><code>
                 V v = myMap.get(tableName + "-" + columnName);
             </code></pre>
-            use
+            采用
             <pre><code>
                 V v = myMap.get(new ColumnSpec(tableName, columnName));
             </code></pre>
-            where ColumnSpec is a simple bean-like class of your creation.
-            The advantages, are
+            其中ColumnSpec是您创建的一个简单的类似于bean的类。
+            优点是
             <ul>
-                <li>The ColumnSpec fully describes what is expected, you need a tableName and columnName</li>
-                <li>There is no guessing by the programmer what the format is, was it tableName + "_" + columnName?</li>
+                <li>ColumnSpec完全描述了预期的情况，您需要tableName和columnName </ li>
+                <li>程序员没有猜测格式是什么，是tableName +“ _” + columnName吗？</ li>
             </ul>
             </p>
             ]]>
