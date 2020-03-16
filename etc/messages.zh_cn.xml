@@ -5180,13 +5180,13 @@ public String requestInfo(URI u) {
     </BugPattern>
 
     <BugPattern type="SLS_SUSPICIOUS_LOOP_SEARCH">
-        <ShortDescription>方法 continues a loop after finding an equality condition</ShortDescription>
-        <LongDescription>方法 {1} continues a loop after finding an equality condition</LongDescription>
+        <ShortDescription>方法找到相等条件后继续循环</ShortDescription>
+        <LongDescription>方法 {1} 找到相等条件后继续循环</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 continues with a loop, and does not break out of it, after finding and setting a variable in an <code>if</code> condition based on equality.
-            Since continuing on in the loop would seem to be unlikely to find the item again, breaking at this point would seem to be the proper action.</p>
-            <p>Example: 
+            <p>此方法 在根据相等性在<code> if </ code>条件下找到并设置变量后，继续循环，但不会中断。
+            由于继续执行循环似乎不太可能再次找到该项目，因此在这一点上中断似乎是适当的操作。</p>
+            <p>例： 
 <pre><code>
 int age = 0;
 for (Person p : people) {
@@ -5195,20 +5195,20 @@ for (Person p : people) {
     }
 }
 </code></pre>
-            It is likely you wanted a break after getting the age for "Dave".</p>
+            在获得“Dave”的年龄后，您可能想休息一下。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="CRF_CONFLATING_RESOURCES_AND_FILES">
-        <ShortDescription>方法 accesses URL resources using the File API</ShortDescription>
-        <LongDescription>方法 {1} accesses URL resources using the File API</LongDescription>
+        <ShortDescription>方法使用File API访问URL资源</ShortDescription>
+        <LongDescription>方法 {1} 使用File API访问URL资源</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 fetches a resource from a URL, and uses the File API to manipulate it.
-            If this resource is a classpath resource, it will work if the resource is a file in a directory.
-            If, however, the file is inside a JAR file this will fail.
-            To avoid this confusing inconsistency, use the URL.openStream API instead to access the data of the classpath resource.
+            <p>此方法从URL获取资源，并使用File API对其进行操作。
+            如果此资源是类路径资源，则在该资源是目录中的文件时它将起作用。
+            但是，如果文件位于JAR文件中，则此操作将失败。
+            为避免这种混乱的不一致，请改用URL.openStream API来访问类路径资源的数据。
             </p>
             ]]>
         </Details>
@@ -6013,23 +6013,23 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
         <LongDescription>方法 {1} suboptimally finds any match in a stream</LongDescription>
         <Details>
         <![CDATA[
-        <p>此方法 looks for one item in a stream using filter().findFirst.isPresent() when .anyMatch() will do the same thing more succintly</p>
+        <p>此方法使用filter（）.findFirst.isPresent（）在流中查找一项，使用.anyMatch（）将更简洁地执行相同的操作</p>
         ]]></Details>
     </BugPattern>
     
     <BugPattern type="FII_USE_FIND_FIRST">
-        <ShortDescription>方法 collects a List from a stream() just to get the first element</ShortDescription>
-        <LongDescription>方法 {1} collects a List from a stream() just to get the first element</LongDescription>
+        <ShortDescription>方法从stream（）收集List只是为了获得第一个元素</ShortDescription>
+        <LongDescription>方法 {1} 从stream（）收集List只是为了获得第一个元素</LongDescription>
         <Details>
         <![CDATA[
-        <p>此方法 streams data into a List just to call get(0) to get the first item.
-            You can just use findFirst() to short circuit the processing of the stream.</p>
+        <p>此方法将数据流传输到List中只是为了调用get（0）获得第一项。
+        您可以只使用findFirst（）来缩短流的处理。</p>
         <p>
-        Instead of
+        为代替
         <code><pre>
         baubles.stream().collect(Collectors.toList()).get(0)
         </pre></code>
-        do
+        做
         <code></pre>
         baubles.stream().findFirst().get())
         </pre></code>
@@ -6039,7 +6039,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
     
     <BugPattern type="FII_COMBINE_FILTERS">
-        <ShortDescription>方法 使用背对背过滤器实现流</ShortDescription>
+        <ShortDescription>方法使用背对背过滤器实现流</ShortDescription>
         <LongDescription>方法 {1} 使用背对背过滤器实现流</LongDescription>
         <Details>
         <![CDATA[
