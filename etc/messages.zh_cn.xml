@@ -5465,45 +5465,45 @@ for (Person p : people) {
     </BugPattern>
 
     <BugPattern type="JPAI_NON_SPECIFIED_TRANSACTION_EXCEPTION_HANDLING">
-        <ShortDescription>方法 does not specify how to handle transaction when exception is thrown</ShortDescription>
-        <LongDescription>方法 {1} does not specify how to handle transaction when exception is thrown</LongDescription>
+        <ShortDescription>方法没有指定抛出异常时如何处理事务</ShortDescription>
+        <LongDescription>方法 {1} 没有指定抛出异常时如何处理事务</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 declares that it throws one or more non-runtime exceptions.
-            It also is annotated with a @Transactional annotation but fails to describe whether to rollback the transaction or not based on this thrown exception.
-            Use 'rollbackFor' or 'noRollbackFor' attributes of the Transactional annotation to document this.</p>
+            <p>此方法声明它抛出一个或多个非运行时异常。
+            它也带有@Transactional注释，但是无法基于抛出的异常描述是否回滚事务。
+            使用Transactional注释的'rollbackFor'或'noRollbackFor'属性对此进行记录。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="JPAI_UNNECESSARY_TRANSACTION_EXCEPTION_HANDLING">
-        <ShortDescription>方法 declares handling a transactional exception that won't be thrown</ShortDescription>
-        <LongDescription>方法 {1} declares handling a transactional exception that won't be thrown</LongDescription>
+        <ShortDescription>方法声明处理不会引发的事务异常</ShortDescription>
+        <LongDescription>方法 {1} 声明处理不会引发的事务异常</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 declares that it either rolls back or does not rollback a transaction based on an expected exception being thrown.
-            However, neither this exception, nor any derived exceptions can be thrown from this method, and so the annotation is useless.</p>
+            <p>此方法根据抛出的预期异常声明它回滚或不回滚事务。
+            但是，此方法都不会抛出该异常或任何派生异常，因此注释是无用的。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="SEO_SUBOPTIMAL_EXPRESSION_ORDER">
-        <ShortDescription>方法 orders expressions in a conditional in a sub optimal way</ShortDescription>
-        <LongDescription>方法 {1} orders expressions in a conditional in a sub optimal way</LongDescription>
+        <ShortDescription>方法以次优的方式对条件进行排序</ShortDescription>
+        <LongDescription>方法 {1} 以次优的方式对条件进行排序</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 builds a conditional expression, for example, in an <code>if</code> or <code>while</code> statement, where the expressions contain both simple local variable comparisons and comparisons on method calls.
-            The expression orders these so that the method calls come before the simple local variable comparisons.
-            This causes method calls to be executed in conditions when they do not need to be, and thus potentially causes a lot of code to be executed for nothing.
-            By ordering the expressions so that the simple conditions containing local variable conditions are first, you eliminate this waste.
-            This assumes that the method calls do not have side effects.
-            If the methods do have side effects, it is probably a better idea to pull these calls out of the condition and execute them first, assigning a value to a local variable.
-            In this way you give a hint that the call may have side effects.</p>
-        <p>Example:
+            <p>此方法例如在<code> if </ code>或<code> while </ code>语句中构建条件表达式，其中该表达式既包含简单的局部变量比较，又包含方法调用的比较。
+            表达式对这些命令进行排序，以便在简单的局部变量比较之前进行方法调用。
+            这导致方法调用在不需要的条件下执行，因此有可能导致大量代码无执行。
+            通过对表达式进行排序，以便首先包含局部变量条件的简单条件，可以消除这种浪费。
+            假定方法调用没有副作用。
+            如果这些方法确实有副作用，则最好将这些调用从条件中拉出并先执行，然后将值分配给局部变量。
+            通过这种方式，您可以暗示该调用可能有副作用。</p>
+        <p>例：
 <pre><code>
 if ((calculateHaltingProbability() &gt; 0) && shouldCalcHalting) { }
 </code></pre>
-            would be better as
+            会更好
 <pre><code>
 if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
 </code></pre>
