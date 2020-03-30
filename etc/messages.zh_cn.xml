@@ -5184,9 +5184,9 @@ public String requestInfo(URI u) {
         <LongDescription>方法 {1} 找到相等条件后继续循环</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 在根据相等性在<code> if </ code>条件下找到并设置变量后，继续循环，但不会中断。
+            <p>此方法在根据相等性在<code>if</code>条件下找到并设置变量后，继续循环，没有中断。
             由于继续执行循环似乎不太可能再次找到该项目，因此在这一点上中断似乎是适当的操作。</p>
-            <p>例： 
+            <p>例：
 <pre><code>
 int age = 0;
 for (Person p : people) {
@@ -5215,39 +5215,40 @@ for (Person p : people) {
     </BugPattern>
 
     <BugPattern type="IMC_IMMATURE_CLASS_NO_EQUALS">
-        <ShortDescription>类 does not implement an equals method</ShortDescription>
-        <LongDescription>类 {0} does not implement an equals method</LongDescription>
+        <ShortDescription>类没有实现equals方法</ShortDescription>
+        <LongDescription>类 {0} 没有实现equals方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class, which has instance fields, has no equals(Object o) method.
-            It is possible that this class is never used in a context where this is required; it is often assumed, however, from clients of this class that it is, so it is good to add such methods when you create them.
+            <p>此类具有实例字段，没有equals（Object o）方法。
+            可能此类永远不会在一个需要用equals方法的上下文中使用。但是，通常使用此类的使用者假定它是存在的，因此在创建此类方法时最好添加此类方法。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IMC_IMMATURE_CLASS_NO_HASHCODE">
-        <ShortDescription>类 does not implement a hashCode method</ShortDescription>
-        <LongDescription>类 {0} does not implement a hashCode method</LongDescription>
+        <ShortDescription>类没有实现hashCode方法</ShortDescription>
+        <LongDescription>类 {0} 没有实现hashCode方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class, which has instance fields, has no hashCode() method.
-            It is possible that this class is never used in a context where this is required; it is often assumed, however, from clients of this class that it is, so it is good to add such methods when you create them.
+            <p>此类具有实例字段，没有hashCode（）方法。
+            可能此类永远不会在一个需要用hashCode方法的上下文中使用。但是，通常使用此类的使用者假定它是存在的，因此在创建此类方法时最好添加此类方法。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IMC_IMMATURE_CLASS_NO_PACKAGE">
-        <ShortDescription>类 is defined in the default package</ShortDescription>
-        <LongDescription>类 {0} id defined in the default package</LongDescription>
+        <ShortDescription>类在默认包中定义</ShortDescription>
+        <LongDescription>类 {0} 在默认包中定义</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class has been created in the default package.
-            Classes should be defined in a proper package structure, typically defined by the reverse of the domain name of the owner of the code base.
-            Putting code in the default (no) package limits its usefulness, including: <ol>
-            <li>Not being able to import this class into classes with packages</li>
-            <li>Leaving it open to name collisions with other packages.</li>
+            <p>此类在默认包中创建。
+            应该在适当的包结构中定义类，通常通过代码库所有者的域名的反向定义。
+            将代码放入默认（没有）包会限制其用途，包括：
+            <ol>
+                <li>无法将此类导入带有包的类中</li>
+                <li>保留它以命名与其他软件包的冲突。</li>
             </ol>
             </p>
             ]]>
@@ -5255,116 +5256,116 @@ for (Person p : people) {
     </BugPattern>
 
     <BugPattern type="IMC_IMMATURE_CLASS_NO_TOSTRING">
-        <ShortDescription>类 does not implement a toString method</ShortDescription>
-        <LongDescription>类 {0} does not implement a toString method</LongDescription>
+        <ShortDescription>类没有实现toString方法</ShortDescription>
+        <LongDescription>类 {0} 没有实现toString方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class, which has instance fields, has no toString() method, which will make debugging with this class more difficult than it could be.
-            Consider adding a toString() method.
-            Using libraries like commons-lang3 ToStringBuilder makes this process easy.
+            <p>此类具有实例字段，没有toString（）方法，这会使使用该类进行调试的难度大大增加。
+            考虑添加toString（）方法。
+            使用commons-lang3 ToStringBuilder之类的库使此过程变得容易。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IMC_IMMATURE_CLASS_IDE_GENERATED_PARAMETER_NAMES">
-        <ShortDescription>方法 uses IDE generated parameter names</ShortDescription>
-        <LongDescription>方法 {1} uses IDE generated parameter names</LongDescription>
+        <ShortDescription>方法使用IDE生成的参数名称</ShortDescription>
+        <LongDescription>方法 {1} 使用IDE生成的参数名称</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 appears to have been generated from an interface or superclass using an IDE.
-            As such the IDE generated generic names (arg0, arg1, arg2) for parameters for this method, and the author of this method did not change them to be meaningful.
-            For better understandability it is recommended that you name these parameters with regard to their function.</p>
+            <p>此方法似乎是使用IDE从接口或超类生成的。
+            因此，IDE为该方法的参数生成了通用名称（arg0，arg1，arg2），并且该方法的作者并未将其更改为有意义的。
+            为了更好地理解，建议您根据功能命名这些参数。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IMC_IMMATURE_CLASS_PRINTSTACKTRACE">
-        <ShortDescription>方法 prints the stack trace to the console</ShortDescription>
-        <LongDescription>方法 {1} prints the stack trace to the console</LongDescription>
+        <ShortDescription>方法将堆栈跟踪信息打印到控制台</ShortDescription>
+        <LongDescription>方法 {1} 将堆栈跟踪信息打印到控制台</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 prints a stack trace to the console.
-            This is non configurable, and causes an application to look unprofessional.
-            Switch to using loggers so that users can control what is logged and where.</p>
+            <p>此方法将堆栈跟踪信息打印到控制台。
+            这是不可配置的，并导致应用程序看起来不专业。
+            切换到使用日志记录器，以便用户可以控制记录的内容和位置。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IMC_IMMATURE_CLASS_WRONG_FIELD_ORDER">
-        <ShortDescription>类 orders instance fields before static fields</ShortDescription>
-        <LongDescription>类 {0} orders instance fields before static fields</LongDescription>
+        <ShortDescription>类中实例字段排在静态字段之前</ShortDescription>
+        <LongDescription>类 {0} 中实例字段排在静态字段之前</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class defines fields in an order that is confusing, and not expected by other developers.
-            The standard is for static fields to be listed first, followed by instance fields.
-            When fields are listed out of order, developers may make assumptions about their behaviour that are incorrect and lead to bugs.</p>
+            <p>此类以混乱的顺序定义字段，而其他开发人员则不希望这样做。
+            该标准是首先列出静态字段，然后列出实例字段。
+            如果字段顺序混乱，则开发人员可能会对其行为做出不正确的假设，并导致错误。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IMC_IMMATURE_CLASS_UPPER_PACKAGE">
-        <ShortDescription>类 is defined in a package with upper case characters</ShortDescription>
-        <LongDescription>类 {0} is defined in a package with upper case characters</LongDescription>
+        <ShortDescription>类在包中使用大写字符定义</ShortDescription>
+        <LongDescription>类 {0} 在包中使用大写字符定义</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class is defined within a package that uses upper case letters.
-            Package names are expected to be in the form of all lowercase.</p>
+            <p>此类在使用大写字母的包中定义。
+            程序包名称应采用小写形式。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IMC_IMMATURE_CLASS_LOWER_CLASS">
-        <ShortDescription>类 does not start with an upper case letter</ShortDescription>
-        <LongDescription>类 {0} does not start with an upper case letter</LongDescription>
+        <ShortDescription>类不以大写字母开头</ShortDescription>
+        <LongDescription>类 {0} 不以大写字母开头</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class has been given a name that does not start with an upper case letter.
-            Classes should follow a pattern of uppercasing the first letter of each word, AsAnExample</p>
+            <p>此类的名称不以大写字母开头。
+            类应遵循每个单词的第一个字母大写的模式，AsAnExample</p>
             ]]>
         </Details>
     </BugPattern>
     
     <BugPattern type="IMC_IMMATURE_CLASS_BAD_SERIALVERSIONUID">
-        <ShortDescription>类 defines a computed serialVersionUID that doesn't equate to the calculated value</ShortDescription>
-        <LongDescription>类 {0} defines a computed serialVersionUID that doesn't equate to the calculated value</LongDescription>
+        <ShortDescription>类定义一个不等于计算值的计算的serialVersionUID</ShortDescription>
+        <LongDescription>类 {0} 定义一个不等于计算值的计算的serialVersionUID</LongDescription>
         <Details>
             <![CDATA[
-            <p>This serializable class defines a serialVersionUID that appears to be a computed value, however the value does not match the computed value, and thus losses it's value as version indicator.
-            Either create a custom value like 1, 2, 3, 4.. etc, or recompute the serialVersionUID using your IDE.</p>
+            <p>此可序列化的类定义了似乎是计算值的serialVersionUID，但是该值与计算值不匹配，因此失去了其作为版本指示符的值。
+            创建自定义值（例如1、2、3、4等），或使用IDE重新计算serialVersionUID。</ p>
             ]]>
         </Details>
     </BugPattern>
     
     <BugPattern type="IMC_IMMATURE_CLASS_VAR_NAME">
-        <ShortDescription>类 defines a field or local variable named 'var'</ShortDescription>
-        <LongDescription>类 {0} defines a field or local variable named 'var'</LongDescription>
+        <ShortDescription>类定义一个名为“var”的字段或局部变量</ShortDescription>
+        <LongDescription>类 {0} 定义一个名为“var”的字段或局部变量</LongDescription>
         <Details>
             <![CDATA[
-            <p>A field or variable is named 'var' which will conflict with the built in Java 10 feature using 'var' as a keyword.</p>
+            <p>字段或变量名为“var”，它将与使用“var”作为关键字的Java 10内置功能冲突。</p>
             ]]>
         </Details>
     </BugPattern>      
 
     <BugPattern type="JXI_GET_ENDPOINT_CONSUMES_CONTENT">
-        <ShortDescription>JAX-RS Method implements a GET request but consumes input</ShortDescription>
-        <LongDescription>JAX-RS Method {1} implements a GET request but consumes input</LongDescription>
+        <ShortDescription>JAX-RS方法实现GET请求，但消耗输入</ShortDescription>
+        <LongDescription>JAX-RS方法 {1} 实现GET请求，但消耗输入</LongDescription>
         <Details>
             <![CDATA[
-            <p>This JAX-RS endpoint is annotated to be used with @GET requests, but also documents that it consumes JSON or XML data.
-            Since a GET request pulls parameters from the URL, and not the body of the request, this pattern is problematic.
-            If you wish to consume JSON or XML data, this request should be annotated with @POST.</p>
+            <p>该JAX-RS端点被注释为与@GET请求一起使用，但也记录了它使用JSON或XML数据的文档。
+            由于GET请求从URL中提取参数，而不是请求的主体，因此此模式存在问题。
+            如果您希望使用JSON或XML数据，则此请求应使用@POST注释。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="JXI_INVALID_CONTEXT_PARAMETER_TYPE">
-        <ShortDescription>JAX-RS Method specifies an invalid @Context parameter type</ShortDescription>
-        <LongDescription>JAX-RS {1} Method specifies an invalid @Context parameter type</LongDescription>
+        <ShortDescription>JAX-RS方法指定了无效的@Context参数类型</ShortDescription>
+        <LongDescription>JAX-RS方法 {1} 指定了无效的@Context参数类型</LongDescription>
         <Details>
             <![CDATA[
-            <p>This JAX-RS endpoint annotates a parameter with a @Context annotation.
-                This annotation can supply values for the following types:
+            <p>此JAX-RS端点使用@Context注释对参数进行注释。
+            该注释可以提供以下类型的值：
             <ul>
                 <li>javax.ws.rs.core.UriInfo</li>
                 <li>javax.ws.rs.core.HttpHeaders</li>
@@ -5376,89 +5377,89 @@ for (Person p : people) {
                 <li>javax.servlet.HttpServletRequest</li>
                 <li>javax.servlet.HttpServletResponse</li>
             </ul>
-            It is possible that your container can supply additional types, but these types are not standard and may not be supported on other application servers.</p>
+            您的容器可能可以提供其他类型，但是这些类型不是标准的，其他应用程序服务器可能不支持。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="JXI_PARM_PARAM_NOT_FOUND_IN_PATH">
-        <ShortDescription>JAX-RS Method specifies non-resolveable @PathParam</ShortDescription>
-        <LongDescription>JAX-RS Method {1} specifies non-resolveable @PathParam</LongDescription>
+        <ShortDescription>JAX-RS方法指定不可解析的@PathParam</ShortDescription>
+        <LongDescription>JAX-RS方法 {1} 指定不可解析的@PathParam</LongDescription>
         <Details>
             <![CDATA[
-            <p>This JAX-RS endpoint has a @PathParam specified that is not found in the @Path annotation and thus can not determine from where to populate that parameter.</p>
+            <p>此JAX-RS端点指定了@PathParam，该@PathParam在@Path批注中找不到，因此无法确定从何处填充该参数。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="JXI_UNDEFINED_PARAMETER_SOURCE_IN_ENDPOINT">
-        <ShortDescription>JAX-RS Method defines a parameter that has no @*Param or @Context annotation, or @Consumes method annotation</ShortDescription>
-        <LongDescription>JAX-RS Method {1} defines a parameter that has no @*Param or @Context annotation, or @Consumes method annotation</LongDescription>
+        <ShortDescription>JAX-RS方法定义没有@*Param或@Context注释或@Consumes方法注释的参数</ShortDescription>
+        <LongDescription>JAX-RS方法 {1} 定义没有@*Param或@Context注释或@Consumes方法注释的参数</LongDescription>
         <Details>
             <![CDATA[
-            <p>This JAX-RS endpoint declares a parameter without specifying where the value of this parameter comes from.
-            You can specify this by using one of several 'Param' annotations (@PathParam, @CookieParam, @FormParam @HeaderParam @MatrixParam @QueryParam), by adding a @Context parameter annotation, or you can declare that the method @Consumes an XML or JSON stream.</p>
+            <p>此JAX-RS端点声明一个参数时未指定此参数的值来自何处。
+            您可以使用以下几种“Param”注释（@PathParam，@CookieParam，@FormParam @HeaderParam @MatrixParam @QueryParam）之一来指定，也可以添加@Context参数注释，或者可以声明方法@Consumes为XML或JSON流。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="JPAI_TRANSACTION_ON_NON_PUBLIC_METHOD">
-        <ShortDescription>方法 has a Spring @Transactional annotation on it, but is non-public</ShortDescription>
-        <LongDescription>方法 {1} has a Spring @Transactional annotation on it, but is non-public</LongDescription>
+        <ShortDescription>方法上面有一个Spring @Transactional注释，但该方法不公开</ShortDescription>
+        <LongDescription>方法 {1} 上面有一个Spring @Transactional注释，但该方法不公开</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 specifies a Spring @Transactional annotation but the method is defined as being non-public.
-            Spring only creates transactional boundaries on methods that are public, and so this annotation is not doing anything for this method.
-            Make the method public, or place the annotation on a more appropriate method.</p>
+            <p>此方法指定一个Spring @Transactional批注，但该方法被定义为非公开。
+            Spring仅在公共方法上创建事务边界，因此此注释不对该方法做任何事情。
+            将方法公开，或将注释放在更合适的方法上。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="JPAI_HC_EQUALS_ON_MANAGED_ENTITY">
-        <ShortDescription>JPA Entity with Generated @Id defined with hashCode/equals</ShortDescription>
-        <LongDescription>JPA Entity {0} with Generated @Id defined with hashCode/equals</LongDescription>
+        <ShortDescription>JPA实体具有生成的@Id，定义了hashCode/equals</ShortDescription>
+        <LongDescription>JPA实体 {0} 具有生成的@Id，定义了hashCode/equals</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class is defined to be a JPA Entity, and has an @Id field that is generated by the JPA provider.
-            Since you do not control when that Id is created directly, it is risky to implement hashCode/equals for this class, and especially for use with Collections, as the data behind the algorithms will not be immutable, and thus cause problems when those fields change, and the object is in the collection.
-            It is usually safer to not define hashCode and equals for entity objects, but treat them as objects for IdentityHashSet/Maps instead.</p>
+            <p>此类定义为JPA实体，并具有由JPA提供程序生成的@Id字段。
+            由于您不控制直接创建该Id的时间，因此为此类（尤其是与Collections一起使用）实现hashCode / equals是有风险的，因为算法背后的数据将不会保持不变，从而在这些字段更改时会引起问题，并且对象在集合中。
+            通常，不定义实体对象的hashCode和equals，而是将其视为IdentityHashSet / Maps的对象，通常更安全。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="JPAI_NON_PROXIED_TRANSACTION_CALL">
-        <ShortDescription>方法 annotated with @Transactional is called from a non Spring proxy</ShortDescription>
-        <LongDescription>方法 {1} annotated with @Transactional is called from a non Spring proxy</LongDescription>
+        <ShortDescription>方法带有@Transactional注释，被非Spring代理调用</ShortDescription>
+        <LongDescription>方法 {1} 带有@Transactional注释，被非Spring代理调用</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 call is to a method that has a @Transactional annotation on it.
-            However, since this call is from the same class, it is not going through any Spring proxy, and thus the transactional quality of this method is completely lost. @Transactional methods must always be called through a Spring bean that is autowired.</p>
+            <p>此方法是带有@Transactional批注的。
+            但是，由于此调用来自同一类，因此它不会通过任何Spring代理，因此该方法的事务质量完全丧失了。
+            必须始终通过自动装配的Spring bean调用@Transactional方法。</ p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="JPAI_INEFFICIENT_EAGER_FETCH">
-        <ShortDescription>OneToMany join specifies 1+n EAGER join</ShortDescription>
-        <LongDescription>OneToMany join specifies 1+n EAGER join</LongDescription>
+        <ShortDescription>OneToMany联接指定 1+n EAGER 联接</ShortDescription>
+        <LongDescription>OneToMany联接指定 1+n EAGER 联接</LongDescription>
         <Details>
         <![CDATA[
-        <p>This JPA entity specifies a @OneToMany join with a fetch type of EAGER.
-            By default EAGER joins perform select operations on each element returned from the original query in sequence, thus producing 1 + n queries.
-        If you are going to use EAGER joins, it is wise to specify a Join type by using @Fetch annotations in
-        Hibernate or @JoinFetch/@BatchFetch annotations (or hints) in EclipseLink, for example.
-            Even so, these annotations may only apply in limited cases, such as in the use of find.</p>
+        <p>该JPA实体指定了@OneToMany联接，并具有EAGER的提取类型。
+        默认情况下，EAGER联接对从原始查询返回的每个元素依次执行选择操作，从而产生 1+n 个查询。
+        例如，如果要使用EAGER联接，明智的做法是使用Hibernate中的@Fetch注释或EclipseLink中的@JoinFetch/@BatchFetch注释（或提示）来指定Join类型。
+        即使这样，这些注释也可能仅在有限的情况下适用，例如在使用find的情况下。</ p>
         ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="JPAI_IGNORED_MERGE_RESULT">
-        <ShortDescription>方法 ignores the return value of EntityManager.merge</ShortDescription>
-        <LongDescription>方法 {1} ignores the return value of EntityManager.merge</LongDescription>
+        <ShortDescription>方法忽略EntityManager.merge的返回值</ShortDescription>
+        <LongDescription>方法 {1} 忽略EntityManager.merge的返回值</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 calls EntityManager.merge, and throws away the resultant value.
-            This result is the managed entity version of the potentially unmanaged object that was passed to merge.
-            You should use the returned managed entity for any further use.</p>
+            <p>此方法调用EntityManager.merge，并丢弃结果值。
+            此结果是传递给合并的潜在非托管对象的托管实体版本。
+            您应该将返回的管理实体用于任何其他用途。</ p>
             ]]>
         </Details>
     </BugPattern>
