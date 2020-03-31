@@ -1644,6 +1644,16 @@ a[0] = new A(); // results in ArrayStoreException (Runtime)
             <p>It is a fast detector</p>
             ]]>
         </Details>
+    </Detector>    
+    
+    <Detector class="com.mebigfatguy.fbcontrib.detect.EnumIssues">
+        <Details>
+            <![CDATA[
+            <p>Looks for various issues with uses of enum objects.
+            </p>
+            <p>It is a fast detector</p>
+            ]]>
+        </Details>
     </Detector>
     
     <Detector class="com.mebigfatguy.fbcontrib.debug.OCSDebugger">
@@ -1738,7 +1748,7 @@ builder.append(someObj);
 ...
 System.out.println("Problem with the object :" + someObj);
 </code></pre>
-            来避免当一个对象确实 是空(<code>null</code>) 时报出<code>NullPointerException</code>的可能性<code>null</code>.
+            来避免当一个对象确实是空(<code>null</code>) 时报出<code>NullPointerException</code>的可能性<code>null</code>.
             </p>
             ]]>
         </Details>
@@ -1797,7 +1807,7 @@ private void appendToList(List&lt;String&gt; list) {
             </p>
 
             <p>IDE倾向于提供工具来帮助生成参数。
-             比如，在 Eclipse里有重构工具：<a href="http://help.eclipse.org/luna/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Freference%2Fref-menu-refactor.htm">Generalize Declared Type</a>帮助找到一个合适级别的</p>
+            比如，在 Eclipse里有重构工具：<a href="http://help.eclipse.org/luna/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Freference%2Fref-menu-refactor.htm">Generalize Declared Type</a>帮助找到一个合适级别的</p>
             ]]>
         </Details>
     </BugPattern>
@@ -2962,18 +2972,6 @@ if (myString.indexOf('e') != -1) {
             <p>此方法调用StringBuffer或StringBuilder构造函数，并传入一个恒定的空字符串("")。
             这与调用默认构造函数相同，但是使代码更难工作。
             考虑改用默认大小。</p>
-            ]]>
-        </Details>
-    </BugPattern>
-
-    <BugPattern type="SPP_EQUALS_ON_ENUM">
-        <ShortDescription>方法在枚举实例上调用equals</ShortDescription>
-        <LongDescription>方法 {1}在枚举实例上调用equals</LongDescription>
-        <Details>
-            <![CDATA[
-            <p>此方法在枚举实例上调用equals(Object)方法。
-            由于枚举值是单例，因此可以使用==安全比较两个枚举值。
-            实际上，Enum.equals的实现就是这样做。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -4324,13 +4322,13 @@ if (name != null) {
         <LongDescription>方法 {1} 创建一个不安全的随机对象，这可能会带来安全风险</LongDescription>
         <Details>
             <![CDATA[
-            <p><code>Random()</code>没有种子的构造函数是不安全的，因为它默认为易于猜测的种子：<code>System.currentTimeMillis()</code>.
+            <p><code>Random()</code>没有种子的构造函数是不安全的，因为它默认为易于猜测的种子：<code>System.currentTimeMillis()</code>。
             初始化<code>new Random(SecureRandom.getInstance("SHA1PRNG").nextLong())</code>之类的种子，或将<code>Random()</code>替换为<code>SecureRandom.getInstance("SHA1PRNG")</code>。
             "SHA1PRNG"是所有平台上支持的随机算法。
             </p>
 
             <p>
-            从Java 6开始，您可以使用<code>new Random(new SecureRandom().nextLong())</code>或<code>new SecureRandom()</code>代替.
+            从Java 6开始，您可以使用<code>new Random(new SecureRandom().nextLong())</code>或<code>new SecureRandom()</code>代替。
             </p>
             ]]>
         </Details>
@@ -4973,7 +4971,7 @@ public String requestInfo(URI u) {
         this.httpGet.reset();
     }</b>
     return null;
-}<br/>
+}
 </code></pre>
             </p>
             ]]>
@@ -5002,7 +5000,7 @@ public String requestInfo(URI u) {
                 会在几次请求后冻结，通常不会说明原因。 </p>
 
             <p>
-                此代码冻结的原因是因为<code> org.apache.http.HttpRequest</code>需要通过调用<code> reset()</code>或<code> releaseConnection()显式释放其连接。</code>，<b>即使请求是本地的</ b>。
+                此代码冻结的原因是因为<code> org.apache.http.HttpRequest</code>需要通过调用<code> reset()</code>或<code> releaseConnection()显式释放其连接。</code>，<b>即使请求是本地的</b>。
                 垃圾收集器不会释放这些资源，从而导致上述令人沮丧的冻结方案。<br/>
                 
                 上面的示例很容易解决：<br/>
@@ -5033,7 +5031,7 @@ public String requestInfo(URI u) {
             <![CDATA[
             <p>此方法长度超过8000个字节。
             默认情况下，无论JIT多么热，JIT都不会尝试对其进行编译，因此将始终对该方法进行解释。
-            如果性能很重要，则应考虑将此方法分解为较小的块。 (这对于可读性也是个好主意！)</ p>
+            如果性能很重要，则应考虑将此方法分解为较小的块。 (这对于可读性也是个好主意！)</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5044,7 +5042,7 @@ public String requestInfo(URI u) {
         <Details>
             <![CDATA[
             <p>此方法接受看起来似乎代表时间的两个值，并直接对这两个值执行算术运算，即使这两个值似乎代表不同的时间单位，例如将毫秒值添加到纳秒值也是如此。
-            为了使它有意义，您应该在执行此计算之前将两个值转换为相同的时间单位。</ p>
+            为了使它有意义，您应该在执行此计算之前将两个值转换为相同的时间单位。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5056,9 +5054,9 @@ public String requestInfo(URI u) {
             <![CDATA[
             <p>此方法使用字符串来指定<code> Charset</code>编码。
             但是，所调用的方法具有使用<code> Charset</code>对象的替代签名。
-            您应该使用此签名，因为此类是使用JDK 7(或更高版本)编译的，并且有问题的<code> Charset</code>可从<code> java.nio.charset.StandardCharsets </ const>获取作为常量。代码>类。</p>
+            您应该使用此签名，因为此类是使用JDK 7(或更高版本)编译的，并且有问题的<code> Charset</code>可从<code> java.nio.charset.StandardCharsets </const>获取作为常量。代码>类。</p>
             <p>例如，使用<code> StandardCharsets.UTF_8</code>而不是指定"UTF-8"。
-            这样做的另一个好处是您无需捕获<code> UnsupportedEncodingException</code>。</ p>
+            这样做的另一个好处是您无需捕获<code> UnsupportedEncodingException</code>。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5069,7 +5067,7 @@ public String requestInfo(URI u) {
         <Details>
             <![CDATA[
             <p>此方法使用手工输入的<code> String</code>文字来指定<code> Charset</code>编码。
-            由于此类是使用JDK 7(或更高版本)编译的，并且有问题的字符集可从<code> java.nio.charset.StandardCharsets</code>类中作为常量使用，因此最好使用.name( )的相应<code> StandardCharsets</code>常量的方法。</ p>
+            由于此类是使用JDK 7(或更高版本)编译的，并且有问题的字符集可从<code> java.nio.charset.StandardCharsets</code>类中作为常量使用，因此最好使用.name( )的相应<code> StandardCharsets</code>常量的方法。</p>
 
             <p>有问题的方法不直接将<code> Charset</code>作为参数，仅支持<code> String</code>。
             不过，请使用<code> StandardCharsets.UTF_8.name()</code>，而不是指定"UTF-8"之类的内容(并可能会混淆)。
@@ -5084,7 +5082,7 @@ public String requestInfo(URI u) {
         <Details>
             <![CDATA[
             <p>此方法使用当前JDK无法识别的String文字指定<code> Charset</code>编码。
-            该应用程序可能仅会部署在能够识别这种编码的JVM上，但是这种情况似乎令人怀疑。</ p>
+            该应用程序可能仅会部署在能够识别这种编码的JVM上，但是这种情况似乎令人怀疑。</p>
             <p>
             标准的JDK编码(对于Java 8)是"UTF-8"，"US-ASCII"，"ISO-8859-1"，"UTF-16BE"，"UTF-16LE"，"UTF-16"。这些都是区分大小写的。
             </p>
@@ -5156,7 +5154,7 @@ public String requestInfo(URI u) {
             <p>此方法使用StringBuilder隐式或显式构建地图的键。
             这意味着键的类型不仅仅是字符串常量，它是格式正确的字符串。
             但是，没有基于类型的验证，表明此密钥的所有使用都将遵循此格式。
-            最好使用一个适当的，简单的，包含两个（或更多）字段的Bean类，以便清楚地知道对键使用的期望。
+            最好使用一个适当的，简单的，包含两个(或更多)字段的Bean类，以便清楚地知道对键使用的期望。
             </p>
             <p>
             例<br/>
@@ -5171,8 +5169,8 @@ public String requestInfo(URI u) {
             其中ColumnSpec是您创建的一个简单的类似于bean的类。
             优点是
             <ul>
-                <li>ColumnSpec完全描述了预期的情况，您需要tableName和columnName </ li>
-                <li>程序员没有猜测格式是什么，是tableName +“ _” + columnName吗？</ li>
+                <li>ColumnSpec完全描述了预期的情况，您需要tableName和columnName </li>
+                <li>程序员没有猜测格式是什么，是tableName + "_" + columnName吗？</li>
             </ul>
             </p>
             ]]>
@@ -5195,7 +5193,7 @@ for (Person p : people) {
     }
 }
 </code></pre>
-            在获得“Dave”的年龄后，您可能想休息一下。</p>
+            在获得“Dave"的年龄后，您可能想休息一下。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5219,7 +5217,7 @@ for (Person p : people) {
         <LongDescription>类 {0} 没有实现equals方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>此类具有实例字段，没有equals（Object o）方法。
+            <p>此类具有实例字段，没有equals(Object o)方法。
             可能此类永远不会在一个需要用equals方法的上下文中使用。但是，通常使用此类的使用者假定它是存在的，因此在创建此类方法时最好添加此类方法。
             </p>
             ]]>
@@ -5231,7 +5229,7 @@ for (Person p : people) {
         <LongDescription>类 {0} 没有实现hashCode方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>此类具有实例字段，没有hashCode（）方法。
+            <p>此类具有实例字段，没有hashCode()方法。
             可能此类永远不会在一个需要用hashCode方法的上下文中使用。但是，通常使用此类的使用者假定它是存在的，因此在创建此类方法时最好添加此类方法。
             </p>
             ]]>
@@ -5245,7 +5243,7 @@ for (Person p : people) {
             <![CDATA[
             <p>此类在默认包中创建。
             应该在适当的包结构中定义类，通常通过代码库所有者的域名的反向定义。
-            将代码放入默认（没有）包会限制其用途，包括：
+            将代码放入默认(没有)包会限制其用途，包括：
             <ol>
                 <li>无法将此类导入带有包的类中</li>
                 <li>保留它以命名与其他软件包的冲突。</li>
@@ -5260,8 +5258,8 @@ for (Person p : people) {
         <LongDescription>类 {0} 没有实现toString方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>此类具有实例字段，没有toString（）方法，这会使使用该类进行调试的难度大大增加。
-            考虑添加toString（）方法。
+            <p>此类具有实例字段，没有toString()方法，这会使使用该类进行调试的难度大大增加。
+            考虑添加toString()方法。
             使用commons-lang3 ToStringBuilder之类的库使此过程变得容易。
             </p>
             ]]>
@@ -5274,7 +5272,7 @@ for (Person p : people) {
         <Details>
             <![CDATA[
             <p>此方法似乎是使用IDE从接口或超类生成的。
-            因此，IDE为该方法的参数生成了通用名称（arg0，arg1，arg2），并且该方法的作者并未将其更改为有意义的。
+            因此，IDE为该方法的参数生成了通用名称(arg0，arg1，arg2)，并且该方法的作者并未将其更改为有意义的。
             为了更好地理解，建议您根据功能命名这些参数。</p>
             ]]>
         </Details>
@@ -5299,7 +5297,7 @@ for (Person p : people) {
             <![CDATA[
             <p>此类以混乱的顺序定义字段，而其他开发人员则不希望这样做。
             该标准是首先列出静态字段，然后列出实例字段。
-            如果字段顺序混乱，则开发人员可能会对其行为做出不正确的假设，并导致错误。</ p>
+            如果字段顺序混乱，则开发人员可能会对其行为做出不正确的假设，并导致错误。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5332,17 +5330,17 @@ for (Person p : people) {
         <Details>
             <![CDATA[
             <p>此可序列化的类定义了似乎是计算值的serialVersionUID，但是该值与计算值不匹配，因此失去了其作为版本指示符的值。
-            创建自定义值（例如1、2、3、4等），或使用IDE重新计算serialVersionUID。</ p>
+            创建自定义值(例如1、2、3、4等)，或使用IDE重新计算serialVersionUID。</p>
             ]]>
         </Details>
     </BugPattern>
     
     <BugPattern type="IMC_IMMATURE_CLASS_VAR_NAME">
-        <ShortDescription>类定义一个名为“var”的字段或局部变量</ShortDescription>
-        <LongDescription>类 {0} 定义一个名为“var”的字段或局部变量</LongDescription>
+        <ShortDescription>类定义一个名为“var"的字段或局部变量</ShortDescription>
+        <LongDescription>类 {0} 定义一个名为“var"的字段或局部变量</LongDescription>
         <Details>
             <![CDATA[
-            <p>字段或变量名为“var”，它将与使用“var”作为关键字的Java 10内置功能冲突。</p>
+            <p>字段或变量名为“var"，它将与使用“var"作为关键字的Java 10内置功能冲突。</p>
             ]]>
         </Details>
     </BugPattern>      
@@ -5354,7 +5352,7 @@ for (Person p : people) {
             <![CDATA[
             <p>该JAX-RS端点被注释为与@GET请求一起使用，但也记录了它使用JSON或XML数据的文档。
             由于GET请求从URL中提取参数，而不是请求的主体，因此此模式存在问题。
-            如果您希望使用JSON或XML数据，则此请求应使用@POST注释。</ p>
+            如果您希望使用JSON或XML数据，则此请求应使用@POST注释。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5377,7 +5375,7 @@ for (Person p : people) {
                 <li>javax.servlet.HttpServletRequest</li>
                 <li>javax.servlet.HttpServletResponse</li>
             </ul>
-            您的容器可能可以提供其他类型，但是这些类型不是标准的，其他应用程序服务器可能不支持。</ p>
+            您的容器可能可以提供其他类型，但是这些类型不是标准的，其他应用程序服务器可能不支持。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5387,7 +5385,7 @@ for (Person p : people) {
         <LongDescription>JAX-RS方法 {1} 指定不可解析的@PathParam</LongDescription>
         <Details>
             <![CDATA[
-            <p>此JAX-RS端点指定了@PathParam，该@PathParam在@Path批注中找不到，因此无法确定从何处填充该参数。</ p>
+            <p>此JAX-RS端点指定了@PathParam，该@PathParam在@Path注解中找不到，因此无法确定从何处填充该参数。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5398,7 +5396,7 @@ for (Person p : people) {
         <Details>
             <![CDATA[
             <p>此JAX-RS端点声明一个参数时未指定此参数的值来自何处。
-            您可以使用以下几种“Param”注释（@PathParam，@CookieParam，@FormParam @HeaderParam @MatrixParam @QueryParam）之一来指定，也可以添加@Context参数注释，或者可以声明方法@Consumes为XML或JSON流。</ p>
+            您可以使用以下几种“Param"注释(@PathParam，@CookieParam，@FormParam @HeaderParam @MatrixParam @QueryParam)之一来指定，也可以添加@Context参数注释，或者可以声明方法@Consumes为XML或JSON流。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5408,9 +5406,9 @@ for (Person p : people) {
         <LongDescription>方法 {1} 上面有一个Spring @Transactional注释，但该方法不公开</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法指定一个Spring @Transactional批注，但该方法被定义为非公开。
+            <p>此方法指定一个Spring @Transactional注解，但该方法被定义为非公开。
             Spring仅在公共方法上创建事务边界，因此此注释不对该方法做任何事情。
-            将方法公开，或将注释放在更合适的方法上。</ p>
+            将方法公开，或将注释放在更合适的方法上。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5421,8 +5419,8 @@ for (Person p : people) {
         <Details>
             <![CDATA[
             <p>此类定义为JPA实体，并具有由JPA提供程序生成的@Id字段。
-            由于您不控制直接创建该Id的时间，因此为此类（尤其是与Collections一起使用）实现hashCode / equals是有风险的，因为算法背后的数据将不会保持不变，从而在这些字段更改时会引起问题，并且对象在集合中。
-            通常，不定义实体对象的hashCode和equals，而是将其视为IdentityHashSet / Maps的对象，通常更安全。</ p>
+            由于您不控制直接创建该Id的时间，因此为此类(尤其是与Collections一起使用)实现hashCode / equals是有风险的，因为算法背后的数据将不会保持不变，从而在这些字段更改时会引起问题，并且对象在集合中。
+            通常，不定义实体对象的hashCode和equals，而是将其视为IdentityHashSet / Maps的对象，通常更安全。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5432,9 +5430,9 @@ for (Person p : people) {
         <LongDescription>方法 {1} 带有@Transactional注释，被非Spring代理调用</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法是带有@Transactional批注的。
+            <p>此方法是带有@Transactional注解的。
             但是，由于此调用来自同一类，因此它不会通过任何Spring代理，因此该方法的事务质量完全丧失了。
-            必须始终通过自动装配的Spring bean调用@Transactional方法。</ p>
+            必须始终通过自动装配的Spring bean调用@Transactional方法。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5446,8 +5444,8 @@ for (Person p : people) {
         <![CDATA[
         <p>该JPA实体指定了@OneToMany联接，并具有EAGER的提取类型。
         默认情况下，EAGER联接对从原始查询返回的每个元素依次执行选择操作，从而产生 1+n 个查询。
-        例如，如果要使用EAGER联接，明智的做法是使用Hibernate中的@Fetch注释或EclipseLink中的@JoinFetch/@BatchFetch注释（或提示）来指定Join类型。
-        即使这样，这些注释也可能仅在有限的情况下适用，例如在使用find的情况下。</ p>
+        例如，如果要使用EAGER联接，明智的做法是使用Hibernate中的@Fetch注释或EclipseLink中的@JoinFetch/@BatchFetch注释(或提示)来指定Join类型。
+        即使这样，这些注释也可能仅在有限的情况下适用，例如在使用find的情况下。</p>
         ]]>
         </Details>
     </BugPattern>
@@ -5459,7 +5457,7 @@ for (Person p : people) {
             <![CDATA[
             <p>此方法调用EntityManager.merge，并丢弃结果值。
             此结果是传递给合并的潜在非托管对象的托管实体版本。
-            您应该将返回的管理实体用于任何其他用途。</ p>
+            您应该将返回的管理实体用于任何其他用途。</p>
             ]]>
         </Details>
     </BugPattern>
@@ -5492,7 +5490,7 @@ for (Person p : people) {
         <LongDescription>方法 {1} 以次优的方式对条件进行排序</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法例如在<code> if </ code>或<code> while </ code>语句中构建条件表达式，其中该表达式既包含简单的局部变量比较，又包含方法调用的比较。
+            <p>此方法例如在<code> if </code>或<code> while </code>语句中构建条件表达式，其中该表达式既包含简单的局部变量比较，又包含方法调用的比较。
             表达式对这些命令进行排序，以便在简单的局部变量比较之前进行方法调用。
             这导致方法调用在不需要的条件下执行，因此有可能导致大量代码无执行。
             通过对表达式进行排序，以便首先包含局部变量条件的简单条件，可以消除这种浪费。
@@ -5513,41 +5511,41 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
 
     <BugPattern type="IOI_DOUBLE_BUFFER_COPY">
-        <ShortDescription>方法 passes a Buffered Stream/Reader/Writer to a already buffering copy method</ShortDescription>
-        <LongDescription>方法 {1} passes a Buffered Stream/Reader/Writer to a already buffering copy method</LongDescription>
+        <ShortDescription>方法将Buffered Stream / Reader / Writer传递给已经缓冲的复制方法</ShortDescription>
+        <LongDescription>方法 {1} 将Buffered Stream / Reader / Writer传递给已经缓冲的复制方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 copies data from input to output using streams or reader/writers using a well known copy method, from java.nio, commons-io, springframework, guava or poi.
-            These methods are efficient in that they copy these files using buffers.
-            However, this method is also buffering the streams, causing a double buffering to occur.
-            So data first goes to one buffer, then is copied to another buffer, before making it to the destination (or vice-versa).
-            This just causes the copy operation to be inefficient both from a time perspective and a memory allocation one.
-            When using these copy methods, do not pass buffered streams/readers/writers.</p>
+            <p>此方法使用流或众所周知的复制方法(java.nio, commons-io, springframework, guava 或 poi)的读取器/写入器将数据从输入复制到输出。
+            这些方法之所以有效，是因为它们使用缓冲区复制了这些文件。
+            但是，此方法还在缓冲流，从而导致出现双重缓冲。
+            因此，数据首先到达一个缓冲区，然后再复制到另一个缓冲区，然后再传递到目的地(反之亦然)。
+            从时间角度和内存分配角度来看，这仅会使复制操作效率低下。
+            使用这些复制方法时，请勿传递缓冲的流/读取器/写入器。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IOI_COPY_WITH_READER">
-        <ShortDescription>方法 performs bulk stream copy with a java.io.Reader derived input</ShortDescription>
-        <LongDescription>方法 {1} performs bulk stream copy with a java.io.Reader derived input</LongDescription>
+        <ShortDescription>方法使用java.io.Reader派生的输入执行批量流复制</ShortDescription>
+        <LongDescription>方法 {1} 使用java.io.Reader派生的输入执行批量流复制</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 copies data from a java.io.Reader derived class to an output class, using a bulk copy method supplied by java.nio, commons-io, springframework, guava or poi.
-            Since you are copying the entire stream, you don't care about its contents, and thus using a Reader is wasteful, as a reader has to do the hard work of converting byte data to characters, when there is no need to do this.
-            Use stream based inputs for better performance.</p>
+            <p>此方法使用java.nio，commons-io，springframework，guava或poi提供的批量复制方法，将数据从java.io.Reader派生类复制到输出类。
+            由于您正在复制整个流，因此您无需关心其内容，因此使用Reader是浪费的，因为在不需要这样做的情况下，阅读器必须完成将字节数据转换为字符的艰苦工作。
+            使用基于流的输入以获得更好的性能。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="IOI_USE_OF_FILE_STREAM_CONSTRUCTORS">
-        <ShortDescription>方法 uses a FileInputStream or FileOutputStream constructor</ShortDescription>
-        <LongDescription>方法 {1} uses a FileInputStream or FileOutputStream constructor</LongDescription>
+        <ShortDescription>方法使用FileInputStream或FileOutputStream构造函数</ShortDescription>
+        <LongDescription>方法 {1} 使用FileInputStream或FileOutputStream构造函数</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 creates and uses a java.io.FileInputStream or java.io.FileOutputStream object.
-            Unfortunately both of these classes implement a finalize method, which means that objects created will likely hang around until a full garbage collection occurs, which will leave excessive garbage on the heap for longer, and potentially much longer than expected.
-            Java 7 introduced two ways to create streams for reading and writing files that do not have this concern.
-            You should consider switching from these above classes to
+            <p>此方法创建并使用一个java.io.FileInputStream或java.io.FileOutputStream对象。
+            不幸的是，这两个类都实现了finalize方法，这意味着所创建的对象可能会一直徘徊，直到发生完整的垃圾回收为止，这将使堆上过多的垃圾停留的时间更长，甚至可能比预期的更长。
+            Java 7引入了两种创建流的方法，这些流不需要读写就可以读取和写入文件。
+            您应该考虑从以上这些类切换到
             <code>
             InputStream is = java.nio.file.Files.newInputStream(myfile.toPath());
             OutputStream os = java.nio.file.Files.newOutputStream(myfile.toPath()); 
@@ -5558,105 +5556,105 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
     
     <BugPattern type="IOI_UNENDED_ZLIB_OBJECT">
-        <ShortDescription>方法 creates a ZLIB Inflater or Deflater and doesn't appear to end() it</ShortDescription>
-        <LongDescription>方法 {1} creates a ZLIB Inflater or Deflater and doesn't appear to end() it</LongDescription>
+        <ShortDescription>方法创建一个ZLIB压缩器对象或解压缩器对象，但似乎没有调用end()</ShortDescription>
+        <LongDescription>方法 {1} 创建一个ZLIB压缩器对象或解压缩器对象，但似乎没有调用end()</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 constructs a java.util.zip.Inflater or java.util.zip.Deflater and does not appear to call end() on it.
-            This will cause a potentially large amount of memory to hang around inside the object until the object gets garbage collected.
-            To avoid this unnecessary bloat, put a call to end() in a finally block of the code where you are using this instance.
+            <p>此方法构造一个java.util.zip.Inflater或java.util.zip.Deflater，并且似乎没有对其调用end()。
+            这将导致潜在的大量内存在对象内部徘徊，直到对象被垃圾回收为止。
+            为了避免这种不必要的膨胀，请在使用此实例的代码的finally块中对end()进行调用。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="DMC_DUBIOUS_MAP_COLLECTION">
-        <ShortDescription>类 holds a map-type field, but uses it as only a List</ShortDescription>
-        <LongDescription>类 {0} holds a map-type field {1}, but uses it as only a List</LongDescription>
+        <ShortDescription>类持有一个Map类型字段，但仅将其用作列表</ShortDescription>
+        <LongDescription>类 {0} 持有一个Map类型字段 {1}，但仅将其用作列表</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 instantiates a map-type field in a static initializer or constructor, but then only uses it through iteration.
-            This means that this data structure should really just be a List&lt;SomeObject&gt;, where the class held by the list contains the two fields held by the key and value of the Map.
-            It was likely done this way to avoid having to create a class, but this just obfuscates the purpose of the field.
+            <p>此方法在静态初始值设定项或构造函数中实例化Map类型字段，但仅在迭代过程中使用它。
+            这意味着该数据结构实际上应该只是一个List&lt;SomeObject&gt;，其中列表所包含的类包含Map的键和值所包含的两个字段。
+            这样做是为了避免必须创建类，但这只是混淆了该字段的用途。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="BL_BURYING_LOGIC">
-        <ShortDescription>方法 buries logic to the right (indented) more than it needs to be</ShortDescription>
-        <LongDescription>方法 {1} buries logic to the right (indented) more than it needs to be</LongDescription>
+        <ShortDescription>方法将逻辑缩进得超出其需要的范围</ShortDescription>
+        <LongDescription>方法 {1} 将逻辑缩进得超出其需要的范围</LongDescription>
         <Details>
             <![CDATA[
-            <p>Looks for relatively large <code>if</code> blocks of code, where you unconditionally return from them, and then follow that with an unconditional return of a small block.
-            This places the bulk of the logic to the right indentation-wise, making it more difficult to read than needed.
-            It would be better to invert the logic of the if block, and immediately return, allowing the bulk of the logic to be move to the left for easier reading.</p>
+            <p>查找相对较大的<code> if </code>代码块，您在其中无条件返回它们，然后在此之后无条件返回一个小块。
+            这样大部分逻辑需要右缩进，从而使阅读变得比需要的更加困难。
+            最好反转if块的逻辑，然后立即返回，以便将大部分逻辑移到左侧，以便于阅读。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="WI_DUPLICATE_WIRED_TYPES">
-        <ShortDescription>类 auto wires the same object into two separate fields in a class hierarchy</ShortDescription>
-        <LongDescription>类 {0} auto wires the same object into two separate fields in a class hierarchy</LongDescription>
+        <ShortDescription>类自动将同一对象连接到类层次结构中的两个单独的字段中</ShortDescription>
+        <LongDescription>类 {0} 自动将同一对象连接到类层次结构中的两个单独的字段中</LongDescription>
         <Details>
             <![CDATA[
-            <p>This class has two fields in either itself or a parent class, which autowire (without specialization) the same object for both fields.
-            This is likely caused by a developer just not being aware that the field already is available for your use, and just causes wasted space, and confuses code access to the same object through two different pathways.</p>
+            <p>此类在其自身或父类中都有两个字段，它们自动(没有专门化)为两个字段都连接相同的对象。
+            这很可能是由于开发人员只是不知道该字段已经可供使用，而导致浪费的空间，并使通过两个不同途径对同一对象的代码访问混乱所致。</p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="WI_MANUALLY_ALLOCATING_AN_AUTOWIRED_BEAN">
-        <ShortDescription>方法 allocates an object with new when the class is defined as an autowireable bean</ShortDescription>
-        <LongDescription>方法 {1} allocates an object with new when the class is defined as an autowireable bean</LongDescription>
+        <ShortDescription>方法当类定义为可自动装配的bean时，使用new分配一个对象</ShortDescription>
+        <LongDescription>方法 {1} 当类定义为可自动装配的bean时，使用new分配一个对象</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 allocates an object with new, but the class of the object that is being created is marked with a Spring annotation denoting that this class is to be used through an @Autowire annotation.
-            Allocating it with <code>new</code> will likely mean that fields on the class will not be autowired, but instead be null.
-            You should just autowire an instance of this class into the class in question, or if need be, use Spring's getBean(name) method to fetch one.</p>
+            <p>此方法用new分配一个对象，但是正在创建的对象的类用Spring注释标记，该注释表示该类将通过@Autowire注释使用。
+            用<code> new </code>分配它可能意味着该类上的字段不会自动装配，而是为null。
+            您应该只将该类的一个实例自动装配到所讨论的类中，或者如果需要，使用Spring的getBean(name)方法来获取一个。</p>
             ]]>
         </Details>
     </BugPattern>
     
     <BugPattern type="WI_WIRING_OF_STATIC_FIELD">
-        <ShortDescription>Static field is autowired</ShortDescription>
-        <LongDescription>Static Field {1} is autowired</LongDescription>
+        <ShortDescription>静态字段自动装配</ShortDescription>
+        <LongDescription>静态字段 {1} 自动装配</LongDescription>
         <Details>
             <![CDATA[
-            <p>Autowiring of static fields does not work using simple @Autowire annotations, not should you attempt to do so as it's an anti pattern.
-            Use PostConstruct methods to initialize static fields if you must do something like this.</p>
+            <p>使用简单的@Autowire注释无法自动完成静态字段的自动装配，也不应尝试这样做，因为这是一种反模式。
+            如果必须执行以下操作，请使用PostConstruct方法初始化静态字段。</p>
             ]]>
         </Details>
     
     </BugPattern>
 
     <BugPattern type="CCI_CONCURRENT_COLLECTION_ISSUES_USE_PUT_IS_RACY">
-        <ShortDescription>方法 gets and sets a value of a ConcurrentHashMap in a racy manner</ShortDescription>
-        <LongDescription>方法 {1} gets and sets a value of a ConcurrentHashMap in a racy manner</LongDescription>
+        <ShortDescription>方法以一种简洁的方式获取并设置ConcurrentHashMap的值</ShortDescription>
+        <LongDescription>方法 {1} 以一种简洁的方式获取并设置ConcurrentHashMap的值</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 retrieves the value of a key from a ConcurrentHashMap, where the value is itself a collection.
-            It checks this value for null, and if it is so, creates a new collection and places it in the map.
-            This may cause thread race conditions where two threads overwrite each other's values.
-            You should be using
+            <p>此方法从ConcurrentHashMap检索键的值，该值本身就是一个集合。
+            它将检查此值是否为null，如果是，则创建一个新集合并将其放置在地图中。
+            这可能会导致两个线程形成竞态，覆盖彼此的值。
+            您应该使用
             <code>
                 ConcurrentHashMap.putIfAbsent(K, V)
             </code>
-            instead.
+            代替。
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UTWR_USE_TRY_WITH_RESOURCES">
-        <ShortDescription>方法 manually handles closing an auto-closeable resource</ShortDescription>
-        <LongDescription>方法 {1} manually handles closing an auto-closeable resource</LongDescription>
+        <ShortDescription>方法手动关闭可自动关闭的资源</ShortDescription>
+        <LongDescription>方法 {1} 手动关闭可自动关闭的资源</LongDescription>
         <Details>
             <![CDATA[[
-            <p>此方法 allocates and uses an auto closeable resource.
-            However, it manually closes the resource in a finally block.
-            While this is correct management, it doesn't rely on the idiomatic way available to JDK 7 and above, allows for possible subtle problems, and complicates the reading of code by developers expecting the use of try-with-resources.
+            <p>此方法分配和使用自动关闭资源。
+            但是，它在finally块中手动关闭资源。
+            尽管这是正确的管理，但它不依赖于JDK 7及更高版本可用的惯用方式，可能会引起细微的问题，并使希望使用try-with-resources的开发人员的代码读取变得复杂。
             </p>
-            <p>Switch to using try with resources, as:
+            <p>切换为对资源使用try，例如：
             <pre>
                 try (InputStream is = getAStream()) {
                     useTheStream(is);
@@ -5667,18 +5665,18 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
 
     <BugPattern type="SSCU_SUSPICIOUS_SHADED_CLASS_USE">
-        <ShortDescription>方法 calls a method from a class that has been shaded by a 3rdparty jar</ShortDescription>
-        <LongDescription>方法 {1} calls a method from a class that has been shaded by a 3rdparty jar</LongDescription>
+        <ShortDescription>方法从已被第三方类库重命名的类中调用方法</ShortDescription>
+        <LongDescription>方法 {1} 从已被第三方类库重命名的类中调用方法</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 calls a method found in a 3rd-party library, which appears to be shaded from another 3rd-party library.
-            This occurs when a jar includes other code that uses tools like the maven shade plugin.
-            It is likely you wanted to use the "first-class" class from the original jar, rather than the class with the shaded package structure, but your IDE pulled in the wrong import.</p>
-            <p>An example might be, you attempted to use a method from the class:
+            <p>此方法调用在第三方类库重命名的类中找到的方法，该方法似乎已从原始第三方类库中删除。
+            当jar包含使用诸如maven shade plugin之类工具打包的其他代码时，就会发生这种情况。
+            您可能想使用原始jar中的第一手类，而不是使用被重命名后的类，但是您的IDE导入错误。</p>
+            <p>例如，您尝试使用该类中的方法：
             <pre><code>
             com.google.common.collect.Sets
             </code></pre>
-            But instead, you import:
+            但是，您导入：
             <pre><code>
             org.apache.jena.ext.com.google.common.collect.Sets
             </code></pre>
@@ -5688,121 +5686,121 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
 
     <BugPattern type="USFW_UNSYNCHRONIZED_SINGLETON_FIELD_WRITES">
-        <ShortDescription>方法 of Singleton class writes to a field in an unsynchronized manner</ShortDescription>
-        <LongDescription>方法 {1} of Singleton class writes to a field in an unsynchronized manner</LongDescription>
+        <ShortDescription>Singleton类实例的方法以非同步方式写入字段</ShortDescription>
+        <LongDescription>Singleton类实例的方法 {1} 以非同步方式写入字段</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 writes to a field of this class.
-            Since this class is seen as a Singleton this can produce race conditions, or cause non-visible changes to other threads, because the field isn't accessed synchronously.
+            <p>此方法写入此类的字段。
+            由于此类被视为Singleton，因此可能会产生竞争条件，或对其他线程造成不可见的更改，因为无法同步访问该字段。
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="OI_OPTIONAL_ISSUES_USES_IMMEDIATE_EXECUTION">
-        <ShortDescription>方法 uses immediate execution of a block of code that is often not used</ShortDescription>
-        <LongDescription>方法 {1} uses immediate execution of a block of code that is often not used</LongDescription>
+        <ShortDescription>方法立即执行通常不使用的代码块</ShortDescription>
+        <LongDescription>方法 {1} 立即执行通常不使用的代码块</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses the Optional.orElse() method passing in some code that will execute immediately, whether or not the else case of the Optional is needed.
-            This may cause incorrect side effects to happen, or at the minimum, code to execute for no reason.
-            It would be better to use Optional.orElseGet() ]]>
+            <p>此方法使用Optional.orElse()方法传入一些将立即执行的代码(通常是一个方法，返回值。作为参数，将被先调用获取值再进行Optional的处理)，无论是否需要Optional的其他情况。
+            这可能会导致发生错误的副作用，或者至少会导致无缘无故执行代码。
+            最好使用Optional.orElseGet() ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="OI_OPTIONAL_ISSUES_USES_DELAYED_EXECUTION">
-        <ShortDescription>方法 uses delayed execution of a block of code that is trivial</ShortDescription>
-        <LongDescription>方法 {1} uses immediate execution of a block of code that is trivial</LongDescription>
+        <ShortDescription>方法使用延迟执行微不足道的代码块</ShortDescription>
+        <LongDescription>方法 {1} 使用延迟执行微不足道的代码块</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses the Optional.orElseGet() method passing in a simple variable or constant value.
-            As this value takes no time to execute and causes no side effects, the use of Optional.orElseGet is unnecessary and potentially confusing.
-            You can use Optional.orElse() instead.
+            <p>此方法使用Optional.orElseGet()方法传入简单的变量或常量值。
+            由于此值无需花费时间即可执行且不会引起副作用，因此不需要使用Optional.orElseGet并可能造成混淆。
+            您可以改用Optional.orElse()。
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="OI_OPTIONAL_ISSUES_CHECKING_REFERENCE">
-        <ShortDescription>方法 checks an Optional reference for null</ShortDescription>
-        <LongDescription>方法 {1} checks an Optional reference for null</LongDescription>
+        <ShortDescription>方法检查Optional是否为null</ShortDescription>
+        <LongDescription>方法 {1} 检查Optional是否为null</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 compares an Optional reference variable against null.
-            As the whole point of the Optional class is to avoid the null pointer exception, this use pattern is highly suspect.
-            The code should always make sure the Optional reference is valid, and should count on the APIs of this class to check for the held reference instead.
+            <p>此方法将Optional引用变量与null进行比较。
+            因为Optional类的全部要点是避免空指针异常，所以这种使用模式非常值得怀疑。
+            该代码应始终确保Optional引用有效，并应依靠此类的API来检查持有的引用。
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="OI_OPTIONAL_ISSUES_PRIMITIVE_VARIANT_PREFERRED">
-        <ShortDescription>方法 uses a java.util.Optional when use of OptionalInt, OptionalLong, OptionalDouble would be more clear</ShortDescription>
-        <LongDescription>方法 {1} uses a java.util.Optional when use of OptionalInt, OptionalLong, OptionalDouble would be more clear</LongDescription>
+        <ShortDescription>方法使用OptionalInt，OptionalLong，OptionalDouble代替使用java.util.Optional会更清晰</ShortDescription>
+        <LongDescription>方法 {1} 使用OptionalInt，OptionalLong，OptionalDouble代替使用java.util.Optional会更清晰</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 creates an Optional object to hold an int, double or long.
-            In these cases it is more natural to use the Optional variants OptionalInt, OptionalDouble and OptionalLong.
+            <p>此方法创建一个Optional对象来保存一个int，double或long。
+            在这些情况下，使用Optional变种OptionalInt，OptionalDouble和OptionalLong更自然。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="OI_OPTIONAL_ISSUES_USES_ORELSEGET_WITH_NULL">
-        <ShortDescription>方法 uses Optional.orElseGet(null)</ShortDescription>
-        <LongDescription>方法 {1} uses Optional.orElseGet(null)</LongDescription>
+        <ShortDescription>方法使用Optional.orElseGet(null)</ShortDescription>
+        <LongDescription>方法 {1} 使用Optional.orElseGet(null)</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses Optional.orElseGet(null).
-            This method is supposed to to receive a lambda expression for what to execute when the Optional is not there.
-            If you want to just return null, use Optional.orElse(null) instead.
+            <p>此方法使用Optional.orElseGet(null)。
+            当不存在Optional时，此方法应该接收一个lambda表达式以执行要执行的操作。
+            如果只想返回null，请改用Optional.orElse(null)。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UAC_UNNECESSARY_API_CONVERSION_DATE_TO_INSTANT">
-        <ShortDescription>方法 constructs a Date object, merely to convert it to an Instant object</ShortDescription>
-        <LongDescription>方法 {1} constructs a Date object, merely to convert it to an Instant object</LongDescription>
+        <ShortDescription>方法构造一个Date对象，仅将其转换为Instant对象</ShortDescription>
+        <LongDescription>方法 {1} 构造一个Date对象，仅将其转换为Instant对象</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 creates a java.time.Instant object by first creating a java.util.Date object, and then calling toInstant() on it.
-            It is simpler to just construct the Instant object directly, say by using {@code Instant.now()} to get the current time, of by using {@code Instant.parse(CharSequence)} to convert a String.
+            <p>此方法首先创建一个java.util.Date对象，然后在其上调用toInstant()来创建一个java.time.Instant对象。
+            直接构造Instant对象，例如使用<code>Instant.now()</code>来获取当前时间，或者使用<code>Instant.parse(CharSequence)</code>来转换字符串，都更简单。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="UAC_UNNECESSARY_API_CONVERSION_FILE_TO_PATH">
-        <ShortDescription>方法 constructs a File object, merely to convert it to a Path object</ShortDescription>
-        <LongDescription>方法 {1} constructs a File object, merely to convert it to a Path object</LongDescription>
+        <ShortDescription>方法构造一个File对象，只是将其转换为Path对象</ShortDescription>
+        <LongDescription>方法 {1} 构造一个File对象，只是将其转换为Path对象</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 creates a java.nio.file.Path object by first creating a java.io.File object, and then calling toPath() on it.
-            It is simpler to just construct the Path object directly, say by using {@code Paths.get(String...)}.
+            <p>此方法首先创建一个java.io.File对象，然后在其上调用toPath()创建一个java.nio.file.Path对象。
+            直接使用<code>Paths.get(String ...)</code>构造直接构造Path对象更为简单。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="RFI_SET_ACCESSIBLE">
-        <ShortDescription>方法 uses AccessibleObject.setAccessible to modify accessibility of classes</ShortDescription>
-        <LongDescription>方法 {1} uses AccessibleObject.setAccessible to modify accessibility of classes</LongDescription>
+        <ShortDescription>方法使用AccessibleObject.setAccessible修改类的可访问性</ShortDescription>
+        <LongDescription>方法 {1} 使用AccessibleObject.setAccessible修改类的可访问性</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 uses the reflective setAccessible method to alter the behavior of methods and fields in classes in ways that were not expected to be accessed by the author.
-            Doing so circumvents the protections that the author provided through the class definition, and may expose your application to unexpected side effects and problems.
-            This functionality is deprecated in Java 9, and in Java 10 it is expected that this functionality won't work at all.
+            <p>此方法使用反射性setAccessible方法以作者无法预期的方式更改类中方法和字段的行为。
+            这样做会绕过作者通过类定义提供的保护，并可能使您的应用程序暴露于意外的副作用和问题。
+            此功能在Java 9中已弃用，并且在Java 10中，预计该功能将完全不起作用。
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="AI_ANNOTATION_ISSUES_NEEDS_NULLABLE">
-        <ShortDescription>方法 that can return null, is missing a @Nullable annotation</ShortDescription>
-        <LongDescription>方法 {1} that can return null, is missing a @Nullable annotation</LongDescription>
+        <ShortDescription>方法可以返回null，缺少@Nullable注解</ShortDescription>
+        <LongDescription>方法 {1} 可以返回null，缺少@Nullable注解</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 can return null, but is not annotated with an @Nullable annotation.
-            Without this annotation, various IDEs, and static analysis tools may not be able to fully discover possible NullPointerExceptions in your code.
-            By adding these annotations, you will discover problems around null-ness, more easily.</p>
-            <p>Unfortunately there isn't just one @Nullable annotation, but this detector will recognize:</p>
+            <p>此方法可以返回null，但不使用@Nullable注释进行注释。
+            没有此注释，各种IDE和静态分析工具可能无法完全发现代码中可能的NullPointerExceptions。
+            通过添加这些注释，您将更容易发现null问题。</p>
+            <p>不幸的是，存在不只一个@Nullable注释，此检测器将识别：</p>
             <ul>
             <li>org.jetbrains.annotations.Nullable</li>
             <li>javax.annotation.Nullable</li>
@@ -5812,33 +5810,33 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             <li>android.support.annotations.Nullable</li>
             </ul>
             <p>
-            You can supply a comma separated list of classes that are custom Nullable Annotations if you desire, by using the system property -Dfb-contrib.ai.annotations="com.acme.Foo,com.acme.Boo" when run.
+            如果需要，可以在运行时使用系统属性-Dfb-contrib.ai.annotations="com.acme.Foo,com.acme.Boo"提供以逗号分隔的自定义@Nullable注解的类列表。
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MUI_CALLING_SIZE_ON_SUBCONTAINER">
-        <ShortDescription>方法 calls size() on a sub collection of a Map</ShortDescription>
-        <LongDescription>方法 {1} calls size() on a sub collection of a Map</LongDescription>
+        <ShortDescription>方法在Map的子集合上调用size()</ShortDescription>
+        <LongDescription>方法 {1} 在Map的子集合上调用size()</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 calls <code>size</code> on the keySet(), entrySet() or values() collections of a Map.
-            These sub collections will have the same size as the base Map and so it is just simpler to call size on that Map.
-            Calling size() on one of these sub collections will causes unnecessary allocations to occur.
+            <p>此方法调用Map的keySet()，entrySet()或values()集合上的<code> size()</code>。
+            这些子集合的大小将与基本Map相同，因此在该Map上调用size更为简单。
+            在这些子集合之一上调用size()将导致发生不必要的分配。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MUI_CONTAINSKEY_BEFORE_GET">
-        <ShortDescription>方法 check a map with containsKey(), before using get()</ShortDescription>
-        <LongDescription>方法 {1} checks a map with containsKey(), before using get()</LongDescription>
+        <ShortDescription>方法在使用get()之前，先使用containsKey()检查Map</ShortDescription>
+        <LongDescription>方法 {1} 在使用get()之前，先使用containsKey()检查Map</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 checks for the presence of a key in a map using containsKey(), before attempting to fetch the value of the key using get().
-            This equates to doing two map lookups in a row.
-            It is much simpler to just fetch the value with get, and checking for non null instead.</p>
-            <p>As an example, instead of using
+            <p>此方法在尝试使用get()获取键的值之前，先使用containsKey()检查映射中是否存在键。
+            这等同于连续进行两次映射查找。
+            仅使用get来获取值，然后检查非null会更简单。</p>
+            <p>例如，代替使用
             <code>
             <pre>
                 Map<String, String> myMap = getSomeMap();
@@ -5848,7 +5846,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
                 }
             </pre>
             </code>
-            convert this to
+            转换成
             <code>
             <pre>
                 Map<String, String> myMap = getSomeMap();
@@ -5859,10 +5857,11 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             </pre>
             </code>
             </p>
-            <p>The only caveat to this is that if you use a null value in a map to represent a third state for the key, then in this case using containsKey is 'correct'.
-            This means an entry found in the map with a null value is taken differently than no entry at all.
-            However, this is a very subtle programming paradigm, and likely to cause problems.
-            If you wish to mark an entry as not being present, it is better to use a named 'sentinel' value to denote this, so instead of: <code>
+            <p>唯一需要注意的是，如果您在映射中使用空值表示密钥的第三种状态，那么在这种情况下，使用containsKey是“正确的"。
+            这意味着在映射中找到的具有空值的条目与根本没有条目的方式不同。
+            但是，这是一个非常微妙的编程范例，可能会引起问题。
+            如果您希望将某个条目标记为不存在，则最好使用命名的“sentinel"值来表示该条目，因此，与其代替：
+            <code>
             <pre>
                 Map<String, String> myMap = getSomeMap();
                 if (myMap.containsKey("foo")) {
@@ -5871,7 +5870,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
                 }
             </pre>
             </code>
-            convert this to
+            转换成
             <code>
             <pre>
                 Map<String, String> myMap = getSomeMap();
@@ -5879,23 +5878,23 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
                 if (NOT_FOUND.equals(value)) {
                     ....
                 }
-                where NOT_FOUND is some constant that denotes this special status.
-            Of course you will need to find a special sentinel value for each type you are using that isn't possible to have normally.
             </pre>
             </code>
+            其中NOT_FOUND是表示此特殊状态的一些常量。
+            当然，您将需要为所使用的每种类型找到一个特殊的标记值，这通常是不可能的。
             </p>
             ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="MUI_GET_BEFORE_REMOVE">
-        <ShortDescription>方法 gets an item from a map with get(), before using remove()</ShortDescription>
-        <LongDescription>方法 {1} gets an item from a map with get(), before using remove()</LongDescription>
+        <ShortDescription>方法在使用remove()之前，先使用get()从地图中获取一项</ShortDescription>
+        <LongDescription>方法 {1} 在使用remove()之前，先使用get()从地图中获取一项</LongDescription>
         <Details>
             <![CDATA[
-            <p>此方法 fetches the value of an entry in a map using get(K k), and then follows it up with a remove(K k).
-            Since a remove() also returns the value, there is no point for doing the get, and just causes two map lookups to occur when it can be done with just one.</p>
-            <p>As an example, instead of using
+            <p>此方法使用get(K k)获取映射中条目的值，然后使用remove(K k)对其进行跟进。
+            由于remove()也会返回该值，因此没有必要进行get操作，并且仅用一次即可代替原来两次映射查找。</p>
+            <p>例如，代替使用
             <code>
             <pre>
                 Map<String, String> myMap = getSomeMap();
@@ -5903,7 +5902,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
                 myMap.remove("foo");
             </pre>
             </code>
-            convert this to
+            转换成
             <code>
             <pre>
                 Map<String, String> myMap = getSomeMap();
@@ -5916,34 +5915,34 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
 
     <BugPattern type="LUI_USE_SINGLETON_LIST">
-        <ShortDescription>方法 builds a list from one element using Arrays.asList</ShortDescription>
-        <LongDescription>方法 {1} builds a list from one element using Arrays.asList rather than Collections.singletonList</LongDescription>
+        <ShortDescription>方法使用Arrays.asList从一个元素构建一个列表</ShortDescription>
+        <LongDescription>方法 {1} 使用Arrays.asList而不是Collections.singletonList从一个元素构建列表</LongDescription>
         <Details>
         <![CDATA[
-        <p>此方法 builds a list using Arrays.asList(foo), passing in a single element.
-            Arrays.asList needs to first create an array from this one element, and then build a List that wraps this array.
-            It is simpler to use Collections.singletonList(foo), which does not create the array, and produces a far simpler instance of List.
-            Since both of these arrays are immutable (from the List's point of view) they are equivalent from a usage standpoint.
+        <p>此方法使用Arrays.asList(foo)构建一个列表，传入一个元素。
+        Arrays.asList首先需要从这个元素创建一个数组，然后构建一个包装该数组的List。
+        使用Collections.singletonList(foo)会更简单，它不会创建数组，并且会生成一个简单得多的List实例。
+        由于这两个数组都是不可变的(从List的角度来看)，从使用角度来看，它们是等效的。
         </p>
-        <p>There is one difference between Array.asList and Collections.singletonList that you should be mindful of.
-            The rarely used set(index, value) method is allowed to be used with a List created by Array.asList, but not with Collections.singletonList.
-            So if you do use the set(index, value) method continue using Arrays.asList.
+        <p>您应该注意Array.asList和Collections.singletonList之间的区别。
+        允许将很少使用的set(index，value)方法与Array.asList创建的List一起使用，但不能与Collections.singletonList一起使用。
+        因此，如果确实需要使用set(index，value)方法，请继续使用Arrays.asList。
         ]]>
         </Details>
     </BugPattern>
 
     <BugPattern type="LUI_USE_GET0">
-        <ShortDescription>方法 uses collection streaming to get first item in a List</ShortDescription>
-        <LongDescription>方法 {1} uses collection streaming to get first item in a List</LongDescription>
+        <ShortDescription>方法使用集合流来获取列表中的第一项</ShortDescription>
+        <LongDescription>方法 {1} 使用集合流来获取列表中的第一项</LongDescription>
         <Details>
         <![CDATA[
-        <p>此方法 fetches the first item in a List using collection streaming.
-            As a list is already ordered there is no need to do that, just use the regular get(0) interface.<br/>
-        Example:
+        <p>此方法使用集合流来获取列表中的第一项。
+        由于已经拥有了列表，因此无需执行此操作，只需使用常规的get(0)接口即可。<br/>
+        例：
         <code><pre>
         String s = myList.stream().findFirst().get();
         </pre></code>
-        Can be more simply done using
+        可以使用以下方法更简单地完成
         <code><pre>
         String s = myList.get(0);
         </pre></code>
@@ -5953,33 +5952,32 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
 
     <BugPattern type="LUI_USE_COLLECTION_ADD">
-        <ShortDescription>方法 passes a temporary one item list to Collection.addAll()</ShortDescription>
-        <LongDescription>方法 {1} passes a temporary one item list to Collection.addAll()</LongDescription>
+        <ShortDescription>方法将一个临时单数据项列表传递给Collection.addAll()</ShortDescription>
+        <LongDescription>方法 {1} 将一个临时单数据项列表传递给Collection.addAll()</LongDescription>
         <Details>
         <![CDATA[
-        <p>此方法 creates a temporary list using Collections.singletonList, or Arrays.asList with one
-        element in it, and then turns around and calls the addAll() method on another collection.
-            Since you are only adding one element to the collection, it is simpler to just call the add(object) method on the collection you are using and by pass creating the intermediate List.</p>
+        <p>此方法使用Collections.singletonList或Arrays.asList创建一个临时列表，其中包含一个元素，然后转过身，对另一个集合调用addAll()方法。
+        由于您只向集合添加一个元素，因此只需对正在使用的集合调用add(object)方法并通过创建中间List即可。</p>
         ]]>
         </Details>
     </BugPattern>
     
     <BugPattern type="FII_AVOID_CONTAINS_ON_COLLECTED_STREAM">
-        <ShortDescription>方法 calls contains() on a collected lambda expression</ShortDescription>
-        <LongDescription>方法 {1} calls contains() on a collected lambda expresssion</LongDescription>
+        <ShortDescription>方法在lambda表达式收集后的结果上调用contains()</ShortDescription>
+        <LongDescription>方法 {1} 在lambda表达式收集后的结果上调用contains()</LongDescription>
         <Details>
         <![CDATA[
-        <p>此方法 builds a collection using lambda expressions with a collect terminal operation.
-            It then immediately calls the contains() method on it, to see if an item is present.
-            This is sub optimal as the lambda still needs to build the entire collection, iterating the entire source list.
-            It is better to use anyMatch() to short circuit the building of the collection.
+        <p>此方法使用lambda表达式和collect终端操作来构建集合。
+        然后，它立即在其上调用contains()方法，以查看是否存在项。
+        这是次优的选择，因为lambda仍需要构建整个集合，从而迭代整个源列表。
+        最好使用anyMatch()来缩短集合的构建。
         </p>
         <p>
-        Instead of
+        代替
         <code><pre>
         baubles.stream().map(Bauble::getName).collect(Collectors.toSet()).contains(name)
         </pre></code>
-        do
+        做
         <code></pre>
         baubles.stream().anyMatch(b -> name.equals(b.getName()))
         </pre></code>
@@ -5989,12 +5987,12 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
     
     <BugPattern type="FII_USE_METHOD_REFERENCE">
-        <ShortDescription>方法 creates an anonymous lambda expression instead of specifying a method reference</ShortDescription>
-        <LongDescription>方法 {1} creates an anonymous lamda expression instead of specifying a method reference</LongDescription>
+        <ShortDescription>方法创建一个匿名lambda表达式，而不是指定方法引用</ShortDescription>
+        <LongDescription>方法 {1} 创建一个匿名lambda表达式，而不是指定方法引用</LongDescription>
         <Details>
         <![CDATA[
-        <p>此方法 defines an anonymous lambda function to be called to fetch a single value from the passed in value.
-            While this will work, it is needlessly complex as this function merely calls a single getter method on the object, and thus the code can be simplied by just passing in a method reference instead.</p>
+        <p>此方法定义了匿名lambda函数，以从传入的对象中获取单个值。
+        尽管这可以起作用，但是复杂得有点多余，因为该函数仅在对象上调用单个getter方法，因此可以通过仅传递方法引用来简化代码。</p>
         <p>
         Instead of
         <code><pre>
@@ -6010,21 +6008,21 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     </BugPattern>
     
     <BugPattern type="FII_USE_ANY_MATCH">
-        <ShortDescription>方法 suboptimally finds any match in a stream</ShortDescription>
-        <LongDescription>方法 {1} suboptimally finds any match in a stream</LongDescription>
+        <ShortDescription>方法以次优方式找到流中的任一匹配项</ShortDescription>
+        <LongDescription>方法 {1} 方法以次优方式找到流中的任一匹配项</LongDescription>
         <Details>
         <![CDATA[
-        <p>此方法使用filter（）.findFirst.isPresent（）在流中查找一项，使用.anyMatch（）将更简洁地执行相同的操作</p>
+        <p>此方法使用filter().findFirst.isPresent()在流中查找一项，使用.anyMatch()将更简洁地执行相同的操作</p>
         ]]></Details>
     </BugPattern>
     
     <BugPattern type="FII_USE_FIND_FIRST">
-        <ShortDescription>方法从stream（）收集List只是为了获得第一个元素</ShortDescription>
-        <LongDescription>方法 {1} 从stream（）收集List只是为了获得第一个元素</LongDescription>
+        <ShortDescription>方法从stream()收集List只是为了获得第一个元素</ShortDescription>
+        <LongDescription>方法 {1} 从stream()收集List只是为了获得第一个元素</LongDescription>
         <Details>
         <![CDATA[
-        <p>此方法将数据流传输到List中只是为了调用get（0）获得第一项。
-        您可以只使用findFirst（）来缩短流的处理。</p>
+        <p>此方法将数据流传输到List中只是为了调用get(0)获得第一项。
+        您可以只使用findFirst()来缩短流的处理。</p>
         <p>
         为代替
         <code><pre>
@@ -6099,7 +6097,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             <p>例如，以下代码
             <code>
             <pre>
-                Set<String>mySet = getSomeSet();
+                Set<String> mySet = getSomeSet();
                 if (!mySet.contains("foo")) {
                     mySet.add("foo");
                 }
@@ -6108,7 +6106,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             转换成
             <code>
             <pre>
-                Set<String>mySet = getSomeSet();
+                Set<String> mySet = getSomeSet();
                 if (mySet.add("foo")) {
                 }
             </pre>
@@ -6128,7 +6126,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             <p>例如，以下代码
             <code>
             <pre>
-                Set<String>mySet = getSomeSet();
+                Set<String> mySet = getSomeSet();
                 if (mySet.contains("foo")) {
                     mySet.remove("foo");
                 }
@@ -6137,7 +6135,7 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             转换成
             <code>
             <pre>
-                Set<String>mySet = getSomeSet();
+                Set<String> mySet = getSomeSet();
                 if (mySet.remove("foo")) {
                 }
             </pre>
@@ -6159,6 +6157,46 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
             </ul>
             ]]>
         </Details>
+    </BugPattern>
+
+    <BugPattern type="ENMI_EQUALS_ON_ENUM">
+        <ShortDescription>方法在枚举实例上调用equals</ShortDescription>
+        <LongDescription>方法 {1}在枚举实例上调用equals</LongDescription>
+        <Details>
+            <![CDATA[
+            <p>此方法在枚举实例上调用equals(Object)方法。
+            由于枚举值是单例，因此可以使用==安全比较两个枚举值。
+            实际上，Enum.equals的实现就是这样做。</p>
+            ]]>
+        </Details>
+    </BugPattern>
+    
+    <BugPattern type="ENMI_NULL_ENUM_VALUE">
+        <ShortDescription>方法将枚举引用设置为null</ShortDescription>
+        <LongDescription>方法 {1} 将枚举引用设置为null</LongDescription>
+        <Details>
+            <![CDATA[
+            <p>此方法将枚举引用的值设置为null。
+            枚举绝对不能为空值。
+            如果存在不知道枚举值应该是什么的状态，则该状态应该是正确的枚举值之一。
+            因此，添加一个MyEnum.UNKNOWN之类的。
+            这使switch语句等的逻辑更加简单。
+            ]]>
+        </Details> 
+    </BugPattern>
+
+    <BugPattern type="ENMI_ONE_ENUM_VALUE">
+        <ShortDescription>枚举类仅声明一个枚举值</ShortDescription>
+        <LongDescription>枚举类 {0} 仅声明一个枚举值</LongDescription>
+        <Details>
+            <![CDATA[
+            <p>该枚举类仅声明一个值（或可能为0！）。
+            因此，它毫无意义，因为它的价值将永远是同一件事。
+            因此，使用此枚举只会使代码库膨胀。
+            一个例外是如果您将空值用作第二个值。
+            这是一个错误，应将其替换为第二枚举值，即使该值为NULL或UNKNOWN或NON_INTITIALIZED或其他一些定点值。
+            ]]>
+        </Details> 
     </BugPattern>
 
     <!-- BugCode -->
@@ -6310,4 +6348,5 @@ if (shouldCalcHalting && (calculateHaltingProbability() &gt; 0) { }
     <BugCode abbrev="FII">FunctionalInterface Issues</BugCode>
     <BugCode abbrev="SUI">Set Usage Issues</BugCode>
     <BugCode abbrev="SAT">Suspicious Argument Types</BugCode>
+    <BugCode abbrev="ENMI">Enum Issues</BugCode>
 </MessageCollection>
